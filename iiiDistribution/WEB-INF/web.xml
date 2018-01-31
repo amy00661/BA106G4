@@ -30,6 +30,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>EmpService</servlet-name>
-    <url-pattern>/font-end/emp/EmpService.do</url-pattern>
+    <url-pattern>/employee/EmpService.do</url-pattern>
   </servlet-mapping>
 </web-app>
