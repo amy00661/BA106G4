@@ -1,0 +1,13 @@
+#emp_query .container-fluid-custom{
+	padding-left: 0;
+	padding-right:0;
+}
+
+#emp_query .form-control-custom{
+	display: initial;
+	width:50%;
+}
+
+#emp_query .gj-datepicker {
+    display: inline-table;
+}
