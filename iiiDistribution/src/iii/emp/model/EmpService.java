@@ -3,8 +3,6 @@ package iii.emp.model;
 import java.sql.Date;
 import java.util.List;
 
-
-
 public class EmpService {
 	private EmpDAO_interface dao;
 	
@@ -49,7 +47,7 @@ public class EmpService {
 		return dao.findByPrimaryKey(emp_id);
 	}
 
-	public List<EmpVO> getAll() {
+	public List<EmpVO> getAllEmps() {
 		return dao.getAll();
 	}
 	
