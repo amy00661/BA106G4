@@ -25,11 +25,11 @@
     <url-pattern>/StatusCodeUtil.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>EmpService</servlet-name>
-    <servlet-class>iii.emp.controller.EmpService</servlet-class>
+    <servlet-name>EmpServlet</servlet-name>
+    <servlet-class>iii.emp.controller.EmpServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>EmpService</servlet-name>
-    <url-pattern>/employee/EmpService.do</url-pattern>
+    <servlet-name>EmpServlet</servlet-name>
+    <url-pattern>/employee/EmpServlet.do</url-pattern>
   </servlet-mapping>
 </web-app>

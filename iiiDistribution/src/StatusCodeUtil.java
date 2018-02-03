@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/StatusCodeUtil")
 public class StatusCodeUtil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static HashMap<String,String> DB = new HashMap<String, String>();
+	//public static HashMap<String,String> DB = new HashMap<String, String>();
 	public static HashMap<String,String> arriveTime = new HashMap<String, String>();
 	public static HashMap<String,String> empTitle = new HashMap<String, String>();
 	public static HashMap<String,String> opinionType = new HashMap<String, String>();
@@ -23,7 +23,7 @@ public class StatusCodeUtil extends HttpServlet {
     @Override
 	public void init() throws ServletException {
     	//    	貨運中心狀態碼
-    	DB.put("DB01", "總公司");
+    	/*DB.put("DB01", "總公司");
     	DB.put("DB02", "基隆市集貨站");
     	DB.put("DB03", "台北市集貨站");
     	DB.put("DB04", "新北市集貨站");
@@ -45,7 +45,7 @@ public class StatusCodeUtil extends HttpServlet {
     	DB.put("DB20", "宜蘭縣集貨站");
     	DB.put("DB21", "澎湖縣集貨站");
     	DB.put("DB22", "金門縣集貨站");
-    	DB.put("DB23", "連江縣集貨站");
+    	DB.put("DB23", "連江縣集貨站");*/
     	
     	//    	配送時段
     	arriveTime.put("01", "不指定");

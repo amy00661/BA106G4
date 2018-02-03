@@ -22,11 +22,11 @@ public class TestStatusCodeUtil extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<HTML>");
 		out.println("<BODY>");
-		HashMap<String,String> dbObjs = StatusCodeUtil.DB;
+		HashMap<String,String> dbObjs = StatusCodeUtil.opinionType;
 		Set<String> db_Keys = dbObjs.keySet();
 		for(String db_id: db_Keys){
 			out.print("<p>");
-			out.print("貨運中心代碼："+db_id+"，貨運中心名稱："+dbObjs.get(db_id));
+			out.print("意見代碼："+db_id+"，類型名稱："+dbObjs.get(db_id));
 			out.print("</p>");
 		}
 		out.println("</BODY></HTML>");
