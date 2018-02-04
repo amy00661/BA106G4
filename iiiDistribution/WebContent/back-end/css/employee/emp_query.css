@@ -11,3 +11,14 @@
 #emp_query .gj-datepicker {
     display: inline-table;
 }
+#emp_query .table { display: table; }
+#emp_query .table>.thead{ display: table-header-group; }
+#emp_query .table>.thead>.thead-row { display: table-row; }
+#emp_query .table>.thead>.thead-row>* { display: table-cell; }
+#emp_query .table>.tbody { display: table-row-group; }
+#emp_query .table>.tbody>.tbody-row { display: table-row; }
+#emp_query .table>.tbody>.tbody-row:hover { 
+	display: table-row;
+	background: #c0c0c0;
+}
+#emp_query .table>.tbody>.tbody-row>* { display: table-cell; }

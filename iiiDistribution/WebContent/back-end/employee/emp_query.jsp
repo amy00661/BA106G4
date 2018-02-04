@@ -157,25 +157,33 @@
   		  dataType: "json",
   		  data:  JSON.stringify(conditions),
   		  success: function(Jdata) {
-  			var table="<html><table class=\"table table-hover\">";
-			table = table + "<thead><tr><th>修改</th><th>員工編號</th><th>員工姓名</th><th>狀態</th>"+
-							"<th>貨運中心</th><th>職稱</th><th>到職日</th><th>離職日</th></tr></thead>";
-			table=table+"<tbody>";
+  			var table="<div class=\"table table-hover\">";
+  			table = table+"<div class=\"thead\"><div class=\"thead-row\">"+
+  							"<div>員工編號</div><div>員工姓名</div><div>狀態</div>"
+  							+"<div>貨運中心</div><div>職稱</div><div>到職日</div><div>離職日</div>"+
+  							"</div></div>";//<class=\"thead-row\"><class=\"thead\">
+  			table = table+"<div class=\"tbody\">";
   			$.each(Jdata, function(index, element){
+  				
+  				table = table+"<div class=\"tbody-row\">";
+  				//每筆資料的第一個cell為form表單
   				var updateURL = ctx+"/employee/EmpServlet.do?empname="+element.emp_id;
-  				table=table+"<tr><td><FORM METHOD=\"post\" ACTION=\" "+ updateURL +" \" >" 
-  					+  "<input type=\"submit\" value=\"修改\">"
-  					+ "</FROM></td>";
-				//	alert("YEAH");
-				//var emp_leaveDate = element.emp_leaveDate==null?"":element.emp_leaveDate;
-  				table=table+"<td>" + element.emp_id +"</td><td>" + element.emp_name +"</td>"
-                +"<td>" + element.emp_status +"</td><td>" + element.db_id +"</td>"
-                + "<td>" + element.emp_title +"</td><td>" + element.emp_hireDate + "</td>"+
-                "<td>" + element.emp_leaveDate + "</td></tr>";
+  				table = table+"<div><FORM METHOD=\"post\" ACTION=\" "+ updateURL +" \" >"
+  									//+"<input type=\"submit\" value="+element.emp_id+">";
+  									+"<button type=\"submit\" class=\"btn btn-link\">"+element.emp_id+"</button>"
+  				table = table+"</form></div>";//第一個cell的form結束 
+  				//其餘欄位資訊
+  				var emp_leaveDate = (typeof element.emp_leaveDate == "undefined")?"":element.emp_leaveDate;
+  				table = table+"<div>" + element.emp_name +"</div>"
+                +"<div>" + element.emp_status +"</div><div>" + element.db_id +"</div>"
+                + "<div>" + element.emp_title +"</div><div>" + element.emp_hireDate + "</div>"
+                + "<div>" + emp_leaveDate + "</div>";
+  				
+  				table = table+"</div>";// class=\"tbody-row\"
   			});
-  			table=table+"</tbody>";
-  			table=table+="</table></html>";
-            $("#output").html(table);
+  			table = table+"</div>";//<class="class=\"tbody\">
+  			table = table+"</div>";//<class=\"table table-hover\">
+  			$("#output").html(table);
   		  },    		  
   		  error: function(xhr, ajaxOptions, thrownError) {
   			console.log(xhr.responseText);
