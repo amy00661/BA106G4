@@ -1,6 +1,8 @@
 package iii.menu.model;
 
-public class MenuVO {
+import java.io.Serializable;
+
+public class MenuVO implements Serializable{
 
 	private String menu_id;	
 	private String menu_parent_id;

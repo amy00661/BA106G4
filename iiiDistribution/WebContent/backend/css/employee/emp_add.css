@@ -1,0 +1,20 @@
+#emp_add .gj-datepicker {
+    display: inline-table;
+}
+
+#emp_add .row-custom{
+	margin: 20px;
+}
+
+#emp_add .form-control-custom{
+	display: initial;
+	width:50%;
+}
+
+.gj-checkbox-md input[type=checkbox]:checked+span:after {
+    color: #FFF;
+    background-color: #536DFE;
+    /*position: absolute;
+    left: 1px;
+    top: -15px;*/
+}

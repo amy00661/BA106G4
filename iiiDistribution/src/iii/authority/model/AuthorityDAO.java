@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
 public class AuthorityDAO implements AuthorityDAO_interface{
 	private static DataSource ds = null;
 	static {
@@ -84,9 +83,10 @@ public class AuthorityDAO implements AuthorityDAO_interface{
 	}
 
 	@Override
-	public Set<AuthorityVO> getAuthsByEmpid(String empid) {
-		Set<AuthorityVO> set = new LinkedHashSet<AuthorityVO>();
-		AuthorityVO authorityVO = null;
+	public Set<String> getAuthsByEmpid(String empid) {
+		//Set<AuthorityVO> set = new LinkedHashSet<AuthorityVO>();
+		Set<String> menuList = new LinkedHashSet<String>();
+		//AuthorityVO authorityVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -97,14 +97,12 @@ public class AuthorityDAO implements AuthorityDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				authorityVO = new AuthorityVO();
-				authorityVO.setMenu_id(rs.getString("MENU_ID"));
-				authorityVO.setEmp_id(rs.getString("EMP_ID"));
-				set.add(authorityVO);
+				menuList.add(rs.getString("MENU_ID"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return set;
+		return menuList;
 	}
+	
 }

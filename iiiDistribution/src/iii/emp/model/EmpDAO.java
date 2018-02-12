@@ -30,7 +30,7 @@ public class EmpDAO implements EmpDAO_interface {
 			+ "WHERE EMP_ID=?";
 	
 	@Override
-	public int insert(EmpVO empVO) {
+	public EmpVO insert(EmpVO empVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -38,7 +38,8 @@ public class EmpDAO implements EmpDAO_interface {
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			String[] col = {"emp_id"};
+			pstmt = con.prepareStatement(INSERT_STMT,col);
 			pstmt.setString(1,empVO.getDb_id());
 			pstmt.setString(2,empVO.getEmp_pwd());
 			pstmt.setString(3,empVO.getEmp_status());
@@ -49,7 +50,16 @@ public class EmpDAO implements EmpDAO_interface {
 			pstmt.setDate(8,empVO.getEmp_leaveDate());
 
 			insertRow = pstmt.executeUpdate();
-			
+			// 取得對應的自增主鍵值
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				String next_empid = rs.getString(1);
+				//System.out.println("自增主鍵值 = " + next_empid + "(剛新增成功的員工編號)");
+				empVO.setEmp_id(next_empid);
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
 		  // Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -71,7 +81,7 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-		return insertRow;
+		return empVO;
 	}
 	
 	@Override

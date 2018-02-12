@@ -17,7 +17,7 @@
   </resource-ref>
   <servlet>
     <servlet-name>StatusCodeUtil</servlet-name>
-    <servlet-class>StatusCodeUtil</servlet-class>
+    <servlet-class>iii.util.StatusCodeUtil</servlet-class>
     <load-on-startup>10</load-on-startup>
   </servlet>
   <servlet-mapping>
@@ -31,5 +31,13 @@
   <servlet-mapping>
     <servlet-name>EmpServlet</servlet-name>
     <url-pattern>/employee/EmpServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AuthorityServlet</servlet-name>
+    <servlet-class>iii.authority.controller.AuthorityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthorityServlet</servlet-name>
+    <url-pattern>/employee/AuthorityServlet.do</url-pattern>
   </servlet-mapping>
 </web-app>

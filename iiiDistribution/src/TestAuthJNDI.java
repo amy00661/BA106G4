@@ -38,10 +38,10 @@ public class TestAuthJNDI extends HttpServlet {
 		String empid = "EMP001";
 		AuthorityDAO_interface authDAO = new AuthorityDAO();
 		//測試以員工編號查出權限
-		Set<AuthorityVO> authSet = authDAO.getAuthsByEmpid(empid);
+		/*Set<AuthorityVO> authSet = authDAO.getAuthsByEmpid(empid);
 		for(AuthorityVO authorityVO:authSet){
 			out.println(authorityVO);
-		}
+		}*/
 		
 		//測試刪除特定員工的權限
 		int deleteCount = authDAO.delete(empid);

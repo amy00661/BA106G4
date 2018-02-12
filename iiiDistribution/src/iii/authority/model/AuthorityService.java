@@ -2,6 +2,8 @@ package iii.authority.model;
 
 import java.util.Set;
 
+import org.json.JSONArray;
+
 public class AuthorityService {
 	private AuthorityDAO_interface dao;
 
@@ -21,7 +23,7 @@ public class AuthorityService {
 		return deleteRow;
 	}
 	
-	public Set<AuthorityVO> getAuthsByEmpid(String empid){
+	public Set<String> getAuthsByEmpid(String empid){
 		return dao.getAuthsByEmpid(empid);
 	}
 }

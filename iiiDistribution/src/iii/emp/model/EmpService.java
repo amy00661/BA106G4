@@ -21,7 +21,7 @@ public class EmpService {
 		empVO.setEmp_email(emp_email);
 		empVO.setEmp_hireDate(emp_hireDate);
 		empVO.setEmp_leaveDate(emp_leaveDate);
-		dao.insert(empVO);
+		empVO = dao.insert(empVO);
 		return empVO;
 	}
 
