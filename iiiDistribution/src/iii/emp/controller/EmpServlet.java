@@ -3,6 +3,7 @@ package iii.emp.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -232,7 +234,7 @@ public class EmpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/emp/emp_update.jsp");
+						.getRequestDispatcher("/backend/employee/emp_update.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -250,6 +252,61 @@ public class EmpServlet extends HttpServlet {
 			String empJson = gson.toJson(empList);
 			System.out.println(empJson);
 			out.print(empJson);
+		} if("login".equals(action)){
+			// 【取得使用者 帳號(account) 密碼(password)】
+		    String account = req.getParameter("empid");
+		    String password = req.getParameter("password");
+
+		    // 【檢查該帳號 , 密碼是否有效】
+		    HashMap<String, Object> loginResult = (HashMap<String, Object>) allowUser(account,password);
+		    if ( loginResult.containsKey("error") ) {          //【帳號 , 密碼無效時】
+		      out.println("<HTML><BODY>");
+		      out.println("<script>");
+		      out.println("alert(' "+loginResult+"請重新登入!' );");
+		      out.println("window.location.href = ' "+req.getContextPath()+"/backend/login.jsp';");
+		      out.println("</script>");
+		      out.println("</BODY></HTML>");
+		    }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
+		    	EmpVO empVO = (EmpVO) loginResult.get("OK");
+		    	HttpSession session = req.getSession();
+		      session.setAttribute("account", empVO);   //*工作1: 才在session內做已經登入過的標識
+		      
+		       try {                                                        
+		         String location = (String) session.getAttribute("location");
+		         if (location != null) {
+		           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+		           res.sendRedirect(location);            
+		           return;
+		         }
+		       }catch (Exception ignored) { }
+
+		      res.sendRedirect(req.getContextPath()+"/backend/index.jsp");  //*工作3: (-->如無來源網頁:則重導至index.jsp)
+		    }
+		} if("logout".equals(action)){
+			HttpSession session = req.getSession();
+		    session.removeAttribute("account");
+		    res.sendRedirect(req.getContextPath()+"/backend/login.jsp");
 		}
 	}
+	
+	   //【檢查使用者輸入的帳號(account) 密碼(password)是否有效】
+	   //【實際上應至資料庫搜尋比對】
+	  protected Map<String,Object> allowUser(String account, String password) {
+	    /*if ("tomcat".equals(account) && "tomcat".equals(password))
+	      return true;
+	    else
+	      return false;*/
+		  EmpService empSvc = new EmpService();
+		  EmpVO empVO = empSvc.getOneEmp(account);
+		  Map<String,Object> map = new HashMap<String, Object>();
+		  if(empVO.getEmp_id() == null){
+			  map.put("error", "無此帳號!");
+		  }else if(!password.equals(empVO.getEmp_pwd())){
+			  map.put("error", "密碼錯誤!");
+		  }else{
+			  map.put("OK", empVO);
+		  }
+		return map;
+	  }
+
 }

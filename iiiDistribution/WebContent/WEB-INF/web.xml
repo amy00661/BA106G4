@@ -9,6 +9,21 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>filters.backLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/backend/employee/*</url-pattern>
+    <url-pattern>/backend/index.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/GROUP4DB</res-ref-name>
