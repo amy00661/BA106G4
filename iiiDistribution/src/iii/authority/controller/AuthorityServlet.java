@@ -48,13 +48,19 @@ public class AuthorityServlet extends HttpServlet {
 			authSvc.addAuthority(emp_id, menuList);
 		}
 		
+		if("login".equals(action)){
+			String emp_id = req.getParameter("empid");
+			AuthorityService authSvc = new AuthorityService();
+			Set<String> menuList = authSvc.getAuthsByEmpid(emp_id);
+			req.setAttribute("menuList", menuList);
+		}
 		
 		if("getMenuTree".equals(action)){
 			String emp_id = req.getParameter("empid");
-//			AuthorityService authSvc = new AuthorityService();
+			AuthorityService authSvc = new AuthorityService();
 //			JSONArray jsonArray = authSvc.getAuthsByEmpid(emp_id);
-			AuthorityDAO_interface authorityDAO = new AuthorityDAO();
-			Set<String> menuList = authorityDAO.getAuthsByEmpid(emp_id);
+//			AuthorityDAO_interface authorityDAO = new AuthorityDAO();
+			Set<String> menuList = authSvc.getAuthsByEmpid(emp_id);
 			JSONObject empJsonMenu =  getJSONMenu(menuList);
 			res.setContentType("application/json");
 //			res.setContentType("text/plain");

@@ -271,7 +271,10 @@
           <div class="modal-body">＠Ｑ＠．．．．．．．．．．．．．</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <form method="post" action="<%=request.getContextPath()%>/employee/EmpServlet.do">
+            	<input type="hidden" name="action" value="logout">
+		 		<button type="submit" class="btn btn-info btn-block" >登出</button>
+            </form>
           </div>
         </div>
       </div>

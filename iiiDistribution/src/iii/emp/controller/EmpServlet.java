@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -266,21 +267,29 @@ public class EmpServlet extends HttpServlet {
 		      out.println("window.location.href = ' "+req.getContextPath()+"/backend/login.jsp';");
 		      out.println("</script>");
 		      out.println("</BODY></HTML>");
-		    }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
+		    } else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 		    	EmpVO empVO = (EmpVO) loginResult.get("OK");
 		    	HttpSession session = req.getSession();
-		      session.setAttribute("account", empVO);   //*工作1: 才在session內做已經登入過的標識
+		    	session.setAttribute("account", empVO);   //*工作1: 才在session內做已經登入過的標識
+		    	/***************************取得員工權限清單***************************************/
+		    	String authSvcURL = "/employee/AuthorityServlet.do";
+				RequestDispatcher successView = req.getRequestDispatcher(authSvcURL);
+				successView.include(req, res);
+				/***************************取得員工擁有權限的Menu Tree***************************************/
+				String menuSvcURL = "/menu/MenuServlet.do";
+				successView = req.getRequestDispatcher(menuSvcURL);
+				successView.include(req, res);
 		      
-		       try {                                                        
-		         String location = (String) session.getAttribute("location");
-		         if (location != null) {
-		           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-		           res.sendRedirect(location);            
-		           return;
-		         }
-		       }catch (Exception ignored) { }
-
-		      res.sendRedirect(req.getContextPath()+"/backend/index.jsp");  //*工作3: (-->如無來源網頁:則重導至index.jsp)
+			       try {                                                        
+			         String location = (String) session.getAttribute("location");
+			         if (location != null) {
+			           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+			           res.sendRedirect(location);            
+			           return;
+			         }
+			       }catch (Exception ignored) { }
+		
+			      res.sendRedirect(req.getContextPath()+"/backend/index.jsp");  //*工作3: (-->如無來源網頁:則重導至index.jsp)
 		    }
 		} if("logout".equals(action)){
 			HttpSession session = req.getSession();

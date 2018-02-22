@@ -9,8 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <filter>
+  <!-- <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>filters.backLoginFilter</filter-class>
   </filter>
@@ -23,7 +22,7 @@
     <dispatcher>INCLUDE</dispatcher>
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
+  </filter-mapping> -->
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/GROUP4DB</res-ref-name>
@@ -54,5 +53,13 @@
   <servlet-mapping>
     <servlet-name>AuthorityServlet</servlet-name>
     <url-pattern>/employee/AuthorityServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MenuServlet</servlet-name>
+    <servlet-class>iii.menu.controller.MenuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuServlet</servlet-name>
+    <url-pattern>/menu/MenuServlet.do</url-pattern>
   </servlet-mapping>
 </web-app>
