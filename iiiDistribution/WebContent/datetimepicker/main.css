@@ -1,0 +1,94 @@
+
+
+body {
+	font-family: Microsoft JhengHei, Arial, Helvetica, sans-serif;
+  
+}
+@media (min-width: 992px) {
+  body {   
+  }
+}
+
+@media (min-width: 576px) {
+.col-sm-4 {
+  margin-bottom: 5px;
+  }
+}
+
+.bg-cus{
+ background-color: #33ccff;}
+
+
+.featurette{
+color: #0066cc; 
+}
+
+.featurette-CUS{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+border-top: 2px solid #0066cc
+}
+
+.ic{
+  color: #0066cc; 
+}
+
+hr{
+  margin-top: 0em;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    font-size: 1.2em;
+    font-weight:bold;
+    color: black;}
+    
+.card-login {
+  max-width: 25rem; }
+
+
+/*奕丞*/
+.carousel {
+  margin-bottom: 4rem;
+}
+.carousel-caption {
+  bottom: 3rem;
+  z-index: -0.5;
+}
+
+.carousel-item {
+  height: 32rem;
+  background-color: #777;
+}
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
+
+.lead{
+  color:black;
+}
+
+
+/*---------------------------------------------*/
+/*憟��ode*/
+.sel, .col-sm-2 , .col-sm-4 .form-group, .custom-radio, .cen{
+  display: inline-block;
+}
+
+.card-bg{
+  background-color:#C7E3FF;
+}
+
+.father{
+  position: relative;
+}
+
+.child{
+  width:92%;
+  position: absolute; 
+  bottom: 0;
+}
+/*---------------------------------------------*/
