@@ -94,6 +94,12 @@
 <body>
   
  <header>
+	<!-- 聊天室Start -->
+	<div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 0px;">	
+		<jsp:include page="/frontend/chat/chat_front.jsp" flush="true" />
+	</div>
+	 <!-- 聊天室End --> 
+ 
       <div class="container logoCus">
         <div class="row" align="center">
           <div class="col-xs-12 col-sm-4">
@@ -361,11 +367,6 @@
             <img class=" featurette-image img-fluid mx-auto" src="<%=request.getContextPath()%>/frontend/img/p2.jpg">
           </div>
         </div>
-        
-		<!-- 聊天室Start -->
-		<jsp:include page="/frontend/chat/chat_front.jsp" flush="true" />
-		
-	    <!-- 聊天室End -->
 	    
         <hr class="featurette-divider">
 
@@ -437,8 +438,9 @@
         </div>
 
     <!-- Bootstrap core JavaScript -->
-   
-    
-
+	
+	
+	
+	
   </body>
 </html>

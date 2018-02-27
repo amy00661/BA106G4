@@ -42,9 +42,11 @@ public class MyChatServer {
 	
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
+		System.out.println("Message received: " + message);
 		ChatMsgVO chatMessage = gson.fromJson(message, ChatMsgVO.class);
 		String sender = chatMessage.getSender();
 		String receiver = chatMessage.getReceiver();
+		//將receiver加進sender的好友列表
 		if(friendsMap.containsKey(sender)){
 			friendsMap.get(sender).add(receiver);
 		}else{
@@ -52,13 +54,23 @@ public class MyChatServer {
 			friends.add(receiver);
 			friendsMap.put(sender,friends);
 		}
+		//將sender加進receiver的好友列表
+		if(friendsMap.containsKey(receiver)){
+			friendsMap.get(receiver).add(sender);
+		}else{
+			Set<String> friends = new HashSet<>();
+			friends.add(sender);
+			friendsMap.put(receiver,friends);
+		}
+		chatMessage.getFriends().addAll(friendsMap.get(receiver));//設定傳回receiver的好友列表
+		String respMessage = gson.toJson(chatMessage);
 		Session receiverSession = sessionsMap.get(receiver);
 		Session senderSession = sessionsMap.get(sender);
 		if (receiverSession != null && receiverSession.isOpen()) {
-			receiverSession.getAsyncRemote().sendText(message);
-			senderSession.getAsyncRemote().sendText(message);
+			receiverSession.getAsyncRemote().sendText(respMessage);
+			senderSession.getAsyncRemote().sendText(respMessage);
 		}
-		System.out.println("Message received: " + message);
+		System.out.println("Message response: " + respMessage);
 		StringBuilder friends = new StringBuilder();
 		//列出發送者的好友列表
 		for(String friend : friendsMap.get(sender)){

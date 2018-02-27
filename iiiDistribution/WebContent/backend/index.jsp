@@ -68,8 +68,6 @@
 
 
 
-
-
 <div class="content-wrapper">
     <div class="container-fluid">
      
@@ -95,15 +93,22 @@
             <br>
             <br>
             <br>
-           <jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
-        
+            <br>
+            <br>
+            <br>
+            <br>
 
       </div>
 <!-- 主要功能 -->
 
-
+	
   </div>
 </div>
+	<!-- 聊天室Start -->
+    <div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 55px;">
+    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
+    </div>
+    <!-- 聊天室End -->
     
     <!-- footer -->
     <footer class="sticky-footer">
@@ -117,7 +122,6 @@
 
     <!--員工登入-->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -140,6 +144,7 @@
 
 
   <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
   <script src="js/main.js"></script>
