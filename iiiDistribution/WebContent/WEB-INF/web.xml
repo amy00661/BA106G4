@@ -9,20 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <!-- <filter>
-    <filter-name>loginFilter</filter-name>
-    <filter-class>filters.backLoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>loginFilter</filter-name>
-    <url-pattern>/backend/employee/*</url-pattern>
-    <url-pattern>/backend/index.jsp</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping> -->
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/GROUP4DB</res-ref-name>
@@ -77,5 +63,29 @@
   <servlet-mapping>
     <servlet-name>CheckServlet</servlet-name>
     <url-pattern>/mem/checkMail.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OrderServlet</servlet-name>
+    <servlet-class>iii.order_main.controller.OrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderServlet</servlet-name>
+    <url-pattern>/order_main/order.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Local_ScheduleServlet</servlet-name>
+    <servlet-class>iii.local_schedule.controller.Local_ScheduleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Local_ScheduleServlet</servlet-name>
+    <url-pattern>/local_schdule/LS_Servlet.do</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>Local_OrderServlet</servlet-name>
+    <servlet-class>iii.local_order.controller.Local_OrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Local_OrderServlet</servlet-name>
+    <url-pattern>/local_order/LO_Servlet.do</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -105,9 +105,12 @@
   </div>
 </div>
 	<!-- 聊天室Start -->
-    <div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 55px;">
-    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
-    </div>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- 	<c:if test="${account}!=''"> --%>
+	    <div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 55px;">
+	    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
+	    </div>
+<%--     </c:if> --%>
     <!-- 聊天室End -->
     
     <!-- footer -->

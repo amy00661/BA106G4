@@ -1,0 +1,8 @@
+#searchDiv .form-control-custom
+{
+	display: initial;
+	width:50%;
+}
+.row-custom{
+	margin-left: 15px;
+}

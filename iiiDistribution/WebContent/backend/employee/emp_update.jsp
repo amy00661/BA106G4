@@ -221,10 +221,10 @@
                     </div>
                     
                     <div class="form-group">
-                      <jsp:useBean id="dbSvc" scope="page" class="iii.db.model.DbService" />
+                      <jsp:useBean id="dbSvc" scope="page" class="iii.db.model.DBDAOService" />
                       <label for="db_name">貨運中心</label>                  
                       <select class="form-control form-control-custom" id="db_id" name="db_id">
-                        <c:forEach var="dbVO" items="${dbSvc.allDB}">
+                        <c:forEach var="dbVO" items="${dbSvc.all}">
                         	<option value="${dbVO.db_id}" ${(empVO.db_id==dbVO.db_id)? 'selected':'' }>${dbVO.db_name}</option>
                         </c:forEach>
                       </select>

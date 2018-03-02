@@ -251,7 +251,7 @@ public class EmpServlet extends HttpServlet {
 	        res.setHeader("Cache-Control", "no-cache"); 
 	        //get the PrintWriter object to write the html page
 			String empJson = gson.toJson(empList);
-			System.out.println(empJson);
+//			System.out.println(empJson);
 			out.print(empJson);
 		} if("login".equals(action)){
 			// 【取得使用者 帳號(account) 密碼(password)】
