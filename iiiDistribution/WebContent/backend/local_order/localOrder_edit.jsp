@@ -148,99 +148,82 @@
      
 <!-- 主要功能 -->
       <div style="background-color: #ccffcc">
-      	<div class="container-fluid" id="searchDiv">
+      	<div class="container-fluid" id="orderDiv">
       		<div class="row row-custom">
-	  			<div class="col-xs-12 col-lg-4">
-					<div class="form-group">
-                      <label for="db_id">貨運中心：</label>
-                      <input class="form-control-plaintext form-control-custom" type="text" value="${account.db_id}" name="db_id" id="db_id" readonly>
-                    </div>
-                    <div class="form-group">
-                    	<jsp:useBean id="traSvc" scope="page" class="iii.fee_transition.model.TraService"/>
-                        <label for="item_type">訂單類型：</label>
-                        <select class="form-control form-control-custom" name="item_type" id="item_type">
-                          <c:forEach var="traVO" items="${traSvc.all}">
-                            <option value="${traVO.transition_type}" ${(orderVO.item_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}
-                          </c:forEach>
-                        </select>
-                    </div>
-	  				<button type="button" id="orderQuery" class="btn btn-outline-primary btn-sm pull-right">訂單查詢</button>
+	  			<div class="card col-xs-12 col-lg-5">
+	  				<div class="card-body">
+						<div class="form-group">
+	                      <label for="db_id">貨運中心：</label>
+	                      <input class="form-control-plaintext form-control-custom" type="text" value="${account.db_id}" name="db_id" id="db_id" readonly>
+	                    </div>
+	                    <div class="form-group">
+	                    	<jsp:useBean id="traSvc" scope="page" class="iii.fee_transition.model.TraService"/>
+	                        <label for="item_type">訂單類型：</label>
+	                        <select class="form-control form-control-custom" name="item_type" id="item_type">
+	                          <c:forEach var="traVO" items="${traSvc.all}">
+	                            <option value="${traVO.transition_type}" ${(orderVO.item_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}
+	                          </c:forEach>
+	                        </select>
+	                    </div>
+	                    <br>
+	  					<br>
+		  				<button type="button" id="orderQuery" class="btn btn-outline-primary btn-sm pull-right">訂單查詢</button>
+	  					<br>
+	  					<div>
+							以下列出所有未出貨訂單：
+							<div class="card text-center">
+								<select class="form-control" id ="unShipOrders" name="unShipOrders[]" multiple="multiple" style="height:200px;">
+								</select>							
+							</div>
+						</div>
+	  				</div>
 	  			</div>
-	  			<div class="col-xs-12 col-lg-2">
+	  			<div class="col-xs-12 col-lg-2" id="middleDiv">
+				      <div class="input-group" id="addDiv">
+					  	<button type="button" value="" class="btn btn-outline-secondary btn-sm" id="add"> >> </button>
+				      </div>
+				      <div class="input-group" style="padding-top:10px;" id="removeDiv">
+				        <button type="button" value="" class="btn btn-sm btn-outline-secondary" id="remove"> << </button> 
+				      </div>
 	  			</div>
-	  			<div class="col-xs-12 col-lg-4">
-	  				<div class="form-group form-control-custom">
-                      <%java.sql.Date date_SQL = new java.sql.Date(System.currentTimeMillis());%>
-                      <c:set scope="page" var="localOrderDate" value="<%=date_SQL%>"></c:set>
-                      <label>出車日期：</label>
-                      <input id="localOrderDate" width="100%" name="loDate" value="${ localOrderDate }"/>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="car_type">車種類型：</label>
-                        <select class="form-control form-control-custom" name="car_type" id="car_type">
-                          <option value="">請選擇</option>
-                          <c:forEach var="traVO" items="${traSvc.all}">
-                            <option value="${traVO.transition_type}">${traVO.transition_type}車</option>
-                          </c:forEach>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="local_schedule">車班：</label>
-                        <select class="form-control form-control-custom" name="local_schedule" id="local_schedule">
-                          <option value="">請選擇</option>
-                        </select>
-                    </div>
-                    <button type="button" id="localOrderQuery" class="btn btn-outline-primary btn-sm pull-right">派單查詢</button>
+	  			<div class="card col-xs-12 col-lg-5">
+	  				<div class="card-body">
+		  				<div class="form-group form-control-custom">
+	                      <%java.sql.Date date_SQL = new java.sql.Date(System.currentTimeMillis());%>
+	                      <c:set scope="page" var="localOrderDate" value="<%=date_SQL%>"></c:set>
+	                      <label>出車日期：</label>
+	                      <input id="localOrderDate" width="100%" name="loDate" value="${ localOrderDate }"/>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                        <label for="car_type">車種類型：</label>
+	                        <select class="form-control form-control-custom" name="car_type" id="car_type">
+	                          <option value="">請選擇</option>
+	                          <c:forEach var="traVO" items="${traSvc.all}">
+	                            <option value="${traVO.transition_type}">${traVO.transition_type}車</option>
+	                          </c:forEach>
+	                        </select>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                        <label for="local_schedule">車班：</label>
+	                        <select class="form-control form-control-custom" name="local_schedule" id="local_schedule">
+	                          <option value="">請選擇</option>
+	                        </select>
+	                    </div>
+	                    <button type="button" id="localOrderQuery" class="btn btn-outline-primary btn-sm pull-right">派單查詢</button>
+	                    <br>
+	                    	以下列出已分派之訂單：
+	                    <div class="card text-center">
+					      <select class="form-control" name="localOrders[]" size="9" id="localOrders" multiple="multiple" style="height:200px;">
+					      </select>						
+						</div>
+					</div>	
 	  			</div>
       		</div>
+      		<button id="submit" class="btn btn-primary btn-lg btn-block">送出</button>
       	</div>
-		<div class="container-fluid" id="resultDiv">
-			<div class="row row-custom">
-				<!-- 左側欄：查詢未出貨訂單 Start -->
-				<div class="col-xs-12 col-lg-4">
-					<div>
-						以下列出所有未出貨訂單：
-						<div class="card text-center">
-							<select class="form-control" id ="unShipOrders" name="unShipOrders[]" multiple="multiple" style="height:200px;">
-						          <option value="2">Row 2</option>  
-						          <option value="4">Row 4</option>  
-						          <option value="5">Row 5</option>  
-						          <option value="6">Row 6</option>  
-						          <option value="7">Row 7</option>  
-						          <option value="8">Row 8</option>  
-						          <option value="9">Row 9</option> 
-							</select>							
-						</div>
-					</div>
-				</div>
-				<!-- 左側欄：查詢未出貨訂單 End -->
-				<!-- 中間：查詢未出貨訂單 End -->
-				<div class="col-xs-12 col-lg-2">
-					<div class="input-group">
-					  <button type="button" value="" class="btn btn-xs btn-primary" id="add">Add >></button>
-					</div>
-			      <div class="input-group" style="padding-top:10px;">
-			        <button type="button" value="" class="btn btn-xs btn-danger" id="remove"><< Remove</button> 
-			      </div>					
-				</div>
-				<!-- 中間：查詢未出貨訂單 End -->
-				
-				<!-- 右側欄：查詢車次派單 Start -->
-				<div class="col-xs-12 col-lg-4">
-					<div class="card text-center">
-				      <select class="form-control" name="FeatureCodes[]" size="9" id="selected_features" multiple="multiple" style="height:200px;">
-				        <option value="1">Row 1</option>  
-				        <option value="3">Row 3</option>
-				      </select>						
-					</div>
-				</div>
-				<!-- 右側欄：查詢車次派單 End -->
-				
-			</div>
-		</div>
-
+		
       </div>
 <!-- 主要功能 -->
 
@@ -292,14 +275,21 @@
   <script src="<%=request.getContextPath()%>/backend/js/gijgo-combined-1.7.3/gijgo.min.js"></script>
 <script>
 	$( document ).ready(function() {
-		var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+		var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1);
 		$('#localOrderDate').datepicker({
 	        uiLibrary: 'bootstrap4',
 	        iconsLibrary: 'fontawesome',
 	        minDate: today,
-	        format:"yyyy/mm/dd"
+	        format:"yyyy-mm-dd"
 	    });
-		$('#localOrderDate').addClass("form-control-custom");
+		$("#orderQuery").trigger( "click" );
+		//$('#localOrderDate').addClass("form-control-custom");
+		var helfHeight = Math.floor($(".row-custom").height() / 2);
+		var divLeft = $("#middleDiv").position().left;
+		var helfWidth = Math.floor($("#middleDiv").width() / 2);
+		$("#addDiv").css({'top': helfHeight + "px"});
+		$("#removeDiv").css({'top':$("#addDiv").position().top + "px"});
+		//$("#exchangeBtns").css('top', rowHeight + "px");
 	});
 	
 	$("#car_type").change(function(){
@@ -321,19 +311,72 @@
 		$.ajax({
 			type : "post",
 			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
-			data : {action:"getUnShipOrders",db_id:"${account.db_id}",item_type:$("#item_type").val()},
+			//data : {action:"getUnShipOrders",db_id:"${account.db_id}",item_type:$("#item_type").val()},
+			data : {action:"getUnShipOrders",db_id:"DB01",item_type:$("#item_type").val()},
 			datatype: "json",
 			success : function(Jdata){
 				$("#unShipOrders").empty();
 				$.each(Jdata, function(index, element){
 					$("#unShipOrders").append("<option value='"+ element.order_id +"'>"+element.order_id+" "
-																+element.create_time 
+																+element.expected_time 
 											+"</option>");
 				});
 			}
-		
 		});
 	});
+	$('#localOrderQuery').click(function(){
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
+			//data : {action:"getLocalOrders",loDate:$('localOrderDate').val(),item_type:$("#local_schedule").val()},
+			data : {action:"getLocalOrders",db_id:"DB01",loDate:$('#localOrderDate').val(),item_type:$("#local_schedule").val()},
+			datatype: "json",
+			success : function(Jdata){
+				$("#localOrders").empty();
+				$.each(Jdata, function(index, element){
+					$("#localOrders").append("<option value='"+ element.order_id +"'>訂單:"+element.order_id
+												+" 車次:"+element.expected_time
+											+"</option>");
+				});
+			}
+		});
+	});
+	$('#add').click(function() {  
+	    return !$('#unShipOrders option:selected')
+				.remove().appendTo('#localOrders');  
+	   });
+	
+	$('#remove').click(function() {  
+	    return !$('#localOrders option:selected')
+				.remove().appendTo('#unShipOrders');  
+	   }); 
+	$('#submit').click(function() {  
+		var localOrderDate = $('#localOrderDate').val();
+		var local_schedule_id = $('#local_schedule').val();
+		$('#localOrders option').prop('selected', true);
+		var localOrders = [];
+		$("#localOrders :selected").map(function(i, item) {
+			localOrders.push($(item).val());
+		});
+		console.log(localOrders);
+		//var localOrders = JSON.stringify(orderArray);
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
+			//data : {action:"getLocalOrders",loDate:$('localOrderDate').val(),item_type:$("#local_schedule").val()},
+			data : {action:"update",localOrderDate:localOrderDate,local_schedule_id:local_schedule_id,localOrders:localOrders,emp_id:"EMP001"},
+			success : function(data){
+				if(data>0)
+					alert("資料更新成功!")
+				else
+					alert("資料更新有誤...")
+			}
+		});
+	}); 
+	
+	
+	
+	
 </script>
 </body>
 

@@ -59,42 +59,13 @@ public class LoJDBCDAO implements LoDAO_interface {
 	}
 
 	@Override
-	public void update(LoVO loVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
-			// System.out.println(foVO.getEMP_ID()+" "+ foVO.getORDER_ID()+"
-			// "+foVO.getFOREIGN_ORDER_ID());
-			pstmt.setString(1, loVO.getEmp_ID());
-			pstmt.setString(2, loVO.getOrder_ID());
-			pstmt.setString(3, loVO.getLocal_schedule_ID());
-			pstmt.setString(4, loVO.getLocal_order_ID());
-			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+	public int update_off(LoVO loVO) {
+		return 0;
+	}
+	
+	@Override
+	public int update_on(LoVO loVO, String[] orderArray) {
+		return 0;		
 	}
 
 	@Override
@@ -234,63 +205,25 @@ public class LoJDBCDAO implements LoDAO_interface {
 		return list;
 	}
 	
-	
 	@Override
-	public List<LoVO> findByLoDate(Date local_orderDate) {
-		List<LoVO> list = new ArrayList<LoVO>();
-		LoVO loVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_BY_LO_DATE);
-			pstmt.setDate(1, local_orderDate);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()){
-				loVO = new LoVO();
-				loVO.setLocal_order_ID(rs.getString("LOCAL_ORDER_ID"));
-				loVO.setEmp_ID(rs.getString("EMP_ID"));
-				loVO.setOrder_ID(rs.getString("ORDER_ID"));
-				loVO.setLocal_schedule_ID(rs.getString("LOCAL_SCHEDULE_ID"));
-				loVO.setLocal_orderDate(rs.getDate("LOCAL_ORDER_DATE"));
-				loVO.setLo_updatetime(rs.getTimestamp("LOCAL_ORDER_UPDATETIME"));
-				list.add(loVO);
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
+	public List<LoVO> get_LOs_Bind_LS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
+	public List<OrderVO> findCarsLOs(String db_id, Date local_orderDate, String local_schedule_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<OrderVO> getOrderToShip(String db_id, String item_type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public static void main(String[] args) {
 		LoJDBCDAO dao = new LoJDBCDAO();
 		
@@ -300,19 +233,11 @@ public class LoJDBCDAO implements LoDAO_interface {
 		loVO1.setLocal_schedule_ID("L_S001");
 		dao.insert(loVO1);*/
 		
-		List<LoVO> list = dao.findByLoDate(java.sql.Date.valueOf("2010-04-08"));
+		/*List<LoVO> list = dao.findByLoDate(java.sql.Date.valueOf("2010-04-08"));
 		System.out.println("派車任務如下：");
 		for(LoVO loVO1 : list){
 			System.out.println(loVO1.getLocal_order_ID());
-		}
+		}*/
 	}
-
-	
-	@Override
-	public List<OrderVO> getOrderToShip(String db_id,String item_type,String order_status) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 }

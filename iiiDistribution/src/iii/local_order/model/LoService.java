@@ -27,20 +27,14 @@ public class LoService {
 		return LoVO;
 	}
 	
-	public LoVO updateLo(String local_order_ID , String emp_ID, String order_ID, String local_schedule_ID)
-		{
-
-		LoVO LoVO = new LoVO();
-
-		LoVO.setLocal_order_ID(local_order_ID);
-		LoVO.setEmp_ID(emp_ID);
-		LoVO.setOrder_ID(order_ID);
-		LoVO.setLocal_schedule_ID(local_schedule_ID);
-		dao.update(LoVO);
-
-		return LoVO;
+	public int updateLo_off(LoVO loVO)
+	{
+		return dao.update_off(loVO);
 	}
-
+	
+	public int update_on(LoVO loVO,String[] orderArray) {
+		return dao.update_on(loVO,orderArray);
+	}
 	public void deleteLo(Date local_orderDate) {
 		dao.delete(local_orderDate);
 	}
@@ -52,13 +46,17 @@ public class LoService {
 	public List<LoVO> getAll() {
 		return dao.getAll();
 	}
-
-	public List<LoVO> getLOsByDate(Date local_orderDate){
-		return dao.findByLoDate(local_orderDate);
+	
+	public List<LoVO> get_LOs_Bind_LS(){
+		return dao.get_LOs_Bind_LS();
 	}
 	
-	public List<OrderVO> getUnShipOrders(String db_id,String item_type,String order_status){
-		return dao.getOrderToShip(db_id,item_type, order_status);
+	public List<OrderVO> findCarsLOs(String db_id,Date local_orderDate,String local_schedule_ID){
+		return dao.findCarsLOs(db_id,local_orderDate,local_schedule_ID);
+	}
+	
+	public List<OrderVO> getUnShipOrders(String db_id,String item_type){
+		return dao.getOrderToShip(db_id,item_type);
 	}
 	
 }

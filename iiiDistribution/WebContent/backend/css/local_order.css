@@ -1,8 +1,11 @@
-#searchDiv .form-control-custom
+#orderDiv .form-control-custom
 {
-	display: initial;
+	display: -webkit-inline-box;
 	width:50%;
 }
 .row-custom{
 	margin-left: 15px;
+}
+.card-body{
+	padding: 0.25rem 0rem 1.25em;
 }

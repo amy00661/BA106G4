@@ -136,53 +136,30 @@ public class Local_OrderServlet extends HttpServlet {
 		
 
 		if ("update".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			String requestURL = req.getParameter("requestURL");
-			
+			java.sql.Date local_orderDate = null;
+			int updateRow = 0;
 			try {
+				String localOrderDate = req.getParameter("localOrderDate").trim();
+				if(!localOrderDate.isEmpty())
+					local_orderDate = java.sql.Date.valueOf(localOrderDate);
+				String local_schedule_ID = req.getParameter("local_schedule_id");
+				String[] orderArray = req.getParameterValues("localOrders[]");
+				String emp_id = req.getParameter("emp_id");
+				LoVO loVO = new LoVO();
+				loVO.setEmp_ID(emp_id);
+				loVO.setLocal_orderDate(local_orderDate);
+				loVO.setLocal_schedule_ID(local_schedule_ID);
+				//將當天當班車已安排的訂單回復成未排單(回復成null)
+				LoService loSvc = new LoService();
+				loSvc.updateLo_off(loVO);
+				//再將新的訂單押上日期及車次
+				updateRow = loSvc.update_on(loVO, orderArray);
 				
-				String local_schedule_ID = new String(req.getParameter("local_schedule_ID").trim());
 				
-				String car_ID = req.getParameter("car_ID");
-				if (car_ID == null || car_ID.trim().length() == 0)
-					;
-
-				String car_TYPE= req.getParameter("car_TYPE").trim();
-
-
-
-				String ls_TIME = req.getParameter("ls_TIME").trim();
-				if (ls_TIME == null || ls_TIME.trim().length() == 0) {
-					errorMsgs.add("請勿空白");
-				}
-
-				LsVO lsVO = new LsVO();
-				lsVO.setCar_id(car_ID);
-				lsVO.setCar_type(car_TYPE);
-				lsVO.setLs_time(ls_TIME);
-				
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("LsVO", lsVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/backend/local_schedule/update_ls_input.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				
-				LsService lsSvc = new LsService();
-				lsVO = lsSvc.updateLs(local_schedule_ID, car_ID, car_TYPE, ls_TIME);
-				
-				String url = "/backend/local_schedule/listAllLs.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);	
-				
-			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/backend/local_schedule/listAllFs.jsp");
-//				failureView.forward(req, res);
+			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
+			out.print(updateRow);
 		}
 		
 		if ("insert".equals(action)) {
@@ -262,22 +239,10 @@ public class Local_OrderServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		if("getUnShipOrders".equals(action)){	//取得所有未出貨訂單
-			Gson gson = new Gson();
-			LoService loService = new LoService();
-			String db_id = req.getParameter("db_id");
-			String item_type = req.getParameter("item_type");
-			List<OrderVO> local_OrderList = loService.getUnShipOrders(db_id, item_type, "未出貨");
-			res.setContentType("application/json");
-	        res.setCharacterEncoding("UTF-8");
-	        res.setHeader("Cache-Control", "no-cache");
-	        String loJson = gson.toJson(local_OrderList);
-			out.print(loJson);
-		}
-		if("getAll".equals(action)){
+		if("get_LOs_Bind_LS".equals(action)){
 			try {
 				LoService loService = new LoService();
-				List<LoVO> loList = loService.getAll();
+				List<LoVO> loList = loService.get_LOs_Bind_LS();
 				LsService lsService = new LsService();
 				JSONArray calEventsArray = new JSONArray();
 				for(LoVO loVO:loList){
@@ -289,6 +254,7 @@ public class Local_OrderServlet extends HttpServlet {
 					eventVO.put("id", loVO.getLocal_schedule_ID());
 					eventVO.put("title", loVO.getLocal_order_ID());
 					eventVO.put("start", date+"T"+ls_time+":00");
+					
 					calEventsArray.put( eventVO );
 				}
 				res.setContentType("application/json");
@@ -297,6 +263,38 @@ public class Local_OrderServlet extends HttpServlet {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+		}
+		if("getUnShipOrders".equals(action)){	//取得所有未出貨訂單
+			Gson gson = new Gson();
+			LoService loService = new LoService();
+			String db_id = req.getParameter("db_id");
+			String item_type = req.getParameter("item_type");
+			List<OrderVO> orderList = loService.getUnShipOrders(db_id, item_type);
+			res.setContentType("application/json");
+	        res.setCharacterEncoding("UTF-8");
+	        res.setHeader("Cache-Control", "no-cache");
+	        String orderJson = gson.toJson(orderList);
+			out.print(orderJson);
+		}
+		if("getLocalOrders".equals(action)){
+			LoService loService = new LoService();
+			String db_id = req.getParameter("db_id");
+			String item_type = req.getParameter("item_type");
+			java.sql.Date local_orderDate = null;
+			try {
+				String loDate = req.getParameter("loDate").trim();
+				if(!loDate.isEmpty())
+					local_orderDate= java.sql.Date.valueOf(loDate);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+			List<OrderVO> local_OrderList = loService.findCarsLOs(db_id, local_orderDate, item_type);
+			res.setContentType("application/json");
+	        res.setCharacterEncoding("UTF-8");
+	        res.setHeader("Cache-Control", "no-cache");
+	        Gson gson = new Gson();
+	        String loJson = gson.toJson(local_OrderList);
+	        out.print(loJson);
 		}
 	}
 }

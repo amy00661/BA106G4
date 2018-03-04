@@ -1,6 +1,10 @@
 package iii.local_order.model;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
+import iii.order_main.model.OrderVO;
 
 public class LoVO implements java.io.Serializable{
 	private String local_order_ID;
@@ -9,7 +13,6 @@ public class LoVO implements java.io.Serializable{
 	private String local_schedule_ID;
 	private Date local_orderDate;
 	private Timestamp lo_updatetime;
-	
 	
 	public String getLocal_order_ID() {
 		return local_order_ID;
