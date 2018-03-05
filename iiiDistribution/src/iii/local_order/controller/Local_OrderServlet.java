@@ -245,7 +245,8 @@ public class Local_OrderServlet extends HttpServlet {
 		if("get_LOs_Bind_LS".equals(action)){
 			try {
 				LoService loService = new LoService();
-				List<LoVO> loList = loService.get_LOs_Bind_LS();
+				String db_id = req.getParameter("db_id");
+				List<LoVO> loList = loService.get_LOs_Bind_LS(db_id);
 				LsService lsService = new LsService();
 				JSONArray calEventsArray = new JSONArray();
 				for(LoVO loVO:loList){

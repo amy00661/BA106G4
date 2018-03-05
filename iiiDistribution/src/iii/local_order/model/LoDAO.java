@@ -33,7 +33,7 @@ public class LoDAO implements LoDAO_interface{
 	private static final String UPDATE_ON = "UPDATE LOCAL_ORDER set LOCAL_SCHEDULE_ID = ?, LOCAL_ORDER_DATE=?, LOCAL_ORDER_UPDATETIME = SYSDATE, EMP_ID = ? WHERE ORDER_ID IN (";
 	private static final String GET_BY_LO_DATE = "SELECT * FROM ORDER_MAIN WHERE DB_ID = ? AND ORDER_ID IN (SELECT ORDER_ID FROM LOCAL_ORDER WHERE LOCAL_ORDER_DATE = ? AND LOCAL_SCHEDULE_ID = ?)";
 	private static final String GET_ORDs_TO_SHIP = "SELECT * FROM ORDER_MAIN WHERE DB_ID = ? AND ITEM_TYPE=? AND ORDER_ID IN (SELECT ORDER_ID FROM LOCAL_ORDER WHERE LOCAL_SCHEDULE_ID IS NULL) ORDER BY EXPECTED_TIME";
-	private static final String GET_LOs_Bind_LS = "SELECT * FROM LOCAL_ORDER WHERE LOCAL_SCHEDULE_ID　IS NOT NULL";
+	private static final String GET_LOs_Bind_LS = "SELECT * FROM LOCAL_ORDER WHERE LOCAL_SCHEDULE_ID　IS NOT NULL AND ORDER_ID IN (SELECT ORDER_ID FROM ORDER_MAIN WHERE DB_ID=? )";
 	
 	
 	@Override
@@ -290,7 +290,7 @@ public class LoDAO implements LoDAO_interface{
 	}
 
 	@Override
-	public List<LoVO> get_LOs_Bind_LS() {
+	public List<LoVO> get_LOs_Bind_LS(String db_id) {
 		List<LoVO> list = new ArrayList<LoVO>();
 		LoVO loVO = null;
 		
@@ -302,6 +302,7 @@ public class LoDAO implements LoDAO_interface{
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_LOs_Bind_LS);
+			pstmt.setString(1,db_id);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()){

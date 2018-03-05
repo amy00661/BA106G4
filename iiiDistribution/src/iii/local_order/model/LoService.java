@@ -47,8 +47,8 @@ public class LoService {
 		return dao.getAll();
 	}
 	
-	public List<LoVO> get_LOs_Bind_LS(){
-		return dao.get_LOs_Bind_LS();
+	public List<LoVO> get_LOs_Bind_LS(String db_id){
+		return dao.get_LOs_Bind_LS(db_id);
 	}
 	
 	public List<OrderVO> findCarsLOs(String db_id,Date local_orderDate,String local_schedule_ID){

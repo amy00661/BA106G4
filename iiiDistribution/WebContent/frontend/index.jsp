@@ -95,12 +95,11 @@
   
  <header>
 	<!-- 聊天室Start -->
-	<c:if test="${memVO}!=''">
+	<c:if test="${memVO != ''}">
 		<div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 0px;">	
 			<jsp:include page="/frontend/chat/chat_front.jsp" flush="true" />
 		</div>
 	</c:if>
-	
 	 <!-- 聊天室End --> 
  
       <div class="container logoCus">

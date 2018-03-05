@@ -36,7 +36,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
     
-      <jsp:include page="/backend/menu.jsp" flush="true" />
+      <jsp:include page="/backend/menu/menu.jsp" flush="true" />
       
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -106,7 +106,7 @@
 </div>
 	<!-- 聊天室Start -->
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- 	<c:if test="${account}!=''"> --%>
+<%-- 	<c:if test="${account.emp_id}!=''"> --%>
 	    <div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 55px;">
 	    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
 	    </div>

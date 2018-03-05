@@ -25,6 +25,7 @@
 			         <div class="collapse" id="collapseChat">
 			             <div class="card card-body">
 			                 <ul class="chat">
+			                 
 			                     <li class="left clearfix">
 			                     	<span class="chat-img pull-left"><img src="img/customer-service.png" alt="User Avatar" class="img-circle" /></span>
 			                         <div class="chat-body clearfix">
@@ -33,11 +34,11 @@
 			                                     <span class="glyphicons glyphicons-time"></span>12 mins ago</small>
 			                             </div>
 			                             <p>
-			                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-			                                 dolor, quis ullamcorper ligula sodales.
+			                               	任何問題請留言，線上客服人員將立即為您處理!
 			                             </p>
 			                         </div>
 			                     </li>
+			                  <!-- 
 			                     <li class="right clearfix">
 			                     <span class="chat-img pull-right"><img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" /></span>
 			                         <div class="chat-body clearfix">
@@ -77,6 +78,7 @@
 			                             </p>
 			                         </div>
 			                     </li>
+			                  -->
 			                 </ul>
 			             </div>
 			             <div class="panel-footer">

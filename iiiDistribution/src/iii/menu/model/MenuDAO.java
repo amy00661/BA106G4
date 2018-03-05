@@ -122,6 +122,7 @@ public class MenuDAO implements MenuDAO_interface{
 					currentTreeVO = new MenuNodeVO();
 					currentTreeVO.setId(rs.getString("MENU_ID"));
 					currentTreeVO.setText(rs.getString("MENU_TITLE"));
+					currentTreeVO.setUrl(rs.getString("MENU_URL"));
 					if( parentTreeVO == null ){
 						if(rootTreeVO.contains(currentTreeVO)){
 							for(MenuNodeVO rootTreeObj:rootTreeVO){

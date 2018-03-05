@@ -206,7 +206,7 @@ public class LoJDBCDAO implements LoDAO_interface {
 	}
 	
 	@Override
-	public List<LoVO> get_LOs_Bind_LS() {
+	public List<LoVO> get_LOs_Bind_LS(String db_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

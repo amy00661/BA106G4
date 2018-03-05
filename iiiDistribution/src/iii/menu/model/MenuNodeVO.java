@@ -7,6 +7,7 @@ public class MenuNodeVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	String id;
 	String text;
+	String url;
 	Boolean checked;
 	LinkedHashSet<MenuNodeVO> children = new LinkedHashSet<>();
 	
@@ -24,6 +25,12 @@ public class MenuNodeVO implements Serializable{
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public Boolean getChecked() {
 		return checked;

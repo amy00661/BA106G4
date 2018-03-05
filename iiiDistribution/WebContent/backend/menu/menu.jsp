@@ -18,6 +18,7 @@
   <!-- CSS主要套件 -->
 </head>
 <body>
+	<jsp:useBean id="menuSvc" scope="page" class="iii.menu.model.MenuService" />
 	<c:forEach var="menuNodeVO" items="${sessionScope.menuBar}">
 		<!-- 後台權限 -->
 		<ul class="navbar-nav navbar-sidenav" id="${menuNodeVO.id}">
@@ -44,7 +45,7 @@
 											<c:forEach var="thirdLevel" items="${secondLevel.children}">
 												<!-- 第三層選單 -->
 												<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-								          			<a class="nav-link" href="#">
+								          			<a class="nav-link" href="<%=request.getContextPath()%>${thirdLevel.url}">
 								            			<span class="nav-link-text">${thirdLevel.text}</span>
 								          			</a>
 							        			</li>
@@ -60,7 +61,7 @@
 	<!-- 				          			</a> -->
 	<!-- 			        			</li> -->
 				        			<li>
-	              						<a href="#">${secondLevel.text}</a>
+	              						<a href="<%=request.getContextPath()%>${secondLevel.url}">${secondLevel.text}</a>
 	            					</li>
 								</c:if>
 							</c:forEach>
