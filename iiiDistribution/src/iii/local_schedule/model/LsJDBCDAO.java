@@ -18,8 +18,6 @@ public class LsJDBCDAO implements LsDAO_interface{
 	private static final String UPDATE = "UPDATE LOCAL_SCHEDULE set  CAR_ID=?, CAR_TYPE=?, LS_TIME=?, EMP_ID=? LS_UPDATETIME=SYSDATE WHERE LOCAL_SCHEDULE_ID = ?";
 	
 	
-	
-	
 	@Override
 	public void insert(LsVO lsVO) {
 		Connection con = null;
@@ -253,13 +251,16 @@ public class LsJDBCDAO implements LsDAO_interface{
 
 		return list;
 	}
-	
+	@Override
+	public Set<String> getCarTypeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	@Override
 	public Set<LsVO> findByCarType(String car_type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 	public static void main(String[] args){
 		LsJDBCDAO dao =new LsJDBCDAO();
 		

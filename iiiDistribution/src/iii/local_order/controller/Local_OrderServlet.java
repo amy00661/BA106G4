@@ -3,7 +3,10 @@ package iii.local_order.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -249,18 +252,35 @@ public class Local_OrderServlet extends HttpServlet {
 					LsVO lsVO = lsService.getOneLs(loVO.getLocal_schedule_ID());
 					String ls_time = lsVO.getLs_time();
 					JSONObject eventVO = new JSONObject();
-					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-					String date = df.format(loVO.getLocal_orderDate());  
-					eventVO.put("id", loVO.getLocal_schedule_ID());
-					eventVO.put("title", loVO.getLocal_order_ID());
-					eventVO.put("start", date+"T"+ls_time+":00");
-					
+					//將出車日期轉字串
+					Date local_orderDate = loVO.getLocal_orderDate();
+					SimpleDateFormat sdf = new SimpleDateFormat();
+					sdf.applyPattern("yyyy-MM-dd");
+					String startDate = sdf.format(local_orderDate);
+					//System.out.println("起始日期字串:" + startDate_str);
+					//合併日期字串與起始時間字串，再轉成毫秒
+					sdf.applyPattern("yyyy-MM-dd HH:mm");
+					Date start_millisc = sdf.parse(startDate+" "+ls_time);
+					//計算8小時後的毫秒數
+					Calendar cal = Calendar.getInstance(); 
+					cal.setTime(start_millisc);
+					cal.add(Calendar.HOUR_OF_DAY,1);
+					//將毫秒數轉回前端FullCalender event物件的時間格式
+					String endDate = cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DATE)
+									+"T"+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE);
+					eventVO.put("id", loVO.getLocal_order_ID());
+					eventVO.put("title", loVO.getOrder_ID());
+					eventVO.put("resourceId", loVO.getLocal_schedule_ID());
+					eventVO.put("start", startDate +"T"+ls_time);
+					//eventVO.put("end", endDate);
 					calEventsArray.put( eventVO );
 				}
 				res.setContentType("application/json");
 				out.print(calEventsArray);
 				System.out.println("calEventsArray = "+calEventsArray);
 			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}

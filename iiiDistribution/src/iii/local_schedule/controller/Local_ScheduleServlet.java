@@ -13,8 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 
+import iii.local_order.model.LoService;
+import iii.local_order.model.LoVO;
 import iii.local_schedule.model.LsService;
 import iii.local_schedule.model.LsVO;
 
@@ -27,6 +33,7 @@ public class Local_ScheduleServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = res.getWriter();
 
@@ -167,6 +174,59 @@ public class Local_ScheduleServlet extends HttpServlet {
 			String lsJson = gson.toJson(local_ScheduleList);
 			out.print(lsJson);
 		}
-		
+		/*
+		if("get_LS_json".equals(action)){
+			try {
+				LsService lsService = new LsService();
+				Set<String> carTypeList = lsService.getCarTypeList();
+				JSONArray calResourcesArray = new JSONArray();
+				for(String carType:carTypeList){
+					JSONObject resGroupVO = new JSONObject();
+					resGroupVO.put("title", carType);
+					JSONArray resChildArray = new JSONArray();
+					//找出所有屬於此車種類型的班次
+					Set<LsVO> lsList = lsService.getLSbyCarType(carType);
+					for(LsVO lsVO:lsList){
+						JSONObject resourceVO = new JSONObject();
+						resourceVO.put("id",lsVO.getLocal_schedule_id());
+						resourceVO.put("title",lsVO.getLocal_schedule_id()+ " " +lsVO.getLs_time());
+						resChildArray.put(resourceVO);
+					}
+					resGroupVO.put("children", resChildArray);
+					calResourcesArray.put(resGroupVO);
+				}
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+		        //res.setHeader("Cache-Control", "no-cache");
+				out.print(calResourcesArray);
+				System.out.println("Calender resources Array = "+calResourcesArray);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		*/
+		if("get_LS_json".equals(action)){
+			try {
+				LsService lsService = new LsService();
+				List<LsVO> lsList = lsService.getAll();
+				JSONArray calResourcesArray = new JSONArray();
+				for(LsVO lsVO:lsList){
+					JSONObject resourceVO = new JSONObject();
+					resourceVO.put("id",lsVO.getLocal_schedule_id());
+					resourceVO.put("title",lsVO.getLocal_schedule_id()+ " " +lsVO.getLs_time());
+					resourceVO.put("carType",lsVO.getCar_type());
+					
+					calResourcesArray.put(resourceVO);
+				}
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+		        //res.setHeader("Cache-Control", "no-cache");
+				out.print(calResourcesArray);
+				System.out.println("Calender resources Array = "+calResourcesArray);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 }

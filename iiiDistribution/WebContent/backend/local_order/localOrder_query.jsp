@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>查詢本地派車結果</title>
 <!-- CSS主要套件 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -14,20 +14,68 @@
 <!-- CSS個人套件 -->
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css' rel='stylesheet' />
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-	<style>
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.2/scheduler.min.css' rel='stylesheet'/>
+	<link href="<%=request.getContextPath()%>/backend/css/local_order.css" rel="stylesheet">
+  	<link href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.8.1/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  	<link href='https://code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css' rel='stylesheet' />
+<!-- <style>
 
   body {
-    margin: 40px 10px;
+    margin: 0;
     padding: 0;
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
   }
 
   #calendar {
-    max-width: 900px;
-    margin: 0 auto;
-    border-color:
+    max-width: 850px;
+    margin: 0px auto;
   }
+  .fc-toolbar.fc-header-toolbar {
+    margin: 0em;
+  }
+</style> -->
+<style>
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  #top,
+  #calendar.fc-unthemed {
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  }
+
+  #top {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    padding: 0 10px;
+    line-height: 40px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  #top .selector {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  #top select {
+    font: inherit; /* mock what Boostrap does, don't compete  */
+  }
+
+  .left { float: left }
+  .right { float: right }
+  .clear { clear: both }
+
+  #calendar {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 10px;
+  }
+
 </style>
 <!-- CSS個人套件 -->	
 </head>
@@ -158,7 +206,103 @@
 <!-- 主要功能 -->
       <div>
 			<div id='calendar'></div>
-
+			
+			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+			<div id="calendarModal" class="modal fade">
+				<div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				        <div class="modal-header">
+				            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+				            <h4 id="modalTitle" class="modal-title"></h4>
+				        </div>
+				        
+				        <div id="modalBody" class="modal-body">
+							<div class="container-fluid" id="orderDiv">
+								<div class="row row-custom">
+									<div class="card col-xs-12 col-lg-5">
+						  				<div class="card-body">
+											<div class="form-group">
+						                      <label for="db_id">貨運中心：</label>
+						                      <input class="form-control-plaintext form-control-custom" type="text" value="${account.db_id}" name="db_id" id="db_id" readonly>
+						                    </div>
+						                    <div class="form-group">
+						                    	<jsp:useBean id="traSvc" scope="page" class="iii.fee_transition.model.TraService"/>
+						                        <label for="item_type">訂單類型：</label>
+						                        <select class="form-control form-control-custom" name="item_type" id="item_type">
+						                          <option value="">請選擇</option>
+						                          <c:forEach var="traVO" items="${traSvc.all}">
+						                            <option value="${traVO.transition_type}" ${(orderVO.item_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}
+						                          </c:forEach>
+						                        </select>
+						                    </div>
+						                    <br>
+						  					<br>
+							  				<button type="button" id="orderQuery" class="btn btn-outline-primary btn-sm pull-right">訂單查詢</button>
+						  					<br>
+						  					<div>
+												以下列出所有未出貨訂單：
+												<div class="card text-center">
+													<select class="form-control" id ="unShipOrders" name="unShipOrders[]" multiple="multiple" style="height:200px;">
+													</select>							
+												</div>
+											</div>
+						  				</div>
+									</div>
+									
+									<div class="col-xs-12 col-lg-2" id="middleDiv">
+								      <div class="input-group" id="addDiv">
+									  	<button type="button" value="" class="btn btn-outline-secondary btn-sm" id="add"> >> </button>
+								      </div>
+								      <div class="input-group" style="padding-top:10px;" id="removeDiv">
+								        <button type="button" value="" class="btn btn-sm btn-outline-secondary" id="remove"> << </button> 
+								      </div>
+									</div>
+									
+									<div class="card col-xs-12 col-lg-5">
+						  				<div class="card-body">
+							  				<div class="form-group form-control-custom">
+						                      <%java.sql.Date date_SQL = new java.sql.Date(System.currentTimeMillis());%>
+						                      <c:set scope="page" var="localOrderDate" value="<%=date_SQL%>"></c:set>
+						                      <label>出車日期：</label>
+						                      <input id="localOrderDate" width="130%" name="loDate" value="${ localOrderDate }"/>
+						                    </div>
+						                    
+						                    <div class="form-group">
+						                        <label for="car_type">車種類型：</label>
+						                        <select class="form-control form-control-custom" name="car_type" id="car_type">
+						                          <option value="">請選擇</option>
+						                          <c:forEach var="traVO" items="${traSvc.all}">
+						                            <option value="${traVO.transition_type}">${traVO.transition_type}車</option>
+						                          </c:forEach>
+						                        </select>
+						                    </div>
+						                    
+						                    <div class="form-group">
+						                        <label for="local_schedule">車班：</label>
+						                        <select class="form-control form-control-custom" name="local_schedule" id="local_schedule">
+						                          <option value="">請選擇</option>
+						                        </select>
+						                    </div>
+						                    <button type="button" id="localOrderQuery" class="btn btn-outline-primary btn-sm pull-right">派單查詢</button>
+						                    <br>
+						                    <span>以下列出已分派之訂單：</span>
+						                    <div class="card text-center">
+										      <select class="form-control" name="localOrders[]" size="9" id="localOrders" multiple="multiple" style="height:200px;">
+										      </select>						
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				        
+				        <div class="modal-footer">
+				        	<button id="submit" class="btn btn-primary btn-lg btn-block">送出</button>
+				            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				    </div>
+				</div>
+			</div>			
       </div>
 <!-- 主要功能 -->
 
@@ -209,58 +353,198 @@
 <!-- js個人套件 -->
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.2/scheduler.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.8.1/combined/js/gijgo.min.js"></script>	
 <!-- js個人套件 -->
 <script>
-
-  $(document).ready(function() {
-	var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'agendaWeek,agendaDay'
-      },
-      defaultView: 'agendaWeek',
-      defaultDate: '2018-03-13',
-      allDaySlot: false,
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: {
-          url: '<%=request.getContextPath()%>/local_order/LO_Servlet.do',
-          data : {action:"getAll"},
-          error: function(xhr, ajaxOptions, thrownError) {
-        	  console.log(xhr.responseText);
-        	}
-      },
-      eventRender: function (event, element, view) { 
-          $(element).each(function () { 
-              $(this).attr('date-num', event.start.format('YYYY-MM-DD')); 
-          });
-      },
-      eventAfterAllRender: function(view){
-    	  var length = $(this).fullCalendar( 'clientEvents' , "L_S001").length;
-          for( cDay = view.start.clone(); cDay.isBefore(view.end) ; cDay.add(1, 'day') ){
-        	  var dateNum = cDay.format('YYYY-MM-DD');
-              var eventCount = $('.fc-event[date-num="' + dateNum + '"]').length;
-              if(eventCount>=8){
-                  var dayEl = $('.fc-day[data-date="' + dateNum + '"]');
-                  var event_items = $('.fc-event[date-num="' + dateNum + '"]');
-                  console.log($(event_items).css("background-color",'red'));
-                  var html = '<span class="event-count">' + 
-                              '<i>' +
-                              eventCount + 
-                              '</i>' +
-                              ' Events' +
-                              '</span>';
-
-                  dayEl.append(html);
-              }
-          }
-      }
-    });
-  });
-
+		var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+	  $(document).ready(function() {
+		var LO_ID="";
+		//載入FullCalender日曆
+		$('#calendar').fullCalendar({
+			schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',  
+			now: today,
+			//selectable: true,
+			//editable: false, // enable draggable events
+			themeSystem: 'jquery-ui',
+			aspectRatio: 1.8,
+			scrollTime: '09:00', // undo default 6am scrollTime
+			customButtons: {
+		        add_Local_Order: {
+		            text: '派車',
+		            click: function() {
+		            	$('#calendarModal').modal('show'); 
+		            }
+		        }
+		    },
+			header: {
+		        left: 'add_Local_Order today prev,next',
+		        center: 'title',
+		        right: 'timelineDay,timelineThreeDays,agendaWeek,month'
+			},
+			defaultView: 'timelineDay',
+			views: {
+		        timelineThreeDays: {
+		          type: 'timeline',
+		          duration: { days: 3 }
+		        }
+			},
+			resourceLabelText: '貨車班次',
+			resourceGroupField: 'carType',
+		      /* resources: [        
+		        { id: 'G', title: '常溫車', children: [
+		          { id: 'L_S001', title: 'L_S001 9:00' },
+		          { id: 'L_S002', title: 'L_S002 14:00' },
+		          { id: 'L_S003', title: 'L_S003 20:00' }
+		        ] },
+		      ], */
+			resources: {
+		          url: '<%=request.getContextPath()%>/local_schdule/LS_Servlet.do',
+		          data : {action:"get_LS_json"},
+		          error: function(xhr, ajaxOptions, thrownError) {
+		        	  console.log(xhr.responseText);
+				  }
+			},
+			events: {
+		          url: '<%=request.getContextPath()%>/local_order/LO_Servlet.do',
+		          data : {action:"get_LOs_Bind_LS"},
+		          error: function(xhr, ajaxOptions, thrownError) {
+		        	  console.log(xhr.responseText);
+				  }
+			},
+			eventClick: function(calEvent, jsEvent, view) {
+				//alert('date :' + moment(calEvent.start).format('YYYY/MM/DD'));
+			    //alert('resource id: ' + calEvent.resourceId);
+			    //alert(resourceObj.carType);
+			    //change the border color just for fun
+			    $(this).css('border-color', 'red');
+			    var date = moment(calEvent.start).format('YYYY-MM-DD');
+			    var resourceId = calEvent.resourceId.trim();
+			    var resourceObj = $('#calendar').fullCalendar( 'getResourceById', resourceId );
+			    var car_type = resourceObj.carType;
+			    $('#item_type').val(car_type.substring(0, 2));//去掉「車」字
+			    $('#car_type').val(car_type.substring(0, 2));//去掉「車」字
+			    $('#localOrderDate').val(date);
+			    $('#car_type').trigger('change');
+			    $('#orderQuery').trigger('click');
+			    //console.log($("#local_schedule").val());
+			    LO_ID = resourceId;
+			    $('#calendarModal').modal('show');
+			}
+		});
+		$('#calendarModal').on('shown.bs.modal', function (e) {//開啟modal後原先設好seled的車班會失效，所以改在modal開啟後設selected
+			 if(LO_ID != ""){	//從日曆的Events點擊進入才會有值
+				 $("#local_schedule").val(LO_ID);
+				 LO_ID ="";
+				 $('#localOrderQuery').trigger('click');
+			 }
+		})
+		
+		$('#calendarModal').on('hide.bs.modal', function (e) {//關閉modal時將所有欄位回復至初始狀態
+			$('#item_type').val('');
+			$('#unShipOrders').empty();
+			$('#localOrderDate').val(moment(today).format('YYYY-MM-DD'));
+			$('#car_type').val('');
+			$('#local_schedule').empty();
+			$('#localOrders').empty();
+		})
+		
+		$('#localOrderDate').datepicker({
+	        uiLibrary: 'bootstrap4',
+	        iconsLibrary: 'fontawesome',
+	        minDate: today,
+	        format:"yyyy-mm-dd"
+	    });
+		var helfHeight = Math.floor($(".row-custom").height() / 2);
+		var divLeft = $("#middleDiv").position().left;
+		var helfWidth = Math.floor($("#middleDiv").width() / 2);
+		$("#addDiv").css({'top': helfHeight + "px"});
+		$("#removeDiv").css({'top':$("#addDiv").position().top + "px"});
+	  });
+	  
+	  
+	$("#car_type").change(function(){
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_schdule/LS_Servlet.do",
+			data : {action:"getLSbyCarType", car_type:$("#car_type").val()},
+			datatype: "json",
+			success : function(Jdata){
+				$("#local_schedule").empty();
+				$.each(Jdata, function(index, element){
+					$("#local_schedule").append("<option value='"+ element.local_schedule_id +"'>"+element.ls_time+" "+element.local_schedule_id +"</option>");
+				});
+			}
+		
+		});
+	});
+	$("#orderQuery").click(function(){
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
+			//data : {action:"getUnShipOrders",db_id:"${account.db_id}",item_type:$("#item_type").val()},
+			data : {action:"getUnShipOrders",db_id:"DB01",item_type:$("#item_type").val()},
+			datatype: "json",
+			success : function(Jdata){
+				$("#unShipOrders").empty();
+				$.each(Jdata, function(index, element){
+					$("#unShipOrders").append("<option value='"+ element.order_id +"'>"+element.order_id+" "
+																+element.expected_time 
+											+"</option>");
+				});
+			}
+		});
+	});
+	$('#localOrderQuery').click(function(){
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
+			//data : {action:"getLocalOrders",loDate:$('localOrderDate').val(),item_type:$("#local_schedule").val()},
+			data : {action:"getLocalOrders",db_id:"DB01",loDate:$('#localOrderDate').val(),item_type:$("#local_schedule").val()},
+			datatype: "json",
+			success : function(Jdata){
+				$("#localOrders").empty();
+				$.each(Jdata, function(index, element){
+					$("#localOrders").append("<option value='"+ element.order_id +"'>訂單:"+element.order_id
+												+" 車次:"+element.expected_time
+											+"</option>");
+				});
+			}
+		});
+	});
+	$('#add').click(function() {  
+	    return !$('#unShipOrders option:selected')
+				.remove().appendTo('#localOrders');  
+	   });
+	
+	$('#remove').click(function() {  
+	    return !$('#localOrders option:selected')
+				.remove().appendTo('#unShipOrders');  
+	   }); 
+	$('#submit').click(function() {  
+		var localOrderDate = $('#localOrderDate').val();
+		var local_schedule_id = $('#local_schedule').val();
+		$('#localOrders option').prop('selected', true);
+		var localOrders = [];
+		$("#localOrders :selected").map(function(i, item) {
+			localOrders.push($(item).val());
+		});
+		console.log(localOrders);
+		//var localOrders = JSON.stringify(orderArray);
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
+			//data : {action:"getLocalOrders",loDate:$('localOrderDate').val(),item_type:$("#local_schedule").val()},
+			data : {action:"update",localOrderDate:localOrderDate,local_schedule_id:local_schedule_id,localOrders:localOrders,emp_id:"EMP001"},
+			success : function(data){
+				if(data>0)
+					alert("資料更新成功!")
+				else
+					alert("資料更新有誤...")
+			}
+		});
+	});
+	
 </script>
 
 </body>

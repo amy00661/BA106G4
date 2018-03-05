@@ -46,6 +46,10 @@ public class LsService {
 		return dao.getAll();
 	}
 	
+	public Set<String> getCarTypeList(){
+		return dao.getCarTypeList();
+	}
+	
 	public Set<LsVO> getLSbyCarType(String car_type){
 		return dao.findByCarType(car_type);
 	}

@@ -9,5 +9,6 @@ public interface LsDAO_interface {
 	public void delete(String lsVO);
 	public LsVO findByPrimaryKey(String local_schedule_id);
 	public List<LsVO> getAll();
+	public Set<String> getCarTypeList();
 	public Set<LsVO> findByCarType(String car_type);
 }
