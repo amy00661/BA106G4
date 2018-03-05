@@ -9,34 +9,25 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  	<!-- <filter>
-	  <filter-name>backLoginFilter</filter-name>
-	  <filter-class>filters.BackLoginFilter</filter-class>
-	</filter>
-	<filter-mapping>
-	  <filter-name>backLoginFilter</filter-name>
-	  <url-pattern>/emp_add.jsp</url-pattern>
-	  <url-pattern>/Hello</url-pattern>
-	  <url-pattern>/HelloWorld</url-pattern>
-	  <url-pattern>/hello.html</url-pattern>
-	</filter-mapping> -->
-  <filter>
-    <filter-name>backLoginFilter</filter-name>
-    <filter-class>filters.BackLoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>backLoginFilter</filter-name>
-    <url-pattern>/backend/index.jsp</url-pattern>
-    <url-pattern>/backend/employee/*</url-pattern>
-    <url-pattern>/backend/chat/*</url-pattern>
-    <url-pattern>/backend/local_order/*</url-pattern>
-    <url-pattern>/backend/menu/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
+
+<!--   <filter> -->
+<!--     <filter-name>backLoginFilter</filter-name> -->
+<!--     <filter-class>filters.BackLoginFilter</filter-class> -->
+<!--   </filter> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>backLoginFilter</filter-name> -->
+<!--     <url-pattern>/backend/index.jsp</url-pattern> -->
+<!--     <url-pattern>/backend/employee/*</url-pattern> -->
+<!--     <url-pattern>/backend/chat/*</url-pattern> -->
+<!--     <url-pattern>/backend/local_order/*</url-pattern> -->
+<!--     <url-pattern>/backend/menu/*</url-pattern> -->
+<!--     <dispatcher>REQUEST</dispatcher> -->
+<!--     <dispatcher>FORWARD</dispatcher> -->
+<!--     <dispatcher>INCLUDE</dispatcher> -->
+<!--     <dispatcher>ERROR</dispatcher> -->
+<!--     <dispatcher>ASYNC</dispatcher> -->
+<!--   </filter-mapping> -->
+  
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/GROUP4DB</res-ref-name>
@@ -99,6 +90,14 @@
   <servlet-mapping>
     <servlet-name>OrderServlet</servlet-name>
     <url-pattern>/order_main/order.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>foreign_scheduleServlet</servlet-name>
+    <servlet-class>iii.foreign_schedule.controller.foreign_scheduleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>foreign_scheduleServlet</servlet-name>
+    <url-pattern>/backend/foreign_schedule/fs.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Local_ScheduleServlet</servlet-name>

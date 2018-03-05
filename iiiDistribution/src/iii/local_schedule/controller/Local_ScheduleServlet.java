@@ -44,6 +44,8 @@ public class Local_ScheduleServlet extends HttpServlet {
 			try {
 
 				String car_id = req.getParameter("car_id");
+				if (car_id == null || car_id.trim().length() == 0)
+					;
 
 				String car_type = req.getParameter("car_type");
 
@@ -83,12 +85,12 @@ public class Local_ScheduleServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				String local_schedule_ID = new String(req.getParameter("local_schedule_ID"));
+				String local_schedule_ID = new String(req.getParameter("local_schedule_id"));
 				LsService lsSvc = new LsService();
 				LsVO lsVO = lsSvc.getOneLs(local_schedule_ID);
 
 				req.setAttribute("lsVO", lsVO);
-				String url = "/backend/local_schedule/XXXXXXXXX.jsp";
+				String url = "/backend/local_schedule/update_Ls.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
@@ -111,7 +113,7 @@ public class Local_ScheduleServlet extends HttpServlet {
 
 				String car_type = req.getParameter("car_type").trim();
 
-				String ls_time = req.getParameter("fs_time").trim();
+				String ls_time = req.getParameter("ls_time").trim();
 				if (ls_time == null || ls_time.trim().length() == 0) {
 					errorMsgs.add("請勿空白");
 				}
@@ -123,15 +125,15 @@ public class Local_ScheduleServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("lsVO", lsVO);
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/local_schedule/update_ls_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/local_schedule/update_Ls.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				LsService lsSvc = new LsService();
 				lsVO = lsSvc.updateLs(local_schedule_id, car_id, car_type, ls_time);
-
-				String url = "/backend/local_schedule/listAllFs.jsp";
+				
+				req.setAttribute("lsVO", lsVO);
+				String url = "/backend/local_schedule/listAllLs.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 			} catch (Exception e) {
@@ -146,20 +148,20 @@ public class Local_ScheduleServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String requestURL = req.getParameter("requestURL");
+
 			try {
-				String local_schedule_id = new String(req.getParameter(""));
-
+//				1
+				String local_schedule_id = new String(req.getParameter("local_schedule_id"));
+//				2
 				LsService lsSvc = new LsService();
-				LsVO lsVO = lsSvc.getOneLs(local_schedule_id);
 				lsSvc.deleteLs(local_schedule_id);
-
-				String url = requestURL;
+//				3
+				String url = "/backend/local_schedule/listAllLs.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/local_schedule/listAllLs.jsp");
 				failureView.forward(req, res);
 			}
 		}

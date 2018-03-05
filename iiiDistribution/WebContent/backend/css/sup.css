@@ -4,3 +4,10 @@
 .loginCUS{
 	background-color:#004d66;
 }
+
+#updatediv {
+float:left;
+}
+#deldiv {
+float:right;
+}

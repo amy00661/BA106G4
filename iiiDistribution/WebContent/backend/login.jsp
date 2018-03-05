@@ -26,11 +26,11 @@
         <form method="post" action="<%=request.getContextPath()%>/employee/EmpServlet.do">
           <div class="form-group">
             <label for="empid">員工ID</label>
-            <input class="form-control" name="empid" id="empid" type="text" aria-describedby="empid" placeholder="ID">
+            <input class="form-control" name="empid" id="empid" type="text" aria-describedby="empid" placeholder="ID" value="EMP001">
           </div>
           <div class="form-group">
             <label for="password">密碼</label>
-            <input class="form-control" name="password" id="password" type="password" placeholder="Password">
+            <input class="form-control" name="password" id="password" type="password" placeholder="Password" value="abc12345">
           </div>
 <!--           <a class="btn btn-info btn-block" href="index.html">登入</a> -->
 		 <input type="hidden" name="action" value="login">

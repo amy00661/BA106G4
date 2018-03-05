@@ -82,7 +82,7 @@ public class MyChatServer {
 	
 	@OnError
 	public void onError(Session userSession, Throwable e){
-		e.printStackTrace();
+		System.out.println("Error: " + e.toString());
 	}
 	
 	@OnClose

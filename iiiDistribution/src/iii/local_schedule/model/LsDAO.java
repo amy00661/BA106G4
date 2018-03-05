@@ -27,7 +27,7 @@ public class LsDAO implements LsDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT * FROM LOCAL_SCHEDULE order by CAR_TYPE,LS_TIME";
 	private static final String GET_ONE_STMT = "SELECT * FROM LOCAL_SCHEDULE WHERE LOCAL_SCHEDULE_ID =?";
 	private static final String DELETE = "DELETE FROM LOCAL_SCHEDULE WHERE LOCAL_SCHEDULE_ID = ?";
-	private static final String UPDATE = "UPDATE LOCAL_SCHEDULE set  CAR_ID=?, CAR_TYPE=?, LS_TIME=?, EMP_ID=? LS_UPDATETIME=SYSDATE WHERE LOCAL_SCHEDULE_ID = ?";
+	private static final String UPDATE = "UPDATE LOCAL_SCHEDULE set  CAR_ID=?, CAR_TYPE=?, LS_TIME=?, EMP_ID=?, LS_UPDATETIME=SYSDATE WHERE LOCAL_SCHEDULE_ID = ?";
 	private static final String GET_BY_CARTYPE = " SELECT * FROM LOCAL_SCHEDULE WHERE CAR_TYPE LIKE ? order by LS_TIME";
 	private static final String GET_CAR_TYPEs = "SELECT distinct CAR_TYPE FROM LOCAL_SCHEDULE";
 	
@@ -106,7 +106,7 @@ public class LsDAO implements LsDAO_interface {
 	}
 
 	@Override
-	public void delete(String LOCAL_SCHEDULE_ID) {
+	public void delete(String local_schedule_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -115,7 +115,7 @@ public class LsDAO implements LsDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, LOCAL_SCHEDULE_ID);
+			pstmt.setString(1, local_schedule_id);
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {

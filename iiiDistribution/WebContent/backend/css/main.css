@@ -7,6 +7,10 @@ html {
   position: relative;
   min-height: 100%;
   }
+  
+.btn-secondary.btncus{
+	margin-top: 5px;
+}
 
 
 .container-fluid{
@@ -245,7 +249,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 
 
 /*-----------------------------------*/
-/*控制左下角的*/
+/*��撌虫����*/
 #mainNav.fixed-top.navbar-dark .sidenav-toggler {
   border-radius: 0px 10px 0px 0px;
   background-color:#006699; }
@@ -257,7 +261,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
   #mainNav.fixed-top.navbar-light .sidenav-toggler a i {
     color: rgba(0, 0, 0, 0.5); }
 
-/*登入端*/
+/*��蝡�*/
 .navbar-dark .navbar-nav .nav-link{
   color:;
 }
@@ -286,11 +290,11 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 #mainNav.navbar-dark .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
   color: #adb5bd; }
 
-/*控制上面的*/
+/*��銝���*/
 .bg-dark {
     background-color:#006699 !important;
 }
-/*控制左邊那一排的*/
+/*��撌阡�銝�����*/
 @media (min-width: 992px) {
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
     border: 5px solid white;
