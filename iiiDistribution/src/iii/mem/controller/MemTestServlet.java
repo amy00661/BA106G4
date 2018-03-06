@@ -23,13 +23,12 @@ import com.google.gson.Gson;
 
 import org.json.*;
 
-//@WebServlet("/MemTestServlet")
 public class MemTestServlet extends HttpServlet {
 	
 	private static final String TEST=
 			"SELECT PLACE_SMALL FROM PLACE WHERE PLACE_BIG=?";
-	
-	
+	private static final String ORDER=
+			"SELECT ORDER_ID, RECEIVER_NAME FROM ORDER_MAIN WHERE MEMBER_ID=?";
 	private static final long serialVersionUID = 1L;
     public MemTestServlet() {
         super();
@@ -46,6 +45,8 @@ public class MemTestServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		PrintWriter out= res.getWriter();
 		String plasebig=req.getParameter("plasebig");
+		String memId=req.getParameter("memId");
+		String action=req.getParameter("action");
 		List<String> list=new ArrayList<String>();
 //		JSONArray array = new JSONArray();
 		
@@ -56,6 +57,8 @@ public class MemTestServlet extends HttpServlet {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
+		if(!"searchOrder".equals(action)){
 		
 		try{
 			Class.forName(driver);
@@ -98,6 +101,49 @@ public class MemTestServlet extends HttpServlet {
 				}
 			}
 		}
-
+	}
+	else{
+		try{
+			Class.forName(driver);
+			con = DriverManager.getConnection(url,userid,passwd);
+			pstmt = con.prepareStatement(ORDER);
+			
+			pstmt.setString(1, memId);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{		
+				list.add(rs.getString("ORDER_ID"));
+				list.add(rs.getString("RECEIVER_NAME"));
+			}
+			
+			
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(list);
+			out.print(json.toString());
+			out.close();
+				
+			
+		}catch(ClassNotFoundException e){
+			throw new RuntimeException("Couldn's load database"+e.getMessage());
+		}catch(SQLException se){
+			se.getMessage();
+		}finally{
+			if(pstmt!=null){
+				try{
+					pstmt.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+			if(con!=null){
+				try{
+					con.close();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	}
 }

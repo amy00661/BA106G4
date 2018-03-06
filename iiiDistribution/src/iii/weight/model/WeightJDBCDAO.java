@@ -1,6 +1,7 @@
-package iii.size.model;
+package iii.weight.model;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,41 +9,40 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-public class SizeJDBCDAO implements SizeDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
+public class WeightJDBCDAO implements WeightDAO_interface {
+	String driver= "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "GROUP4";
 	String passwd = "GROUP4";
 	
-	private final static String INSERT_STMT = 
-			"INSERT INTO FEE_SIZE(SIZE_ID, EMP_ID, SIZE_TYPE, SIZE_PRICE) "
-			+ "VALUES ('SIZE'||LPAD(TO_CHAR(fee_size_seq.NEXTVAL),3 ,'0'), ?, ?, ?)";
-	private final static String UPDATE = 
-			"UPDATE FEE_SIZE SET EMP_ID=?, SIZE_TYPE=?, SIZE_PRICE=?, SIZE_UPDATETIME=? WHERE SIZE_ID=?";
-	private final static String DELETE = 
-			"DELETE FROM FEE_SIZE WHERE SIZE_ID = ?";
-	private final static String GET_ALL_STMT = 
-			"SELECT SIZE_ID, EMP_ID, SIZE_TYPE, SIZE_PRICE, TO_CHAR(SIZE_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')SIZE_UPDATETIME FROM FEE_SIZE ORDER BY SIZE_ID";
-	private final static String GET_ONE_STMT =  
-			"SELECT SIZE_ID, EMP_ID, SIZE_TYPE, SIZE_PRICE, TO_CHAR(SIZE_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')SIZE_UPDATETIME FROM FEE_SIZE WHERE SIZE_ID = ?";
-	
-	@Override
-	public void insert(SizeVO sizeVO) {
+	private static final String INSERT_STMT = 
+			"INSERT INTO FEE_WEIGHT(WEIGHT_ID, EMP_ID, WEIGHT_TYPE, WEIGHT_PRICE) "
+			+ "VALUES('WEI'||LPAD(TO_CHAR(fee_weight_seq.NEXTVAL),3 ,'0'),? ,?, ?)";
+	private static final String UPDATE = 
+			"UPDATE FEE_WEIGHT SET EMP_ID=?, WEIGHT_TYPE=?, WEIGHT_PRICE=?, WEIGHT_UPDATETIME=? WHERE WEIGHT_ID=?";
+	private static final String DELETE = 
+			"DELETE FROM FEE_WEIGHT WHERE WEIGHT_ID = ?";
+	private static final String GET_ONE_STMT = 
+			"SELECT WEIGHT_ID, EMP_ID, WEIGHT_TYPE, WEIGHT_PRICE, TO_CHAR(WEIGHT_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')WEIGHT_UPDATETIME FROM FEE_WEIGHT WHERE WEIGHT_ID=?";
+	private static final String GET_ALL_STMT = 
+			"SELECT WEIGHT_ID, EMP_ID, WEIGHT_TYPE, WEIGHT_PRICE, TO_CHAR(WEIGHT_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')WEIGHT_UPDATETIME FROM FEE_WEIGHT ORDER BY WEIGHT_ID";
 		
+	@Override
+	public void insert(WeightVO weightVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		try{
+		
+		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setString(1, sizeVO.getEmp_id());
-			pstmt.setString(2, sizeVO.getSize_type());
-			pstmt.setDouble(3, sizeVO.getSize_price());
+			pstmt.setString(1, weightVO.getEmp_id());
+			pstmt.setString(2, weightVO.getWeight_type());
+			pstmt.setDouble(3, weightVO.getWeight_price());
 			
 			pstmt.executeUpdate();
+			
 		} catch(ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
@@ -68,24 +68,21 @@ public class SizeJDBCDAO implements SizeDAO_interface{
 	}
 
 	@Override
-	public void update(SizeVO sizeVO) {
-		
+	public void update(WeightVO weightVO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			
-			pstmt.setString(1, sizeVO.getEmp_id());
-			pstmt.setString(2, sizeVO.getSize_type());
-			pstmt.setDouble(3, sizeVO.getSize_price());
-			pstmt.setTimestamp(4, sizeVO.getSize_updatetime());
-			pstmt.setString(5, sizeVO.getSize_id());
+			pstmt.setString(5, weightVO.getWeight_id());
+			pstmt.setString(1, weightVO.getEmp_id());
+			pstmt.setString(2, weightVO.getWeight_type());
+			pstmt.setDouble(3, weightVO.getWeight_price());
+			pstmt.setTimestamp(4, weightVO.getWeight_updateTime());
 			
 			pstmt.executeUpdate();
 			
@@ -115,19 +112,19 @@ public class SizeJDBCDAO implements SizeDAO_interface{
 	}
 
 	@Override
-	public void delete(String size_id) {
-		
+	public void delete(String weight_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			Class.forName(driver);
-			con  = DriverManager.getConnection(url, userid, passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1, size_id);
+			pstmt.setString(1, weight_id);
 			
 			pstmt.executeQuery();
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
@@ -155,30 +152,29 @@ public class SizeJDBCDAO implements SizeDAO_interface{
 	}
 
 	@Override
-	public SizeVO findByPrimaryKey(String size_id) {
+	public WeightVO findByPrimaryKey(String weight_id) {
 		
-		SizeVO sizeVO = null;
+		WeightVO weightVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setString(1, size_id);
+			pstmt.setString(1, weight_id);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				sizeVO = new SizeVO();
-				sizeVO.setSize_id(rs.getString("SIZE_ID"));
-				sizeVO.setEmp_id(rs.getString("EMP_ID"));
-				sizeVO.setSize_type(rs.getString("SIZE_TYPE"));
-				sizeVO.setSize_price(rs.getDouble("SIZE_PRICE"));
-				sizeVO.setSize_updatetime(rs.getTimestamp("SIZE_UPDATETIME"));
+				weightVO = new WeightVO();
+				weightVO.setWeight_id(rs.getString("WEIGHT_ID"));
+				weightVO.setEmp_id(rs.getString("EMP_ID"));
+				weightVO.setWeight_type(rs.getString("WEIGHT_TYPE"));
+				weightVO.setWeight_price(rs.getDouble("WEIGHT_PRICE"));
+				weightVO.setWeight_updateTime(rs.getTimestamp("WEIGHT_UPDATETIME"));
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -212,15 +208,15 @@ public class SizeJDBCDAO implements SizeDAO_interface{
 				}
 			}	
 		}	
-		return sizeVO;
+		return weightVO;
 	}
 
 	@Override
-	public List<SizeVO> getAll() {
-		List<SizeVO> list = new ArrayList<SizeVO>();
-		SizeVO sizeVO = null;
+	public List<WeightVO> getAll() {
+		List<WeightVO> list = new ArrayList<WeightVO>();
+		WeightVO weightVO = null;
 		
-		Connection con = null;
+		Connection con  = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -231,14 +227,16 @@ public class SizeJDBCDAO implements SizeDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				sizeVO = new SizeVO();
-				sizeVO.setSize_id(rs.getString("SIZE_ID"));
-				sizeVO.setEmp_id(rs.getString("EMP_ID"));
-				sizeVO.setSize_type(rs.getString("SIZE_TYPE"));
-				sizeVO.setSize_price(rs.getDouble("SIZE_PRICE"));
-				sizeVO.setSize_updatetime(rs.getTimestamp("SIZE_UPDATETIME"));
-				list.add(sizeVO);
+				weightVO = new WeightVO();
+				
+				weightVO.setWeight_id(rs.getString("WEIGHT_ID"));
+				weightVO.setEmp_id(rs.getString("EMP_ID"));
+				weightVO.setWeight_type(rs.getString("WEIGHT_TYPE"));
+				weightVO.setWeight_price(rs.getDouble("WEIGHT_PRICE"));
+				weightVO.setWeight_updateTime(rs.getTimestamp("WEIGHT_UPDATETIME"));;
+				list.add(weightVO);
 			}
+			
 		}catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
@@ -269,49 +267,49 @@ public class SizeJDBCDAO implements SizeDAO_interface{
 					e.printStackTrace(System.err);
 				}
 			}
-		}
+		}	
 		return list;
 	}
 	
-	public static void main(String args[]){
-		SizeJDBCDAO dao = new SizeJDBCDAO();
+	public static void main(String[] args){
+		WeightJDBCDAO dao = new WeightJDBCDAO();
 		
-//		SizeVO sizeVO1 = new SizeVO();
-//		sizeVO1.setEmp_id("EMP001");
-//		sizeVO1.setSize_type("ï¿½Ü¤j");
-//		sizeVO1.setSize_price(1200.00);
-//		dao.insert(sizeVO1);
+//		WeightVO weightVO1 = new WeightVO();
+//		weightVO1.setEmp_id("EMP003");
+//		weightVO1.setWeight_type("¶W­«");
+//		weightVO1.setWeight_price(5151.21);
+//		weightVO1.setWeight_updateTime(java.sql.Timestamp.valueOf("2015-01-03 11:12:13"));
+//		dao.insert(weightVO1);
 		
-		
-//		SizeVO sizeVO2 = new SizeVO();
-//		sizeVO2.setSize_id("SIZE006");
-//		sizeVO2.setEmp_id("EMP009");
-//		sizeVO2.setSize_type("ï¿½ï¿½ï¿½j");
-//		sizeVO2.setSize_price(5600.00);
-//		sizeVO2.setSize_updatetime(java.sql.Timestamp.valueOf("2010-04-10 13:01:02"));
-//		dao.update(sizeVO2);
+//		WeightVO weightVO2 = new WeightVO();
+//		weightVO2.setWeight_id("WEI004");
+//		weightVO2.setEmp_id("EMP005");
+//		weightVO2.setWeight_type("µL¼Ä¥¨­«");
+//		weightVO2.setWeight_price(99999.88);
+//		weightVO2.setWeight_updateTime(java.sql.Timestamp.valueOf("2014-05-10 13:10:55"));
+//		dao.update(weightVO2);
 //		
-//		dao.delete("SIZE006");
-//		System.out.println("delete ok!");
+//		dao.delete("WEIGHT003");
+//		System.out.println("delete OK!");
 //		
-//		System.out.println("======ï¿½æµ§ï¿½dï¿½ï¿½======");
-//		SizeVO sizeVO3 = dao.findByPrimaryKey("SIZE003");
-//		System.out.println(sizeVO3.getSize_id());
-//		System.out.println(sizeVO3.getEmp_id());
-//		System.out.println(sizeVO3.getSize_type());
-//		System.out.println(sizeVO3.getSize_price());
-//		System.out.println(sizeVO3.getSize_updateTime());
+//		System.out.println("======³æµ§¬d¸ß======");		
+//		WeightVO weightVO3 = dao.findByPrimaryKey("WEI004");
+//		System.out.println(weightVO3.getWeight_id());
+//		System.out.println(weightVO3.getEmp_id());
+//		System.out.println(weightVO3.getWeight_type());
+//		System.out.println(weightVO3.getWeight_price());
+//		System.out.println(weightVO3.getWeight_updateTime());
 //		
-		System.out.println("======ï¿½hï¿½ï¿½ï¿½dï¿½ï¿½======");
-		List<SizeVO> list = dao.getAll();
+		System.out.println("======¦hµ§¬d¸ß======");
+		List<WeightVO> list = dao.getAll();
 		int i = 0;
-		for(SizeVO aSize : list) {	
-			System.out.println("========"+ ++i +"========" );
-			System.out.println(aSize.getSize_id());
-			System.out.println(aSize.getEmp_id());
-			System.out.println(aSize.getSize_type());
-			System.out.println(aSize.getSize_price());
-			System.out.println(aSize.getSize_updatetime());
+		for(WeightVO aWeight : list){
+			System.out.println("======"+ ++i +"======");
+			System.out.println(aWeight.getWeight_id());
+			System.out.println(aWeight.getEmp_id());
+			System.out.println(aWeight.getWeight_type());
+			System.out.println(aWeight.getWeight_price());
+			System.out.println(aWeight.getWeight_updateTime());
 		}
 	}
 }

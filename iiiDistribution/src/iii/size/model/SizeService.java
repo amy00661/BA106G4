@@ -11,27 +11,26 @@ public class SizeService {
 		dao = new SizeDAO();
 	}
 	
-	public SizeVO addSize(String size_id, String emp_id, String size_type, Double size_price, Timestamp size_updateTime){
+	public SizeVO addSize(String emp_id, String size_type, Double size_price){
 		SizeVO sizeVO = new SizeVO();
 		
 		sizeVO.setEmp_id(emp_id);
 		sizeVO.setSize_type(size_type);
 		sizeVO.setSize_price(size_price);
-		sizeVO.setSize_updateTime(size_updateTime);
 		
 		dao.insert(sizeVO);
 		
 		return sizeVO;
 	}
 	
-	public SizeVO updateSize(String size_id, String emp_id, String size_type, Double size_price, Timestamp size_updateTime){
+	public SizeVO updateSize(String size_id, String emp_id, String size_type, Double size_price, Timestamp size_updatetime){
 		SizeVO sizeVO = new SizeVO();
 		
 		sizeVO.setSize_id(size_id);
 		sizeVO.setEmp_id(emp_id);
 		sizeVO.setSize_type(size_type);
 		sizeVO.setSize_price(size_price);
-		sizeVO.setSize_updateTime(size_updateTime);
+		sizeVO.setSize_updatetime(size_updatetime);
 		
 		dao.update(sizeVO);
 		

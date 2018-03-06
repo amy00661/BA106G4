@@ -163,7 +163,6 @@ public class MemServlet extends HttpServlet{
 					member_birth=java.sql.Date.valueOf(req.getParameter("member_birth"));
 				}catch(IllegalArgumentException e){
 					member_birth=new java.sql.Date(System.currentTimeMillis());
-					
 				}
 				
 				java.sql.Timestamp member_updatetime = null;

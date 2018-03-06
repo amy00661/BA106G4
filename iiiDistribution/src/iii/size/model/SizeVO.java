@@ -7,7 +7,7 @@ public class SizeVO {
 	private String emp_id;
 	private String size_type;
 	private Double size_price;
-	private Timestamp size_updateTime;
+	private Timestamp size_updatetime;
 	public String getSize_id() {
 		return size_id;
 	}
@@ -32,10 +32,10 @@ public class SizeVO {
 	public void setSize_price(Double size_price) {
 		this.size_price = size_price;
 	}
-	public Timestamp getSize_updateTime() {
-		return size_updateTime;
+	public Timestamp getSize_updatetime() {
+		return size_updatetime;
 	}
-	public void setSize_updateTime(Timestamp size_updateTime) {
-		this.size_updateTime = size_updateTime;
+	public void setSize_updatetime(Timestamp size_updateTime) {
+		this.size_updatetime = size_updateTime;
 	}
 }

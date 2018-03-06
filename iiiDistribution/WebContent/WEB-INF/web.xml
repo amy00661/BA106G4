@@ -76,6 +76,14 @@
     <url-pattern>/mem/mem.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>MemTestServlet</servlet-name>
+    <servlet-class>iii.mem.controller.MemTestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemTestServlet</servlet-name>
+    <url-pattern>/mem/test.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>CheckServlet</servlet-name>
     <servlet-class>iii.mem.controller.CheckServlet</servlet-class>
   </servlet>
@@ -154,5 +162,29 @@
   <servlet-mapping>
     <servlet-name>NewsServlet</servlet-name>
     <url-pattern>/news/news.do</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>SizeServlet</servlet-name>
+    <servlet-class>iii.size.controller.SizeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SizeServlet</servlet-name>
+    <url-pattern>/size/size.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TraServlet</servlet-name>
+    <servlet-class>iii.tra.controller.TraServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TraServlet</servlet-name>
+    <url-pattern>/tra/tra.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>WeightServlet</servlet-name>
+    <servlet-class>iii.weight.controller.WeightServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WeightServlet</servlet-name>
+    <url-pattern>/weight/weight.do</url-pattern>
   </servlet-mapping>
 </web-app>
