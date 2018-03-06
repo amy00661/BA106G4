@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>  
-<%@ page import="iii.pro.model.*"%>
+<%@ page import="iii.news.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-	ProVO proVO = (ProVO) request.getAttribute("proVO");
+	NewsVO newsVO = (NewsVO) request.getAttribute("newsVO");
 %>
 <html>
 <head>
@@ -15,18 +15,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>優惠活動修改</title>
+  <title>最新消息修改</title>
   
   <!-- 主要套件 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   <link href="<%=request.getContextPath()%>/backend/css/main.css" rel="stylesheet"> 
   <link href="<%=request.getContextPath()%>/backend/css/mem.css" rel="stylesheet"> 
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  	
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
   <script src="<%=request.getContextPath()%>/backend/js/main.js"></script>
+
 
 	
 <style>
@@ -48,9 +49,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <!-- 引入MENU -->
+	  
+	  <!-- 引入MENU -->
       <jsp:include page="/backend/menu/menu.jsp" flush="true" />
-      
+
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -88,72 +90,49 @@
 		<div class="card border-info">
                 <div class="card-header card-bg">
                     <div class="row">
-                        <div class="col-9"><b>修改優惠活動</b></div>
+                        <div class="col-9"><b>修改最新消息</b></div>
                         <div class="col-3" style="text-align:right;"></div>
                     </div>   
                 </div>
                 <br>
-                <form method="post" action="<%=request.getContextPath()%>/pro/pro.do" name="form1" enctype="multipart/form-data">
+                <form method="post" action="<%=request.getContextPath()%>/news/news.do" name="form1" enctype="multipart/form-data">
                 <div class="container">
 					    <div class="form-group row">
-	                       <label for="promotion_date" class="col-sm-2 col-form-label"><h6><b>發布日期</b></h6></label>
+	                       <label for="news_date" class="col-sm-2 col-form-label"><h6><b>發布日期</b></h6></label>
 	                       <div class="col-sm-10">
-	                           	<input type="text" class="form-control" id="promotion_date" name="promotion_date" disabled="disabled" value=${proVO.promotion_date}>
+	                           	<input type="text" class="form-control" id="news_date" name="news_date" disabled="disabled" value=${newsVO.news_date}>
 	                       </div>
 					    </div>
 					    <div class="form-group row">
-	                       <label for="promotion_title" class="col-sm-2 col-form-label"><h6><b>標題</b></h6></label>
+	                       <label for="news_title" class="col-sm-2 col-form-label"><h6><b>標題</b></h6></label>
 	                       <div class="col-sm-10">
-	                           	<input type="text" class="form-control" id="promotion_title" name="promotion_title" value=${(proVO==null) ?"":proVO.promotion_title}>
+	                           	<input type="text" class="form-control" id="news_title" name="news_title" value=${(newsVO==null) ?"":newsVO.news_title}>
 	                       </div>
 					   </div>
 					  
 					  	<div class="form-group row">
-	                       <label for="promotion_context" class="col-sm-2 col-form-label"><h6><b>內文</b></h6></label>
+	                       <label for="news_context" class="col-sm-2 col-form-label"><h6><b>內文</b></h6></label>
 	                       <div class="col-sm-10">
-	                           	<textarea  class="form-control" id="promotion_context" rows="4" cols="46" name="promotion_context" >${(proVO==null) ?"":proVO.promotion_context}</textarea>
+	                           	<textarea  class="form-control" id="news_context" rows="4" cols="46" name="news_context" >${(newsVO==null) ?"":newsVO.news_context}</textarea>
 	                       </div>
 					   </div>
 					  
 					  	<div class="form-group row">
-	                       <label for="promotion_note" class="col-sm-2 col-form-label"><h6><b>備註</b></h6></label>
+	                       <label for="news_note" class="col-sm-2 col-form-label"><h6><b>備註</b></h6></label>
 	                       <div class="col-sm-10">
-	                           	<input type="text" class="form-control" id="promotion_note" name="promotion_note" value=${(proVO==null) ?"":proVO.promotion_note}>
+	                           	<input type="text" class="form-control" id="news_note" name="news_note" value=${(newsVO==null) ?"":newsVO.news_note}>
 	                       </div>
 					   </div>
-					  
-					  <div class="form-group row">
-	                       <label for="promotion_start" class="col-sm-2 col-form-label"><h6><b>開始日期</b></h6></label>
-	                       <div class="col-sm-10">
-	                           	<input type="date" class="form-control" id="promotion_start" name="promotion_start" value=${proVO.promotion_start}>
-	                       </div>
-					    </div>
-					    
-					    <div class="form-group row">
-	                       <label for="promotion_end" class="col-sm-2 col-form-label"><h6><b>結束日期</b></h6></label>
-	                       <div class="col-sm-10">
-	                           	<input type="date" class="form-control" id="promotion_end" name="promotion_end" value=${proVO.promotion_end}>
-	                       </div>
-					    </div>
-					  
-					   <div class="form-group row">
-	                       <label for="promotion_discount" class="col-sm-2 col-form-label"><h6><b>折扣</b></h6></label>
-	                       <div class="col-sm-10">
-	                           	<input type="text" class="form-control" id="promotion_discount" name="promotion_discount" value=${(proVO==null) ?"1.0":proVO.promotion_discount}>
-	                       </div>
-					   </div>
-					  
-					  
 					  <div class="form-group row">
 	                       <label for="upFile" class="col-sm-2 col-form-label"><h6><b>圖片</b></h6></label>
 	                       <div class="col-sm-10">
-	                       		  <input type="file" class="custom-file-input" id="upPic" name="promotion_picture">
+	                       		  <input type="file" class="custom-file-input" id="upPic" name="news_picture">
 								  <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
 	                       </div>
 					   </div>
 						
 						<div class="form-group row">
-						 	<img id="show" src="<%=request.getContextPath()%>/proPic/proPic.do?promotion_id=${proVO.promotion_id}" width="350" height="350"></img>
+						 	<img id="show" src="<%=request.getContextPath()%>/newsPic/newsPic.do?news_id=${newsVO.news_id}" width="350" height="350"></img>
 						</div>
 					  <br>
 					  <div class="card">
@@ -161,8 +140,8 @@
 		                        <div class="row">
 		                            <div class="mx-auto">
 		                            	<input type="hidden" name="action" value="update">
-		                            	<input type="hidden" name="promotion_id" value="${proVO.promotion_id}">
-		                            	<input type="hidden" name="promotion_date" value="${proVO.promotion_date}">
+		                            	<input type="hidden" name="news_id" value="${newsVO.news_id}">
+		                            	<input type="hidden" name="news_date" value="${newsVO.news_date}">
 		                                <input type ="submit" id="calBtn" class="btn btn-success"  value="送出修改"></input>  
 		                             </div>                     
 		                        </div> 
@@ -213,7 +192,7 @@
           </div> 
           <div class="modal-body">＠Ｑ＠．．．．．．．．．．．．．</div>
           <div class="modal-footer">
-          	<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+			<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
             <form method="post" action="<%=request.getContextPath()%>/employee/EmpServlet.do">
             	<input type="hidden" name="action" value="logout">
             	<button type="submit" class="btn btn-primary" >登出</button>
@@ -224,7 +203,6 @@
     </div>
 </body>
 <script language="javascript">
-	
 	
 	$("#upPic").change(function(){
 		readURL(this);

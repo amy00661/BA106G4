@@ -1,16 +1,31 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>  
-<%@ page import="iii.pro.model.*"%>
+<%@ page import="iii.news.model.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-	ProService proSvc = new ProService();
-	List<ProVO> list = proSvc.getAll();
+	NewsService newsSvc = new NewsService();
+	List<NewsVO> list = newsSvc.getAll();
 	pageContext.setAttribute("list",list);
 %>
+<html>
 
+<head>
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>最新消息總覽</title>
+  
+  <!-- 主要套件 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <link href="<%=request.getContextPath()%>/backend/css/main.css" rel="stylesheet"> 
+  <link href="<%=request.getContextPath()%>/backend/css/mem.css" rel="stylesheet"> 
+  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script language="javascript">
 	$(document).ready(function(){
@@ -23,22 +38,7 @@
     text-align: center;
   	}
 	</style>
-<html>
 
-<head>
-<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>優惠活動總覽</title>
-  
-  <!-- 主要套件 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-  <link href="<%=request.getContextPath()%>/backend/css/main.css" rel="stylesheet"> 
-  <link href="<%=request.getContextPath()%>/backend/css/mem.css" rel="stylesheet"> 
-  			
 
   <!-- 主要套件 -->
 </head>
@@ -51,9 +51,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <!-- 引入MENU -->
+	  <!-- 引入MENU -->
       <jsp:include page="/backend/menu/menu.jsp" flush="true" />
-            
+
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -86,40 +86,43 @@
      
 <!-- 主要功能 -->
       <div >
+	<c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color:red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+
 
      <table class="table table-hover table-bordered table-sm">
        <thead class="thead-dark">
 		<tr>
-			<th>優惠活動編號</th>
+			<th>最新消息編號</th>
 			<th>發布日期</th>
 			<th>標題</th>
 			<th>內文</th>
 			<th>備註</th>
-			<th>活動開始日期</th>
-			<th>活動結束日期</th>
-			<th>折扣</th>
 			<th>圖片</th>
 			<th>修改</th>
 		
 		</tr>
 	  </thead>
 <%@ include file="page1.file" %>
-	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="newsVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
-			<td>${proVO.promotion_id}</td>
-			<td>${proVO.promotion_date}</td>
-			<td>${proVO.promotion_title}</td>
-			<td>${proVO.promotion_context}</td>
-			<td>${proVO.promotion_note}</td>
-			<td>${proVO.promotion_start}</td>
-			<td>${proVO.promotion_end}</td>
-			<td>${proVO.promotion_discount}</td>
-			<td><img src="<%=request.getContextPath()%>/proPic/proPic.do?promotion_id=${proVO.promotion_id}" width="150" height="150"></td>
+			<td>${newsVO.news_id}</td>
+			<td>${newsVO.news_date}</td>
+			<td>${newsVO.news_title}</td>
+			<td>${newsVO.news_context}</td>
+			<td>${newsVO.news_note}</td>
+			<td><img src="<%=request.getContextPath()%>/newsPic/newsPic.do?news_id=${newsVO.news_id}"></td>
 			<td>
-				<form method="post" action="<%=request.getContextPath()%>/pro/pro.do" style="margin-bottom: 0px;">
+				<form method="post" action="<%=request.getContextPath()%>/news/news.do" style="margin-bottom: 0px;">
 						<button class="btn btn-info btn-block" type="submit" id="btnUpdate">修改</button>
-						<input type="hidden" name="promotion_date" value="${proVO.promotion_date}">
-						<input type="hidden" name="promotion_id" value="${proVO.promotion_id}">
+						<input type="hidden" name="news_id" value="${newsVO.news_id}">
+						<input type="hidden" name="news_date" value="${newsVO.news_date}">
 						<input type="hidden" name="action" value="getOne_For_Update">
 				</form>
 			</td>
@@ -159,7 +162,7 @@
           </div> 
           <div class="modal-body">＠Ｑ＠．．．．．．．．．．．．．</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+			<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
             <form method="post" action="<%=request.getContextPath()%>/employee/EmpServlet.do">
             	<input type="hidden" name="action" value="logout">
             	<button type="submit" class="btn btn-primary" >登出</button>
@@ -170,7 +173,6 @@
     </div>
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
   <script src="<%=request.getContextPath()%>/backend/js/main.js"></script>

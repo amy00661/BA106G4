@@ -6,116 +6,99 @@
       "children":[
          {
             "id":"MENU002",
-            "text":"車輛定位",
-            "checked":false,
-            "children":[
-               {
-                  "id":"MENU003",
-                  "text":"車輛位置追蹤",
-                  "checked":false
-               }
-            ]
-         },
-         {
-            "id":"MENU004",
             "text":"會員管理",
             "checked":false,
             "children":[
                {
-                  "id":"MENU005",
+                  "id":"MENU003",
                   "text":"會員資料維護",
                   "checked":false
                }
             ]
          },
          {
-            "id":"MENU006",
+            "id":"MENU004",
             "text":"權限管理",
             "checked":false,
             "children":[
                {
-                  "id":"MENU007",
+                  "id":"MENU005",
                   "text":"員工權限設定",
                   "checked":false
                }
             ]
          },
          {
-            "id":"MENU008",
+            "id":"MENU006",
             "text":"基礎資料管理",
             "checked":false,
             "children":[
                {
-                  "id":"MENU009",
+                  "id":"MENU007",
                   "text":"運費管理",
                   "checked":false
                },
                {
-                  "id":"MENU010",
+                  "id":"MENU008",
                   "text":"本地排班",
                   "checked":false
                },
                {
-                  "id":"MENU011",
+                  "id":"MENU009",
                   "text":"異地排班",
                   "checked":false
                },
                {
-                  "id":"MENU012",
+                  "id":"MENU010",
                   "text":"車輛管理",
                   "checked":false
                }
             ]
          },
          {
-            "id":"MENU013",
+            "id":"MENU011",
             "text":"訂單管理",
             "checked":false,
             "children":[
                {
-                  "id":"MENU014",
-                  "text":"新增訂單",
-                  "checked":false
-               },
-               {
-                  "id":"MENU015",
+                  "id":"MENU012",
                   "text":"查詢訂單",
                   "checked":false
                },
                {
-                  "id":"MENU016",
+                  "id":"MENU013",
                   "text":"異地訂單分配",
                   "checked":false
                },
                {
-                  "id":"MENU017",
+                  "id":"MENU014",
                   "text":"本地訂單分配",
                   "checked":false
                }
             ]
          },
          {
-            "id":"MENU018",
+            "id":"MENU015",
             "text":"最新資訊",
             "checked":false,
             "children":[
                {
-                  "id":"MENU019",
+                  "id":"MENU016",
                   "text":"新增最新消息",
                   "checked":false
                },
                {
-                  "id":"MENU020",
+                  "id":"MENU017",
                   "text":"最新消息維護",
                   "checked":false
                },
                {
-                  "id":"MENU021",
+                  "id":"MENU018",
                   "text":"新增優惠活動",
                   "checked":false
                },
                {
-                  "id":"MENU022",
+                  "id":"MENU019",
                   "text":"優惠活動維護",
                   "checked":false
                }
