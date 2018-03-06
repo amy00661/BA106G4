@@ -356,6 +356,7 @@
 			    $('#calendarModal').modal('show');
 			}
 		});
+		
 		$('#calendarModal').on('shown.bs.modal', function (e) {//開啟modal後原先設好seled的車班會失效，所以改在modal開啟後設selected
 			 if(LO_ID != ""){	//從日曆的Events點擊進入才會有值
 				 $("#local_schedule").val(LO_ID);
@@ -385,7 +386,18 @@
 		$("#addDiv").css({'top': helfHeight + "px"});
 		$("#removeDiv").css({'top':$("#addDiv").position().top + "px"});
 	  });
-	  
+	
+	//判斷日曆上每班車的事件總數，依數量多寡顯示不同顏色  
+	window.onload=function(){
+		var resourceObj = $('tr[data-resource-id]').each(function() {
+			  var resource_id = $( this ).attr('data-resource-id');
+			  var event = $(resource_id).find(".fc-timeline-event");
+			  if($(event).length>0){
+				  $(event).css("background-color", "red");
+			  }
+		});
+	};
+		
 	  
 	$("#car_type").change(function(){
 		$.ajax({

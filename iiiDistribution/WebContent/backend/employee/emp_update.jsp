@@ -39,86 +39,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-<!-- _______________________________________________________________________ -->
-        
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-paper-plane"></i>
-            <span class="nav-link-text">訂單管理</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-            <li>
-              <a href="Order_Show.html">訂單查詢</a>
-            </li>
-            <li>
-              <a href="Order_CR.html">建立新訂單</a>
-            </li>
-          </ul>
-        </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="#">
-            <i class="fa fa-list-ol"></i>
-            <span class="nav-link-text">清單派車系統</span>
-          </a>
-        </li>
+	<!-- 引入MENU -->
+	<jsp:include page="/backend/menu/menu.jsp" flush="true" />
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="#">
-            <i class="fa fa-motorcycle"></i>
-            <span class="nav-link-text">車輛排班系統</span>
-          </a>
-        </li>
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="#">
-            <i class="fa fa-plane"></i>
-            <span class="nav-link-text">總部車輛排班系統</span>
-          </a>
-        </li>
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages1" data-parent="#exampleAccordion">
-            <i class="fa fa-male"></i>
-            <span class="nav-link-text">員工系統</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages1">
-            <li>
-              <a href="emp_query.html">員工資料管理</a>
-            </li>
-            <li>
-              <a href="emp_add.html">員工新增&權限管理</a>
-            </li>
-          </ul>
-        </li>
-        
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="vehicle.html">
-            <i class="fa fa-car"></i>
-            <span class="nav-link-text">車輛管理</span>
-          </a>
-        </li>
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="#">
-            <i class="fa fa-user"></i>
-            <span class="nav-link-text">會員資料管理</span>
-          </a>
-        </li>
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="#">
-            <i class="fa fa-mobile"></i>
-            <span class="nav-link-text">客服系統</span>
-          </a>
-        </li>
-
-        
-
-
-<!-- ____________________________________________________ -->
-      </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">

@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   <link href="<%=request.getContextPath()%>/backend/css/main.css" rel="stylesheet">
   <!-- CSS主要套件 -->
+  <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  
 </head>
 <body>
 	<jsp:useBean id="menuSvc" scope="page" class="iii.menu.model.MenuService" />

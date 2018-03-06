@@ -62,7 +62,7 @@ public class backLoginHandler extends HttpServlet {
          }
        }catch (Exception ignored) { }
 
-      res.sendRedirect(req.getContextPath()+"/backend/login_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+      res.sendRedirect(req.getContextPath()+"/backend/news/listAllNews.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
     }
   }
 }

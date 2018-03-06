@@ -264,7 +264,7 @@ public class EmpServlet extends HttpServlet {
 		      out.println("<HTML><BODY>");
 		      out.println("<script>");
 		      out.println("alert(' "+loginResult+"請重新登入!' );");
-		      out.println("window.location.href = ' "+req.getContextPath()+"/backend/login.jsp';");
+		      out.println("window.location.href = ' "+req.getContextPath()+"/backend/news/listAllNews.jsp';");
 		      out.println("</script>");
 		      out.println("</BODY></HTML>");
 		    } else {                                       //【帳號 , 密碼有效時, 才做以下工作】
@@ -289,7 +289,7 @@ public class EmpServlet extends HttpServlet {
 			         }
 			       }catch (Exception ignored) { }
 		
-			      res.sendRedirect(req.getContextPath()+"/backend/index.jsp");  //*工作3: (-->如無來源網頁:則重導至index.jsp)
+			      res.sendRedirect(req.getContextPath()+"/backend/news/listAllNews.jsp");  //*工作3: (-->如無來源網頁:則重導至index.jsp)
 		    }
 		} if("logout".equals(action)){
 			HttpSession session = req.getSession();
