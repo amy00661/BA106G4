@@ -84,6 +84,14 @@
     <url-pattern>/mem/checkMail.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>CarServlet</servlet-name>
+    <servlet-class>iii.car.controller.CarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CarServlet</servlet-name>
+    <url-pattern>/car/car.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>OrderServlet</servlet-name>
     <servlet-class>iii.order_main.controller.OrderServlet</servlet-class>
   </servlet>
@@ -115,5 +123,28 @@
     <servlet-name>Local_OrderServlet</servlet-name>
     <url-pattern>/local_order/LO_Servlet.do</url-pattern>
   </servlet-mapping>
-
+     <servlet>
+    <servlet-name>ShowNewsPic</servlet-name>
+    <servlet-class>iii.news.controller.ShowNewsPic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowNewsPic</servlet-name>
+    <url-pattern>/newsPic/newsPic.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ShowProPic</servlet-name>
+    <servlet-class>iii.pro.controller.ShowProPic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowProPic</servlet-name>
+    <url-pattern>/proPic/proPic.do</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>ProServlet</servlet-name>
+    <servlet-class>iii.pro.controller.ProServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProServlet</servlet-name>
+    <url-pattern>/pro/pro.do</url-pattern>
+  </servlet-mapping>
 </web-app>

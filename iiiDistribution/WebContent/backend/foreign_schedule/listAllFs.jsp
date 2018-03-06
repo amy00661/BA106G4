@@ -236,11 +236,13 @@
 
 
 						<div>
-							<label for="inputState">車種</label> <select id="inputState"
-								name="car_TYPE" class="form-control" value="value="<%=(fsVO == null) ? "" : fsVO.getCar_TYPE()%>">
-								<option selected>常溫車</option>
-								<option selected>冷凍車</option>
-								<option selected>醫藥車</option>
+							<jsp:useBean id="traSvc" scope="page" class="iii.fee_transition.model.TraService"/>
+							<label for="inputState">車種</label> 
+							<select id="inputState"
+								name="car_TYPE" class="form-control">
+								<c:forEach var="traVO" items="${traSvc.all}">
+						           <option value="${traVO.transition_type}" ${(fsVO.car_TYPE==traVO.transition_type)? 'selected':''}>${traVO.transition_type}</option>
+						        </c:forEach>
 							</select>
 
 						</div>
