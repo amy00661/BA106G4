@@ -200,5 +200,191 @@ public class OrderVO {
 	public void setSender_address(String sender_address) {
 		this.sender_address = sender_address;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((create_time == null) ? 0 : create_time.hashCode());
+		result = prime * result + ((db_id == null) ? 0 : db_id.hashCode());
+		result = prime * result + ((emp_id == null) ? 0 : emp_id.hashCode());
+		result = prime * result + ((expected_time == null) ? 0 : expected_time.hashCode());
+		result = prime * result + ((extrafee == null) ? 0 : extrafee.hashCode());
+		result = prime * result + ((fee == null) ? 0 : fee.hashCode());
+		result = prime * result + ((item_size == null) ? 0 : item_size.hashCode());
+		result = prime * result + ((item_type == null) ? 0 : item_type.hashCode());
+		result = prime * result + ((item_weight == null) ? 0 : item_weight.hashCode());
+		result = prime * result + ((mem_id == null) ? 0 : mem_id.hashCode());
+		result = prime * result + ((order_id == null) ? 0 : order_id.hashCode());
+		result = prime * result + ((order_note == null) ? 0 : order_note.hashCode());
+		result = prime * result + ((order_status == null) ? 0 : order_status.hashCode());
+		result = prime * result + ((order_updatetime == null) ? 0 : order_updatetime.hashCode());
+		result = prime * result + ((payment_type == null) ? 0 : payment_type.hashCode());
+		result = prime * result + ((receiver_address == null) ? 0 : receiver_address.hashCode());
+		result = prime * result + ((receiver_cell == null) ? 0 : receiver_cell.hashCode());
+		result = prime * result + ((receiver_city == null) ? 0 : receiver_city.hashCode());
+		result = prime * result + ((receiver_county == null) ? 0 : receiver_county.hashCode());
+		result = prime * result + ((receiver_mail == null) ? 0 : receiver_mail.hashCode());
+		result = prime * result + ((receiver_name == null) ? 0 : receiver_name.hashCode());
+		result = prime * result + ((receiver_tel == null) ? 0 : receiver_tel.hashCode());
+		result = prime * result + ((sender_address == null) ? 0 : sender_address.hashCode());
+		result = prime * result + ((sender_cell == null) ? 0 : sender_cell.hashCode());
+		result = prime * result + ((sender_city == null) ? 0 : sender_city.hashCode());
+		result = prime * result + ((sender_county == null) ? 0 : sender_county.hashCode());
+		result = prime * result + ((sender_name == null) ? 0 : sender_name.hashCode());
+		result = prime * result + ((sender_tel == null) ? 0 : sender_tel.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderVO other = (OrderVO) obj;
+		if (create_time == null) {
+			if (other.create_time != null)
+				return false;
+		} else if (!create_time.equals(other.create_time))
+			return false;
+		if (db_id == null) {
+			if (other.db_id != null)
+				return false;
+		} else if (!db_id.equals(other.db_id))
+			return false;
+		if (emp_id == null) {
+			if (other.emp_id != null)
+				return false;
+		} else if (!emp_id.equals(other.emp_id))
+			return false;
+		if (expected_time == null) {
+			if (other.expected_time != null)
+				return false;
+		} else if (!expected_time.equals(other.expected_time))
+			return false;
+		if (extrafee == null) {
+			if (other.extrafee != null)
+				return false;
+		} else if (!extrafee.equals(other.extrafee))
+			return false;
+		if (fee == null) {
+			if (other.fee != null)
+				return false;
+		} else if (!fee.equals(other.fee))
+			return false;
+		if (item_size == null) {
+			if (other.item_size != null)
+				return false;
+		} else if (!item_size.equals(other.item_size))
+			return false;
+		if (item_type == null) {
+			if (other.item_type != null)
+				return false;
+		} else if (!item_type.equals(other.item_type))
+			return false;
+		if (item_weight == null) {
+			if (other.item_weight != null)
+				return false;
+		} else if (!item_weight.equals(other.item_weight))
+			return false;
+		if (mem_id == null) {
+			if (other.mem_id != null)
+				return false;
+		} else if (!mem_id.equals(other.mem_id))
+			return false;
+		if (order_id == null) {
+			if (other.order_id != null)
+				return false;
+		} else if (!order_id.equals(other.order_id))
+			return false;
+		if (order_note == null) {
+			if (other.order_note != null)
+				return false;
+		} else if (!order_note.equals(other.order_note))
+			return false;
+		if (order_status == null) {
+			if (other.order_status != null)
+				return false;
+		} else if (!order_status.equals(other.order_status))
+			return false;
+		if (order_updatetime == null) {
+			if (other.order_updatetime != null)
+				return false;
+		} else if (!order_updatetime.equals(other.order_updatetime))
+			return false;
+		if (payment_type == null) {
+			if (other.payment_type != null)
+				return false;
+		} else if (!payment_type.equals(other.payment_type))
+			return false;
+		if (receiver_address == null) {
+			if (other.receiver_address != null)
+				return false;
+		} else if (!receiver_address.equals(other.receiver_address))
+			return false;
+		if (receiver_cell == null) {
+			if (other.receiver_cell != null)
+				return false;
+		} else if (!receiver_cell.equals(other.receiver_cell))
+			return false;
+		if (receiver_city == null) {
+			if (other.receiver_city != null)
+				return false;
+		} else if (!receiver_city.equals(other.receiver_city))
+			return false;
+		if (receiver_county == null) {
+			if (other.receiver_county != null)
+				return false;
+		} else if (!receiver_county.equals(other.receiver_county))
+			return false;
+		if (receiver_mail == null) {
+			if (other.receiver_mail != null)
+				return false;
+		} else if (!receiver_mail.equals(other.receiver_mail))
+			return false;
+		if (receiver_name == null) {
+			if (other.receiver_name != null)
+				return false;
+		} else if (!receiver_name.equals(other.receiver_name))
+			return false;
+		if (receiver_tel == null) {
+			if (other.receiver_tel != null)
+				return false;
+		} else if (!receiver_tel.equals(other.receiver_tel))
+			return false;
+		if (sender_address == null) {
+			if (other.sender_address != null)
+				return false;
+		} else if (!sender_address.equals(other.sender_address))
+			return false;
+		if (sender_cell == null) {
+			if (other.sender_cell != null)
+				return false;
+		} else if (!sender_cell.equals(other.sender_cell))
+			return false;
+		if (sender_city == null) {
+			if (other.sender_city != null)
+				return false;
+		} else if (!sender_city.equals(other.sender_city))
+			return false;
+		if (sender_county == null) {
+			if (other.sender_county != null)
+				return false;
+		} else if (!sender_county.equals(other.sender_county))
+			return false;
+		if (sender_name == null) {
+			if (other.sender_name != null)
+				return false;
+		} else if (!sender_name.equals(other.sender_name))
+			return false;
+		if (sender_tel == null) {
+			if (other.sender_tel != null)
+				return false;
+		} else if (!sender_tel.equals(other.sender_tel))
+			return false;
+		return true;
+	}
+	
 	
 }

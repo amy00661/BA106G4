@@ -1,7 +1,9 @@
 package iii.order_main.model;
 
 import java.sql.Timestamp;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 public class OrderService {
 	
@@ -97,4 +99,20 @@ public class OrderService {
 	public List<OrderVO> getAll(){
 		return dao.getAll();
 	}
+	public List<OrderVO> getPersonAll(String member_id){
+		return dao.getPersonAll(member_id);
+	}
+	
+	public List<OrderVO> getByDBAndEmp(String db_id, String emp_id){
+		return dao.getByDBAndEmp(db_id, emp_id);
+	}
+	
+	public LinkedHashSet<OrderVO> getDBAndEmpOrderByTime(String db_id, String emp_id){
+		return dao.getByDBAndEmpOrderByTime(db_id, emp_id);
+	}
+	
+	public List<OrderVO> getAllByCoposite(Map<String, String[]> map){
+		return dao.getAllByComposite(map);
+	}
+	
 }

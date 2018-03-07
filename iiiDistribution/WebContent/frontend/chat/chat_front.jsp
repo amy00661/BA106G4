@@ -27,7 +27,7 @@
 			                 <ul class="chat">
 			                 
 			                     <li class="left clearfix">
-			                     	<span class="chat-img pull-left"><img src="img/customer-service.png" alt="User Avatar" class="img-circle" /></span>
+			                     	<span class="chat-img pull-left"><img src="<%=request.getContextPath() %>/frontend/img/customer-service.png" alt="User Avatar" class="img-circle" /></span>
 			                         <div class="chat-body clearfix">
 			                             <div class="header">
 			                                 <strong class="primary-font">Customer Service</strong> <small class="pull-right text-muted">

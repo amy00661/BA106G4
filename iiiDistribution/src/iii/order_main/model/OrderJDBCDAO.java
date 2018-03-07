@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
+import iii.car.model.CarVO;
 import iii.size.model.SizeJDBCDAO;
 import iii.size.model.SizeVO;
 
@@ -39,6 +42,25 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 			+ "TO_CHAR(CREATE_TIME, 'yyyy-mm-dd hh:mm:ss')CREATE_TIME, RECEIVER_NAME, RECEIVER_TEL, RECEIVER_CELL, RECEIVER_CITY, RECEIVER_COUNTY, "
 			+ "RECEIVER_ADDRESS, RECEIVER_MAIL, SENDER_NAME, SENDER_TEL, SENDER_CELL, SENDER_CITY, SENDER_COUNTY, SENDER_ADDRESS, TO_CHAR(EXPECTED_TIME, 'yyyy-mm-dd hh:mm:ss')EXPECTED_TIME, "
 			+ "ORDER_NOTE, TO_CHAR(ORDER_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')ORDER_UPDATETIME FROM ORDER_MAIN ORDER BY ORDER_ID";
+	
+	private static final String GET_ALL_MEMBER = 
+			"SELECT ORDER_ID, EMP_ID, MEMBER_ID, DB_ID, ORDER_STATUS, PAYMENT_TYPE, FEE, EXTRAFEE, ITEM_SIZE, ITEM_WEIGHT, ITEM_TYPE, "
+			+ "TO_CHAR(CREATE_TIME, 'yyyy-mm-dd hh:mm:ss')CREATE_TIME, RECEIVER_NAME, RECEIVER_TEL, RECEIVER_CELL, RECEIVER_CITY, RECEIVER_COUNTY, "
+			+ "RECEIVER_ADDRESS, RECEIVER_MAIL, SENDER_NAME, SENDER_TEL, SENDER_CELL, SENDER_CITY, SENDER_COUNTY, SENDER_ADDRESS, TO_CHAR(EXPECTED_TIME, 'yyyy-mm-dd hh:mm:ss')EXPECTED_TIME, "
+			+ "ORDER_NOTE, TO_CHAR(ORDER_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')ORDER_UPDATETIME FROM ORDER_MAIN WHERE MEMBER_ID=? ORDER BY ORDER_ID";
+	
+	private static final String GET_DB_AND_EMP_STMT_ORDERBYTIME = 
+			"SELECT ORDER_ID, EMP_ID, MEMBER_ID, DB_ID, ORDER_STATUS, PAYMENT_TYPE, FEE, EXTRAFEE, ITEM_SIZE, ITEM_WEIGHT, ITEM_TYPE, "
+			+ "TO_CHAR(CREATE_TIME, 'yyyy-mm-dd hh:mm:ss')CREATE_TIME, RECEIVER_NAME, RECEIVER_TEL, RECEIVER_CELL, RECEIVER_CITY, RECEIVER_COUNTY, "
+			+ "RECEIVER_ADDRESS, RECEIVER_MAIL, SENDER_NAME, SENDER_TEL, SENDER_CELL, SENDER_CITY, SENDER_COUNTY, SENDER_ADDRESS, TO_CHAR(EXPECTED_TIME, 'yyyy-mm-dd hh:mm:ss')EXPECTED_TIME, "
+			+ "ORDER_NOTE, TO_CHAR(ORDER_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')ORDER_UPDATETIME FROM ORDER_MAIN WHERE DB_ID=? AND EMP_ID=? ORDER BY EXPECTED_TIME";
+	
+	private static final String GET_DB_AND_EMP_STMT = 
+			"SELECT ORDER_ID, EMP_ID, MEMBER_ID, DB_ID, ORDER_STATUS, PAYMENT_TYPE, FEE, EXTRAFEE, ITEM_SIZE, ITEM_WEIGHT, ITEM_TYPE, "
+			+ "TO_CHAR(CREATE_TIME, 'yyyy-mm-dd hh:mm:ss')CREATE_TIME, RECEIVER_NAME, RECEIVER_TEL, RECEIVER_CELL, RECEIVER_CITY, RECEIVER_COUNTY, "
+			+ "RECEIVER_ADDRESS, RECEIVER_MAIL, SENDER_NAME, SENDER_TEL, SENDER_CELL, SENDER_CITY, SENDER_COUNTY, SENDER_ADDRESS, TO_CHAR(EXPECTED_TIME, 'yyyy-mm-dd hh:mm:ss')EXPECTED_TIME, "
+			+ "ORDER_NOTE, TO_CHAR(ORDER_UPDATETIME, 'yyyy-mm-dd hh:mm:ss')ORDER_UPDATETIME FROM ORDER_MAIN WHERE DB_ID=? AND EMP_ID=? ORDER BY ORDER_ID";
+	
 	
 //	private static final String GET_ONE_STMT = 
 //			"SELECT * FROM ORDER_MAIN WHERE ORDER_ID = ?";
@@ -398,33 +420,33 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	public static void main(String args[]){
 		OrderJDBCDAO dao = new OrderJDBCDAO();
 		
-		OrderVO orderVO1 = new OrderVO();
-		orderVO1.setEmp_id("EMP001");
-		orderVO1.setMem_id("MEM001");
-		orderVO1.setDb_id("DB01");
-		orderVO1.setPayment_type("PAYMENT_TYPE");
-		orderVO1.setOrder_status("ORDER_STATUS");
-		orderVO1.setFee(9000.00);
-		orderVO1.setExtrafee(9030.31);
-		orderVO1.setItem_size(3020.20);
-		orderVO1.setItem_weight(6050.22);
-		orderVO1.setItem_type("ITEM_TYPE");
-		orderVO1.setReceiver_name("RECEIVER_NAME");
-		orderVO1.setReceiver_tel("RECEIVER_TEL");
-		orderVO1.setReceiver_cell("RECEIVER_CELL");
-		orderVO1.setReceiver_city("RECEIVER_CITY");
-		orderVO1.setReceiver_mail("RECEIVER_MAIL");
-		orderVO1.setReceiver_county("RECEIVER_COUNTY");
-		orderVO1.setReceiver_address("RECEIVER_address");
-		orderVO1.setSender_name("SENDER_NAME");
-		orderVO1.setSender_tel("SENDER_TEL");
-		orderVO1.setSender_cell("SENDER_CELL");
-		orderVO1.setSender_city("SENDER_CITY");
-		orderVO1.setSender_county("SENDER_COUNTY");
-		orderVO1.setSender_address("SENDER_address");
-		orderVO1.setExpected_time(java.sql.Timestamp.valueOf("2011-07-31 07:33:59"));
-		orderVO1.setOrder_note("ORDER_ID");
-		System.out.println("共新增" + dao.insert(orderVO1) + "一筆資料");
+//		OrderVO orderVO1 = new OrderVO();
+//		orderVO1.setEmp_id("EMP001");
+//		orderVO1.setMem_id("MEM001");
+//		orderVO1.setDb_id("DB01");
+//		orderVO1.setPayment_type("PAYMENT_TYPE");
+//		orderVO1.setOrder_status("ORDER_STATUS");
+//		orderVO1.setFee(9000.00);
+//		orderVO1.setExtrafee(9030.31);
+//		orderVO1.setItem_size(3020.20);
+//		orderVO1.setItem_weight(6050.22);
+//		orderVO1.setItem_type("ITEM_TYPE");
+//		orderVO1.setReceiver_name("RECEIVER_NAME");
+//		orderVO1.setReceiver_tel("RECEIVER_TEL");
+//		orderVO1.setReceiver_cell("RECEIVER_CELL");
+//		orderVO1.setReceiver_city("RECEIVER_CITY");
+//		orderVO1.setReceiver_mail("RECEIVER_MAIL");
+//		orderVO1.setReceiver_county("RECEIVER_COUNTY");
+//		orderVO1.setReceiver_address("RECEIVER_address");
+//		orderVO1.setSender_name("SENDER_NAME");
+//		orderVO1.setSender_tel("SENDER_TEL");
+//		orderVO1.setSender_cell("SENDER_CELL");
+//		orderVO1.setSender_city("SENDER_CITY");
+//		orderVO1.setSender_county("SENDER_COUNTY");
+//		orderVO1.setSender_address("SENDER_address");
+//		orderVO1.setExpected_time(java.sql.Timestamp.valueOf("2011-07-31 07:33:59"));
+//		orderVO1.setOrder_note("ORDER_ID");
+//		System.out.println("共新增" + dao.insert(orderVO1) + "一筆資料");
 		
 //		
 //		OrderVO orderVO2 = new OrderVO();
@@ -487,10 +509,12 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 //		System.out.println(orderVO3.getOrder_note());
 //		System.out.println(orderVO3.getOrder_updatetime());
 //		
-		List<OrderVO> list = dao.getAll();
+		
 		int i = 0;
+		LinkedHashSet<OrderVO> set = dao.getByDBAndEmpOrderByTime("DB01", "EMP001");
+		
 		System.out.println("======查詢全部======");
-		for(OrderVO aOrder : list){
+		for(OrderVO aOrder : set){
 			System.out.println("======" + ++i + "======" );
 			System.out.println(aOrder.getOrder_id());
 			System.out.println(aOrder.getEmp_id());
@@ -537,6 +561,104 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 
 	@Override
 	public OrderVO findByPrimaryKey(String order_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OrderVO> getPersonAll(String member_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LinkedHashSet<OrderVO> getByDBAndEmpOrderByTime(String db_id, String emp_id) {
+		LinkedHashSet<OrderVO> set = new LinkedHashSet<OrderVO>();
+		OrderVO orderVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_DB_AND_EMP_STMT_ORDERBYTIME);
+			pstmt.setString(1, db_id);
+			pstmt.setString(2, emp_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				orderVO = new OrderVO();
+				orderVO.setOrder_id(rs.getString("ORDER_ID"));
+				orderVO.setEmp_id(rs.getString("EMP_ID"));
+				orderVO.setMem_id(rs.getString("MEMBER_ID"));
+				orderVO.setDb_id(rs.getString("DB_ID"));
+				orderVO.setOrder_status(rs.getString("ORDER_STATUS"));
+				orderVO.setPayment_type(rs.getString("PAYMENT_TYPE"));
+				orderVO.setFee(rs.getDouble("FEE"));
+				orderVO.setExtrafee(rs.getDouble("Extrafee"));
+				orderVO.setItem_size(rs.getDouble("ITEM_SIZE"));
+				orderVO.setItem_weight(rs.getDouble("ITEM_WEIGHT"));
+				orderVO.setItem_type(rs.getString("ITEM_TYPE"));
+				orderVO.setCreate_time(rs.getTimestamp("CREATE_TIME"));
+				orderVO.setReceiver_name(rs.getString("RECEIVER_NAME"));
+				orderVO.setReceiver_tel(rs.getString("RECEIVER_TEL"));
+				orderVO.setReceiver_cell(rs.getString("RECEIVER_CELL"));
+				orderVO.setReceiver_city(rs.getString("RECEIVER_CITY"));
+				orderVO.setReceiver_county(rs.getString("RECEIVER_COUNTY"));
+				orderVO.setReceiver_address(rs.getString("RECEIVER_ADDRESS"));
+				orderVO.setReceiver_mail(rs.getString("RECEIVER_MAIL"));
+				orderVO.setSender_name(rs.getString("SENDER_NAME"));
+				orderVO.setSender_tel(rs.getString("SENDER_TEL"));
+				orderVO.setSender_cell(rs.getString("SENDER_CELL"));
+				orderVO.setSender_city(rs.getString("SENDER_CITY"));
+				orderVO.setSender_county(rs.getString("SENDER_COUNTY"));
+				orderVO.setSender_address(rs.getString("SENDER_ADDRESS"));
+				orderVO.setExpected_time(rs.getTimestamp("EXPECTED_TIME"));
+				orderVO.setOrder_note(rs.getString("ORDER_ID"));
+				orderVO.setOrder_updatetime(rs.getTimestamp("ORDER_UPDATETIME"));		
+				set.add(orderVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
+
+	@Override
+	public List<OrderVO> getByDBAndEmp(String db_id, String emp_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OrderVO> getAllByComposite(Map<String, String[]> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}

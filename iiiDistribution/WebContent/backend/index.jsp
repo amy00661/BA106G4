@@ -48,14 +48,22 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <form>
+          <!-- <form>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="站內搜尋">
               <div class="input-group-append">
                 <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
               </div>
             </div>
-            </form>
+            </form> -->
+    <!-- 聊天室Start -->
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- 	<c:if test="${account.emp_id!=''}"> --%>
+	    <div class="chatDiv" style="position: fixed;z-index:1; right: 120px; top: 0px;">
+	    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
+	    </div>
+<%--     </c:if> --%>
+    <!-- 聊天室End -->
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
@@ -104,15 +112,6 @@
 	
   </div>
 </div>
-	<!-- 聊天室Start -->
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- 	<c:if test="${account.emp_id}!=''"> --%>
-	    <div class="chatDiv" style="position: fixed;z-index:1; right: 0px; top: 55px;">
-	    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
-	    </div>
-<%--     </c:if> --%>
-    <!-- 聊天室End -->
-    
     <!-- footer -->
     <footer class="sticky-footer">
       <div class="container">

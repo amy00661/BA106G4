@@ -25,6 +25,7 @@
   <!-- CSS個人套件 -->
   <link href="<%=request.getContextPath()%>/backend/css/employee/emp_add.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- CSS個人套件 -->	
   <!-- =================================================== -->
 </head>
@@ -51,14 +52,11 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <form>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="站內搜尋">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-            </form>
+        	<script src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-54377.js"></script>
+			<i class="nav-link far fa-user-circle" style="color:#FFE4E1">
+				<span id="emp_id">${account.emp_name}</span>
+			</i>
+			
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
@@ -268,6 +266,7 @@
       });
 
     });
+    $("img#justfont-badge").hide();
   </script>
 <!-- js個人套件 -->
     

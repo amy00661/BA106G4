@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Waypoints in directions</title>
+    <style>
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+        float: left;
+        width: 70%;
+        height: 100%;
+      }
+      #right-panel {
+        margin: 20px;
+        border-width: 2px;
+        width: 20%;
+        height: 400px;
+        float: left;
+        text-align: left;
+        padding-top: 0;
+      }
+      #directions-panel {
+        margin-top: 10px;
+        background-color: #FFEE77;
+        padding: 10px;
+      }
+      .multiple{
+        width: 120px;
+      }
+
+      #legend {
+        font-family:微軟正黑體;
+        font-weight: bold;
+        font-size: 13px;
+        background: #fff;
+        padding: 5px;
+        margin: 10px;
+        border: 3px solid #000;
+        text-align: center;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="map"></div>
+    <div id="legend"><h3></h3></div>
+
+    <div id="right-panel">
+    <div style="border-style: solid; border-color: red; border-style: dotted; width: 300px; height: 100px; ">計費說明:
+           <br>3.5噸貨卡, 時速平均55公里, 約2元1公里。
+           <!-- <br>車子每增重1kg,油耗增0.044%。 -->
+           <br>高速公路收費約1.3元1公里。
+    </div>
+    <br>
+    <div style="border-style: solid; border-color: orange; border-style: dotted; width: 300px; height: 100px; ">統計資訊:<br>
+           總公里數: <span id="totalDistance"></span> 公里。
+           <br>
+           總金額: <span id="totalPrice"></span> 元。
+    </div>
+    <div>
+
+    <b>Start:</b>
+    <!-- 設定起點選項 -->
+    <select id="start">
+      <option value="新北市板橋區中正路435號">某貨運DBVO</option>
+    </select>
+    <br>
+    <b>Waypoints:</b> <br>
+    <i>(Ctrl+Click 或 Cmd+Click 即可多點選取)</i> <br>
+    <!-- 設定中途點選項 -->
+    <select multiple class="multiple sbOne" id="waypoints" style="width: 120px;">
+      <option value="台北市中正區鄭州路8號" selected="selected">ORDERVO</option>
+      <option value="苗栗縣獅潭鄉大興窩20之6號" selected="selected">ORDERVO</option>
+      <option value="苗栗縣公館鄉福星村館義路43之6號" selected="selected">ORDERVO</option>
+    </select>
+    <select multiple class="multiple sbTwo" style="width: 120px;">
+      <option value="台北市中正區鄭州路8號" selected="selected">未出貨ORDERVO</option>
+      <option value="苗栗縣獅潭鄉大興窩20之6號" selected="selected">未出貨ORDERVO</option>
+      <option value="苗栗縣公館鄉福星村館義路43之6號" selected="selected">未出貨ORDERVO</option>
+    </select>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" id="left" value="<" />
+    <input type="button" id="right" value=">" />
+    <input type="button" id="leftall" value="<<" />
+    <input type="button" id="rightall" value=">>" />
+    <br>
+    <b>End:</b>
+    <!-- 設定終點選項 -->
+    <select id="end">
+      <option value="台北市萬華區廣州街211號">某貨運DBVO</option>
+    </select>
+    <br>
+      <input type="submit" id="submit">
+    </div>
+    <div id="directions-panel"></div>
+    </div>
+    <script>
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
+          center: {lat:24.8022040, lng:120.9723760}
+        });
+        directionsDisplay.setMap(map);
+
+        // 設定點擊監聽器，當submit被點擊時呼叫calculateAndDisplayRoute
+        document.getElementById('submit').addEventListener('click', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+
+        // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+        icons = {
+          DB: {
+            name: '貨運公司',
+            icon: 'https://image.flaticon.com/icons/svg/488/488643.svg'
+          },
+          library: {
+            name: '路線',
+            icon: 'http://maps.google.com/mapfiles/kml/paddle/pink-blank.png'
+          },
+          // info: {
+          //   name: 'Info',
+          //   icon: iconBase + 'info-i_maps.png'
+          // }
+        };
+
+        var myLatlng = (24.969, 121.192);        
+        var KeelungDB = (25.1316010, 121.7383780);
+        var newTaipeiDB = (25.0143880, 121.4635270);
+        var TaipeiDB = (25.0488250, 121.5186370);
+        var YilanDB = (24.7543120, 121.7583780);
+        var TaoyuanDB = (24.8022040, 120.9723760);
+        var HsinchuDB = (24.9539720, 121.2259710);
+        var HsinchuCityDB = (24.9011360, 121.0435380);
+        var MiaoliDB = (24.5700200, 120.8223430);
+        var TaichungDB = (25.0488250,  121.5186370);
+        var ChanghuaDB = (24.0816310, 120.5384440);
+        (23.9179640, 120.6775050);(23.7117920, 120.5411700);(23.4545970, 120.4038880);(23.4791190, 120.4411380);(22.997234, 120.2119360); (22.6389750, 120.3020070); (22.6688550, 120.4859690); (22.7937110, 121.1231610);(23.9929460, 121.6011140);(23.5674240, 119.5643650);
+         (24.4291400, 118.3598540);(26.1491610, 119.9384210);
+
+
+        var features = [
+          {
+            position: new google.maps.LatLng(25.1316010, 121.7383780),
+            name: '基隆貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(25.0143880, 121.4635270),
+            name: '新北貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(25.0488250, 121.5186370),
+            name: '台北貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.7543120, 121.7583780),
+            name: '宜蘭貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.8022040, 120.9723760),
+            name: '桃園貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.9539720, 121.2259710),
+            name: '新竹貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.9011360, 121.0435380),
+            name: '新竹市貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.5700200, 120.8223430),
+            name: '苗栗貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(25.0488250,  121.5186370),
+            name: '台中貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.0816310, 120.5384440),
+            name: '彰化貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(23.9179640, 120.6775050),
+            name: '南投貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(23.7117920, 120.5411700),
+            name: '雲林貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(23.4545970, 120.4038880),
+            name: '嘉義貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(23.4791190, 120.4411380),
+            name: '嘉義市貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(22.997234, 120.2119360),
+            name: '台南貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(22.6389750, 120.3020070),
+            name: '高雄貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(22.6688550, 120.4859690),
+            name: '屏東貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(23.9929460, 121.6011140),
+            name: '花蓮貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(22.7937110, 121.1231610),
+            name: '台東貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(23.5674240, 119.5643650),
+            name: '澎湖貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(24.4249670, 118.3190040),
+            name: '金門貨運站',
+            type: 'DB'
+          }, {
+            position: new google.maps.LatLng(26.1491610, 119.9384210),
+            name: '連江貨運站',
+            type: 'DB'
+          }, 
+        ];
+
+        // Create markers.
+        // 將剛剛features內的所有點放入相對應的自訂圖例
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: {
+                    url: icons[feature.type].icon, 
+                    scaledSize: new google.maps.Size(60, 60), // scaled size
+                    origin: new google.maps.Point(0,0), // origin
+                    anchor: new google.maps.Point(0, 0) // anchor
+                  },
+            label:{
+                    text: feature.name,
+                    color: 'black',
+                    fontWeight: 'bold',
+                    fontFamily: '',
+                  },
+            // 改圖片的重點在這裡
+            // 如果你只有一個自訂圖例要放的話，直接將圖片網址貼在"icon: "後面就能達到效果了
+            map: map
+          });
+          var infowindow = new google.maps.InfoWindow({
+          content: "<h2>"+feature.name+"</h2><div><p><b>車號: </b>"+feature.name+"</p><p><b>路線: </b>"+""+"</p><p><b>位置: </b></p></div>"
+          });
+          marker.addListener('click', function() {
+              infowindow.open(map, marker);
+          });
+
+        });
+
+        // 這裡在處理MAP右邊的提示小視窗
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"><br><br>'+ name +'<br><br>';
+          legend.appendChild(div);
+        }
+
+        // 透過這個方法可以把剛剛產生的提示小視窗放在地圖的右下角
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+      }
+
+
+
+      
+
+      // 設定中途點
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var waypts = [];
+        var checkboxArray = document.getElementById('waypoints');
+        for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected) {                  // 若waypoints內的選項有被選到的話
+            waypts.push({                                           // waypts則更新一筆資料
+              location: checkboxArray[i].value,                     // 輸入位置
+              stopover: true                                        // 是否為停靠點(可更改為false觀察差異)
+            });
+          }
+        }
+
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';                            // 更新資料前先淨空資料
+            // For each route, display summary information.
+            var total = 0;
+            for (var i = 0; i < route.legs.length; i++) {
+              var routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>第' + routeSegment + '段送貨路線</b><br>';
+              summaryPanel.innerHTML += route.legs[i].start_address + ' to ';         // 擷取起點
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';           // 擷取終點
+              summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';     // 
+              total += route.legs[i].distance.value;     // 擷取起點至終點距離
+            }  
+            var totalDistance = total/1000 ;     
+            document.getElementById('totalDistance').innerHTML = totalDistance;
+            var totalPrice = totalDistance*3.3;
+            document.getElementById('totalPrice').innerHTML = totalPrice;
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function () { function moveItems(origin, dest) {
+        $(origin).find(':selected').appendTo(dest);
+            }
+         
+        function moveAllItems(origin, dest) {
+            $(origin).children().appendTo(dest);
+        }
+         
+        $('#left').click(function () {
+            moveItems('.sbTwo', '.sbOne');
+        });
+         
+        $('#right').on('click', function () {
+            moveItems('.sbOne', '.sbTwo');
+        });
+         
+        $('#leftall').on('click', function () {
+            moveAllItems('.sbTwo', '.sbOne');
+        });
+         
+        $('#rightall').on('click', function () {
+            moveAllItems('.sbOne', '.sbTwo');
+        });
+      }); 
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2ZeC9Pb8EW7rWgimJBczrWozGhCLz-u4&callback=initMap"
+    async defer></script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+
+
+.vehicle-img{
+	height: 120px;
+	vertical-align:middle;
+}
+
+.white-block{
+	background-color: white;
+	height: 80%;
+	margin-right: 75px;
+}
+
+.black-block{
+	background-color: black;
+	height: 80%;
+	margin-left: 75px;
+}
+
+.black-font{
+	color:black;
+}
+
+.black-line,.modal-header{
+	background-color: black;
+}
+
+.white-font,.modal-title{
+	color:white;	
+}
+
+.white-line{
+	background-color: white;
+}
+
+.modal-content{
+	width: 300%;
+    margin-left: -350px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.form-control {
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-delete{
+	width: 120px;
+}
+
+.title-delete{
+	width: 120px;
+	height: 38px;
+	line-height: 32px;
+	font-size: 15px;
+}
+
+.search-delete{
+}	
+
+th{
+	text-align:center;
+}
+
+#note{
+	padding:-100px;
+}
+
+p{
+	color:red;
+}
