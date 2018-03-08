@@ -1,14 +1,22 @@
 package iii.foreign_schedule.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
 
 import iii.foreign_schedule.model.FsService;
 import iii.foreign_schedule.model.FsVO;
@@ -22,8 +30,10 @@ public class foreign_scheduleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-//=============================================================================
+		PrintWriter out = res.getWriter();
+		// =============================================================================
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -76,25 +86,24 @@ public class foreign_scheduleServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String requestURL = req.getParameter("requestURL");
 
 			try {
-//				1.接受請求
+				// 1.接受請求
 				String foreign_schedule_ID = new String(req.getParameter("foreign_schedule_ID"));
-//				2.開始查詢
+				// 2.開始查詢
 				FsService fsSvc = new FsService();
 				FsVO fsVO = fsSvc.getOneFs(foreign_schedule_ID);
-//				3.轉交
+				// 3.轉交
 				req.setAttribute("fsVO", fsVO);
 				String url = "/backend/foreign_schedule/update_fs.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
-//				處理其他錯誤
+				// 處理其他錯誤
 			} catch (Exception e) {
 				errorMsgs.add("修改資料取出時失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
@@ -102,14 +111,14 @@ public class foreign_scheduleServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String requestURL = req.getParameter("requestURL");
-			
+
 			try {
-				
+
 				String foreign_schedule_ID = new String(req.getParameter("foreign_schedule_ID").trim());
 				String car_ID = req.getParameter("car_ID");
 				String car_TYPE = req.getParameter("car_TYPE").trim();
@@ -126,54 +135,86 @@ public class foreign_scheduleServlet extends HttpServlet {
 				fsVO.setStar_DB(star_DB);
 				fsVO.setEnd_DB(end_DB);
 				fsVO.setFs_TIME(fs_TIME);
-				
+
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("fsVO", fsVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/backend/foreign_schedule/update_fs.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-//				2.修改資料
+				// 2.修改資料
 				FsService fsSvc = new FsService();
 				fsVO = fsSvc.updateFs(foreign_schedule_ID, car_ID, car_TYPE, star_DB, end_DB, fs_TIME);
-//				3.修改完成準備轉交
+				// 3.修改完成準備轉交
 				req.setAttribute("fsVO", fsVO);
 				String url = "/backend/foreign_schedule/listAllFs.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);	
-//				處理其他錯誤
+				successView.forward(req, res);
+				// 處理其他錯誤
 			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/backend/foreign_schedule/listAllFs.jsp");
-//				failureView.forward(req, res);
+				// errorMsgs.add(e.getMessage());
+				// RequestDispatcher failureView = req
+				// .getRequestDispatcher("/backend/foreign_schedule/listAllFs.jsp");
+				// failureView.forward(req, res);
 				e.printStackTrace();
 			}
 		}
 
-		
 		if ("delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
-//				1.接受請求參數
-				String foreign_schedule_ID =new String(req.getParameter("foreign_schedule_ID"));
-//				2.刪除資料
+				// 1.接受請求參數
+				String foreign_schedule_ID = new String(req.getParameter("foreign_schedule_ID"));
+				// 2.刪除資料
 				FsService fsSvc = new FsService();
 				fsSvc.deleteFs(foreign_schedule_ID);
-//				3.轉交
+				// 3.轉交
 				String url = "/backend/foreign_schedule/listAllFs.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
-//				處理錯誤
+				// 處理錯誤
 			} catch (Exception e) {
-				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/foreign_schedule/listAllFs.jsp");
+				errorMsgs.add("刪除資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/foreign_schedule/listAllFs.jsp");
 				failureView.forward(req, res);
+			}
+		}
+
+		if ("getFSbyCarType".equals(action)) {
+			Gson gson = new Gson();
+			FsService fsService = new FsService();
+			String car_type = req.getParameter("car_type");
+			Set<FsVO> foreign_ScheduleList = fsService.getFSbyCarType(car_type);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.setHeader("Cache-Control", "no-cache");
+			String fsJson = gson.toJson(foreign_ScheduleList);
+			out.print(fsJson);
+		}
+
+		if ("get_FS_json".equals(action)) {
+			try{
+			FsService fsService = new FsService();
+			List<FsVO> fsList = fsService.getAll();
+			JSONArray calResourcesArray = new JSONArray();
+			for(FsVO fsVO:fsList){
+				JSONObject resourceVO = new JSONObject();
+				resourceVO.put("id", fsVO.getForeign_schedule_ID());
+				resourceVO.put("title", fsVO.getForeign_schedule_ID()+ "　" +fsVO.getFs_TIME());
+				resourceVO.put("carType", fsVO.getCar_TYPE());
+				
+				calResourcesArray.put(resourceVO);
+			}
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+	        //res.setHeader("Cache-Control", "no-cache");
+			out.print(calResourcesArray);
+			System.out.println("Calender resources Array = "+calResourcesArray);
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 		}
 	}
 }
-	

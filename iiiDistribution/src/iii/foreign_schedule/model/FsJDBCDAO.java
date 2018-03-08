@@ -270,10 +270,10 @@ public class FsJDBCDAO implements FsDAO_interface {
 	public static void main(String[] args) {
 		FsJDBCDAO dao = new FsJDBCDAO();
 
-		// 新增
+		// �憓�
 		FsVO fsVO1 = new FsVO();
 		fsVO1.setCar_ID("CAR002");
-		fsVO1.setCar_TYPE("常溫車");
+		fsVO1.setCar_TYPE("撣豢澈頠�");
 		fsVO1.setStar_DB("DB02");
 		fsVO1.setEnd_DB("DB04");
 		fsVO1.setFs_TIME("12:00");
@@ -303,5 +303,17 @@ public class FsJDBCDAO implements FsDAO_interface {
 		// System.out.print(aFo.getForeign_schedule_updatetime()+ ",");
 		// System.out.println();
 		// }
+	}
+
+	@Override
+	public Set<String> getCarTypeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<FsVO> findByCarType(String car_type) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

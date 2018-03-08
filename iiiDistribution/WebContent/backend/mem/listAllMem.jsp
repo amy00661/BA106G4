@@ -52,14 +52,14 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <form>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="站內搜尋">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-            </form>
+		    <!-- 聊天室Start -->
+			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+			<%--<c:if test="${account.emp_id!=''}"> --%>
+			    <div class="chatDiv" style="position: fixed;z-index:1; right: 120px; top: 3px;">
+			    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
+			    </div>
+				<%--</c:if> --%>
+    		<!-- 聊天室End -->
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
@@ -172,6 +172,7 @@
 
   <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
   <script src="<%=request.getContextPath()%>/backend/js/main.js"></script>
   

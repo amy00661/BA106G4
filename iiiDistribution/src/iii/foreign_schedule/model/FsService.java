@@ -1,6 +1,9 @@
 package iii.foreign_schedule.model;
 
 import java.util.List;
+import java.util.Set;
+
+import iii.local_schedule.model.LsVO;
 
 
 public class FsService {
@@ -54,5 +57,13 @@ public class FsService {
 	
 	public List<FsVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public Set<String> getCarTypeList(){
+		return dao.getCarTypeList();
+	}
+	
+	public Set<FsVO> getFSbyCarType(String car_type){
+		return dao.findByCarType(car_type);
 	}
 }

@@ -56,14 +56,14 @@
               </div>
             </div>
             </form> -->
-    <!-- 聊天室Start -->
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- 	<c:if test="${account.emp_id!=''}"> --%>
-	    <div class="chatDiv" style="position: fixed;z-index:1; right: 120px; top: 0px;">
-	    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
-	    </div>
-<%--     </c:if> --%>
-    <!-- 聊天室End -->
+		    <!-- 聊天室Start -->
+			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+			<%--<c:if test="${account.emp_id!=''}"> --%>
+			    <div class="chatDiv" style="position: fixed;z-index:1; right: 120px; top: 0px;">
+			    		<jsp:include page="/backend/chat/chat_backend.jsp" flush="true" />
+			    </div>
+			<%--</c:if> --%>
+    		<!-- 聊天室End -->
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">

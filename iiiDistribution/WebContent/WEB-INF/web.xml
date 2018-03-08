@@ -10,19 +10,26 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 
-  <filter>
+<filter>
     <filter-name>backLoginFilter</filter-name>
     <filter-class>filters.BackLoginFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>backLoginFilter</filter-name>
     <url-pattern>/backend/index.jsp</url-pattern>
-    <url-pattern>/backend/employee/*</url-pattern>
-    <url-pattern>/backend/chat/*</url-pattern>
-    <url-pattern>/backend/local_order/*</url-pattern>
-    <url-pattern>/backend/menu/*</url-pattern>
     <url-pattern>/backend/car/*</url-pattern>
-<!--     <url-pattern>/backend/order_main/*</url-pattern> -->
+    <url-pattern>/backend/chat/*</url-pattern>
+    <url-pattern>/backend/chat/*</url-pattern>
+    <url-pattern>/backend/employee/*</url-pattern>
+    <url-pattern>/backend/foreign_schedule/*</url-pattern>
+    <url-pattern>/backend/local_order/*</url-pattern>
+    <url-pattern>/backend/local_schedule/*</url-pattern>
+    <url-pattern>/backend/mem/*</url-pattern>
+    <url-pattern>/backend/menu/*</url-pattern>
+    <url-pattern>/backend/news/*</url-pattern>
+    <url-pattern>/backend/order_main/*</url-pattern>
+    <url-pattern>/backend/promotion/*</url-pattern>
+    <url-pattern>/backend/transport_fee/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
@@ -163,7 +170,15 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>foreign_scheduleServlet</servlet-name>
-    <url-pattern>/backend/foreign_schedule/fs.do</url-pattern>
+    <url-pattern>/foreign_schedule/fs.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>foreign_orderServlet</servlet-name>
+    <servlet-class>iii.foreign_order.controller.foreign_orderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>foreign_orderServlet</servlet-name>
+    <url-pattern>/foreign_order/FO_Servlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Local_ScheduleServlet</servlet-name>

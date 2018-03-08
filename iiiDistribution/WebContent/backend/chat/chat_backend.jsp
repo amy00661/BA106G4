@@ -8,7 +8,7 @@
 <!-- CSS個人套件 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/css/chat/chat.css">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
 </head>
@@ -61,7 +61,7 @@
 		                <div class="card card-body">
 		                    <ul class="chat">
 		                        <li class="left clearfix">
-		                        	<span class="chat-img pull-left"><img src="img/customer-icon.png" alt="User Avatar" class="img-circle" /></span>
+		                        	<span class="chat-img pull-left"><img src="<%=request.getContextPath()%>/backend/img/customer-icon.png" alt="User Avatar" class="img-circle" /></span>
 		                            <div class="chat-body clearfix">
 		                                <div class="header">
 		                                    <strong class="primary-font">Customer Service</strong> <small class="pull-right text-muted">
@@ -168,9 +168,11 @@
 					var friendNameId = element.replace(/\s+/g, "");
 					chatroomID = $('#ROOM_'+ friendNameId);//將客戶帳號去空白作為chatroomID
 					//判斷這個friend的chatroom是否已存在，不存在則「加入聊天列表」、「建立chatroom」
+					var picNum = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+					var headPic = '<%=request.getContextPath()%>/backend/img/chat0' + picNum +'.png';
 					if(chatroomID.length == 0){	
 						var friendInfo = "<li class='clearfix'>"
-	          				+"<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg' alt='avatar' />"
+	          				+"<img src="+ headPic +" alt='avatar' style='width:55px; border-radius:25px'/>"
 	          				+"<div class='about'>"
 	            				+"<div class='name'>"+ element +"</div>"
 	            				+"<div class='status'>"
@@ -185,7 +187,7 @@
 					}
 				});
 				content = "<li class='left clearfix'>"
-								+"<span class='chat-img pull-left'><img src='img/customer-icon.png' alt='User Avatar' class='img-circle' /></span>"
+								+"<span class='chat-img pull-left'><img src='<%=request.getContextPath()%>/backend/img/customer-icon.png' alt='User Avatar' class='img-circle' /></span>"
 								+"<div class='chat-body clearfix'>"
 									+"<div class='header'>"
 										+"<strong class='primary-font'>會員:"+jsonObj.sender+"</strong>"
@@ -198,7 +200,7 @@
 				msgTOchatroom.find('.chat').append(content);//將新訊息加入至指定的聊天室
 			}
 			//msgTOchatroom.find(".card-body").scrollTop(msgTOchatroom.find(".chat").prop("scrollHeight"));
-			setScrollBar(msgTOchatroom);
+			//setScrollBar(msgTOchatroom);
 		};
     }
     
@@ -225,7 +227,7 @@
 		create_chatroom( $('.people-list ul li') );/* 範例資料:Vincent Porter  */
 	};
 	
-	var right = 250;//指定新聊天視窗出現的位置
+	var right = 350;//指定新聊天視窗出現的位置
 	function create_chatroom(li){
 		right += 30;
 		var friendName = li.find("div.name").text();
@@ -240,51 +242,7 @@
 			                    +"</button>"
 			                +"</div>"
 			                +"<div class='card card-body'>"
-			                    +"<ul class='chat'>"
-			                        +"<li class='left clearfix'>"
-			                          +"<span class='chat-img pull-left'>"+"<img src='img/customer-icon.png' alt='User Avatar' class='img-circle' />"+"</span>"
-			                            +"<div class='chat-body clearfix'>"
-			                                +"<div class='header'>"
-			                                    +"<strong class='primary-font'>Customer Service</strong>" +"<small class='pull-right text-muted'>"
-			                                        +"<span class='glyphicons glyphicons-time'>"+"</span>12 mins ago</small>"
-			                                +"</div>"
-			                                +"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>"
-			                            +"</div>"
-			                        +"</li>"
-			                        +"<li class='right clearfix'>"
-			                            +"<span class='chat-img pull-right'>"+"<img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' />"+"</span>"
-			                            +"<div class='chat-body clearfix'>"
-			                                +"<div class='header'>"
-			                                    +"<small class=' text-muted'>"+"<span class='glyphicons glyphicons-time'>"+"</span>13 mins ago</small>"
-			                                    +"<strong class='pull-right primary-font'>Bhaumik Patel</strong>"
-			                                +"</div>"
-			                                +"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
-			                                +"</p>"
-			                            +"</div>"
-			                        +"</li>"
-			                        +"<li class='left clearfix'>"
-			                          +"<span class='chat-img pull-left'>"+"<img src='img/customer-icon.png' alt='User Avatar' class='img-circle' />"+"</span>"
-			                            +"<div class='chat-body clearfix'>"
-			                                +"<div class='header'>"
-			                                    +"<strong class='primary-font'>Customer Service</strong>" +"<small class='pull-right text-muted'>"
-			                                        +"<span class='glyphicons glyphicons-time'>"+"</span>14 mins ago</small>"
-			                                +"</div>"
-			                                +"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
-			                                +"</p>"
-			                            +"</div>"
-			                        +"</li>"
-			                        +"<li class='right clearfix'>"
-			                          +"<span class='chat-img pull-right'>"+"<img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' />"+"</span>"
-			                            +"<div class='chat-body clearfix'>"
-			                                +"<div class='header'>"
-			                                    +"<small class=' text-muted'>"+"<span class='glyphicons glyphicons-time'>"+"</span>15 mins ago</small>"
-			                                    +"<strong class='pull-right primary-font'>Bhaumik Patel</strong>"
-			                                +"</div>"
-			                                +"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
-			                                +"</p>"
-			                            +"</div>"
-			                        +"</li>"
-			                    +"</ul>"
+			                    +"<ul class='chat'></ul>"
 			                +"</div>"
 			                +"<div class='card-footer'>"
 			                    +"<div class='input-group'>"
@@ -302,7 +260,7 @@
 		
 		li.bind( "dblclick", function(){
 			show_chatroom($('#ROOM_'+ friendNameId));
-			setScrollBar($('#ROOM_'+ friendNameId));
+			//setScrollBar($('#ROOM_'+ friendNameId));
 			
 		});
 		

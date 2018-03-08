@@ -114,17 +114,8 @@
 		webSocket.onmessage = function(event) {
 			var jsonObj = JSON.parse(event.data);
 			var content = "";
-			if(jsonObj.sender == myName){
-				content = "<li class='right clearfix'>"
-									+"<span class='chat-img pull-right'><img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' /></span>"
-									+"<div class='chat-body clearfix'>"
-										+"<div class='header'>"
-											+"<small class=' text-muted'><span class='glyphicons glyphicons-time'></span>13 mins ago</small>"
-											+"<strong class='pull-right primary-font'>會員:"+myName+"</strong>"
-										+"</div>"
-										+"<p>"+jsonObj.content+"</p>"
-									+"</div>"
-								+"</li>";
+			if(jsonObj.sender === myName){
+				
 			}else{
 				content = "<li class='left clearfix'>"
 									+"<span class='chat-img pull-left'><img src='img/customer-service.png' alt='User Avatar' class='img-circle' /></span>"
@@ -150,8 +141,21 @@
 	    }else{
 	    	var jsonObj = {"sender" : myName,"receiver" : recevier ,"content" : content,"comeFrom" : "frontend","friends" : [] };
 	        webSocket.send(JSON.stringify(jsonObj));
+	        
+	        var content = "";
+	        content = "<li class='right clearfix'>"
+				+"<span class='chat-img pull-right'><img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' /></span>"
+				+"<div class='chat-body clearfix'>"
+					+"<div class='header'>"
+						+"<small class=' text-muted'><span class='glyphicons glyphicons-time'></span>13 mins ago</small>"
+						+"<strong class='pull-right primary-font'>會員:"+myName+"</strong>"
+					+"</div>"
+					+"<p>"+inputMessage.val()+"</p>"
+				+"</div>"
+			+"</li>";
 	        inputMessage.val("");
 	        inputMessage.focus();
+	        $('.chat').append(content);
 	    }
     }
     

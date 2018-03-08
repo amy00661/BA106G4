@@ -25,7 +25,7 @@ public class LoDAO implements LoDAO_interface{
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO LOCAL_ORDER(LOCAL_ORDER_ID, EMP_ID, ORDER_ID, LOCAL_SCHEDULE_ID, LOCAL_ORDER_DATE, LO_UPDATETIME) VALUES ('L_O'||LPAD(TO_CHAR(local_order_seq.NEXTVAL), 3, '0'), ?,?,?,?, SYSDATE)";
+	private static final String INSERT_STMT = "INSERT INTO LOCAL_ORDER(LOCAL_ORDER_ID, EMP_ID, ORDER_ID, LOCAL_SCHEDULE_ID, LOCAL_ORDER_DATE, LOCAL_ORDER_UPDATETIME) VALUES ('L_O'||LPAD(TO_CHAR(local_order_seq.NEXTVAL), 3, '0'), ?,?,?,?, SYSDATE)";
 	private static final String GET_ALL_STMT = "SELECT * FROM LOCAL_ORDER order by LOCAL_ORDER_ID ";
 	private static final String GET_ONE_STMT = "SELECT * FROM LOCAL_ORDER where LOCAL_ORDER_ID = ?";
 	private static final String DELETE = "DELETE FROM LOCAL_ORDER WHERE LOCAL_ORDER_DATE =?";
