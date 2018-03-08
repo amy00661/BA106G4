@@ -104,10 +104,12 @@
 
 
 							<div>
+								<jsp:useBean id="traSvc" scope="page" class="iii.fee_transition.model.TraService"/>
 								<label for="inputState">車種</label> <select id="inputState"
 									name="car_type" class="form-control" value="value="<%=(lsVO == null) ? "" : lsVO.getCar_type()%>">
-									<option selected>常溫車</option>
-									<option selected>冷凍車</option>
+									<c:forEach var="traVO" items="${traSvc.all}">
+						           		<option value="${traVO.transition_type}" ${(lsVO.car_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}</option>
+						        	</c:forEach>
 								</select>
 							</div>
 

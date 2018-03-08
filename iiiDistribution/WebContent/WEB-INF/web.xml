@@ -19,8 +19,8 @@
     <url-pattern>/backend/index.jsp</url-pattern>
     <url-pattern>/backend/car/*</url-pattern>
     <url-pattern>/backend/chat/*</url-pattern>
-    <url-pattern>/backend/chat/*</url-pattern>
     <url-pattern>/backend/employee/*</url-pattern>
+    <url-pattern>/backend/foreign_order/*</url-pattern>
     <url-pattern>/backend/foreign_schedule/*</url-pattern>
     <url-pattern>/backend/local_order/*</url-pattern>
     <url-pattern>/backend/local_schedule/*</url-pattern>

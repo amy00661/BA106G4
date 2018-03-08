@@ -15,7 +15,7 @@
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css' rel='stylesheet' />
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.2/scheduler.min.css' rel='stylesheet'/>
-	<link href="<%=request.getContextPath()%>/backend/css/local_order.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/backend/css/F&L_order.css" rel="stylesheet">
   	<link href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.8.1/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
   	<link href='https://code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css' rel='stylesheet' />
 <!-- <style>
@@ -133,7 +133,7 @@
 			
 			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<div id="calendarModal" class="modal fade">
-				<div class="modal-dialog modal-lg">
+				<div class="modal-dialog modal-lg" style="max-width: 1500px;">
 				    <div class="modal-content">
 				        <div class="modal-header">
 				            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
@@ -473,10 +473,12 @@
 			//data : {action:"getLocalOrders",loDate:$('localOrderDate').val(),item_type:$("#local_schedule").val()},
 			data : {action:"update",localOrderDate:localOrderDate,local_schedule_id:local_schedule_id,localOrders:localOrders,emp_id:"${account.emp_id}"},
 			success : function(data){
-				if(data>0)
-					alert("資料更新成功!")
-				else
+				if(data>0){
+					alert("資料更新成功!");
+					$('#calendar').fullCalendar( 'refetchEvents' );
+				}else{
 					alert("資料更新有誤...")
+				}
 			}
 		});
 	});

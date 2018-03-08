@@ -149,7 +149,7 @@
 							<td>
 								<div id="updatediv">
 									<FORM METHOD="post"
-										ACTION="<%=request.getContextPath()%>/backend/foreign_schedule/fs.do">
+										ACTION="<%=request.getContextPath()%>/foreign_schedule/fs.do">
 										<input type="submit" value="修改" class="btn btn-info btn-block">
 										<input type="hidden" name="foreign_schedule_ID"
 											value="${fsVO.foreign_schedule_ID}"> <input
@@ -162,7 +162,7 @@
 
 								<div id="deldiv">
 									<FORM METHOD="post"
-										ACTION="<%=request.getContextPath()%>/backend/foreign_schedule/fs.do">
+										ACTION="<%=request.getContextPath()%>/foreign_schedule/fs.do">
 										<input type="submit" value="刪除"
 											class="btn btn-outline-danger btn-block"
 											onclick="return del(${number.index})"> <input
@@ -337,9 +337,11 @@
 				</div>
 				<div class="modal-body">＠Ｑ＠．．．．．．．．．．．．．</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+		            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+		            <form method="post" action="<%=request.getContextPath()%>/employee/EmpServlet.do">
+		            	<input type="hidden" name="action" value="logout">
+				 		<button type="submit" class="btn btn-info btn-block" >登出</button>
+		            </form>					
 				</div>
 			</div>
 		</div>
