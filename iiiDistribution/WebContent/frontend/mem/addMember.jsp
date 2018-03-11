@@ -1,31 +1,44 @@
-<%@	page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<%@	page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="iii.mem.model.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="iii.mem.model.*"%>
 
-<% 
+<%
 	MemVO memVO=(MemVO) request.getAttribute("memVO");
-
 %>
-
 <html>
+
 <head>
-    <meta charset="utf-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>註冊會員</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link href="<%=request.getContextPath()%>/frontend/css/main.css" rel="stylesheet">
-    <!-- ========================================================基本套件 -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-    <!-- =================================================== -->
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>註冊會員</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+	integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+	crossorigin="anonymous">
+<link href="<%=request.getContextPath()%>/frontend/css/main.css" rel="stylesheet">
+
+<!-- ========================================================基本套件 -->
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
+	integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+	crossorigin="anonymous"></script>
+<!-- =================================================== -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script language="javascript">
     
     $(document).ready(function(){
     	
@@ -48,8 +61,6 @@
     			})
     		}
     	}) 
-    	
-    	
 
     	$("#sel").change(function(){
     		
@@ -117,169 +128,212 @@
  
     </script>
 
-   
-  </head>
+</head>
 
-  <body>
-    <header>
-      <div class="container logoCus">
-        <div class="row" align="center">
-          <div class="col-xs-12 col-sm-4">
-          
-            
+<body>
 
-          </div>
-          <div class="col-xs-12 col-sm-4">
-            <!-- LOGO -->
-            <div>
-              <a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/index.jsp"><img src="<%=request.getContextPath()%>/frontend/images/IIICAR5.png" height="150"></a>
-            </div>
-            <div class="input-group">
-              <input  class="form-control" type="text" placeholder="站內搜尋">
-              <div class="input-group-append">
-              <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
+	<header class="container py-3 header-cus">
+		<div
+			class="row flex-nowrap justify-content-between align-items-center">
+			<div class="col-4 text-center"></div>
+			<div class="col-4 text-center">
+				<!--  LOGO -->
+				<div>
+					<a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/index.jsp"><img
+						src="<%=request.getContextPath()%>/frontend/img/IIICAR5.png"
+						height="150"></a>
+				</div>
+			</div>
+			<div class="col-4 d-flex justify-content-end align-items-center">
 
-          </div>
-          <div class="col-xs-12 col-sm-4">
-            
+			</div>
+		</div>
+	</header>
 
-          </div>
-        </div>
-      </div>
+	<!-- navbar -->
+	<div class=container>
+		<nav class="navbar navbar-expand-lg navbar-light nav-cus">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExample10" aria-controls="navbarsExample10"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-        <!-- navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-cus rounded">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+			<div class="collapse navbar-collapse justify-content-md-center"
+				id="navbarsExample10">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">服務項目</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="#">關於我們</a> <a
+								class="dropdown-item" href="#">配送服務</a>
+						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">寄件申請</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item"
+								href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上申請寄件</a>
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/video.jsp">寄件指南</a> <a
+								class="dropdown-item" href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a>
+						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">相關查詢</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> <a
+								class="dropdown-item" href="#">據點查詢</a>
+						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">客服中心</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="#">常見問題</a> <a
+								class="dropdown-item" href="#">聯絡我們</a>
+						</div></li>
+
+					<li class="nav-item"><a class="nav-link" id="dropdown10"
+						href=${ (memVO==null) ? "http://localhost:8081/BA106G4/frontend/logIn.jsp" : "http://localhost:8081/BA106G4/frontend/logOut.jsp" }
+						data-toggle=""
+						data-target="#myModal">${ (memVO==null) ? "會員登入" : "登出" } </a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3">
+				<!-- 母子選單3格-->
+				<!-- ---menu---	 -->
+<div id="accordion">
+  <div class="card my-4">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         	<h5>會員資訊</h5>
         </button>
+      </h5>
+    </div>
 
-        <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">服務項目</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="#">關於我們</a>
-                <a class="dropdown-item" href="#">配送服務</a>
-                <a class="dropdown-item" href="#">契約客戶</a>
-                <a class="dropdown-item" href="#">到府服務</a>
-                <a class="dropdown-item" href="#">QR CODE認證收貨</a>
-                <a class="dropdown-item" href="#">即時追蹤</a>
-              </div>
-            </li>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        	<a href="<%=request.getContextPath()%>/frontend/mem/memDataUpdate.jsp">修改資料</a> 
+        	
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        	 <h5>服務項目</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+     	  關於我們
+      </div>
+      <div class="card-body">
+       	配送服務
+      </div>
+    </div>
+  </div>
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         	<h5>寄件申請</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body" href="#">
+      	<a href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上寄件申請</a> 
+      </div>
+      <div class="card-body" href="<%=request.getContextPath()%>/frontend/video.jsp">
+      <a href=""></a>
+       	寄件指南
+      </div>
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+         	<h5>相關查詢</h5>
+         	
+        </button>
+      </h5>
+    </div>
+    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> 
+       	 
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">據點查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+         	 <h5>客服中心</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">常見問題</a> 
+       
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">聯絡我們</a> 
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---menu---	 -->
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">寄件申請</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="order_cr.html">線上申請寄件</a>
-                <a class="dropdown-item" href="#">寄件指南</a>
-                <a class="dropdown-item" href="cal.html">運費查詢</a>
-              </div>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">相關查詢</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                 <a class="dropdown-item" href="order_inq.html">訂單查詢</a>
-                <a class="dropdown-item" href="#">據點查詢</a>
-                <a class="dropdown-item" href="#">包裹地圖追蹤</a>
-              </div>
-            </li>
-
-            <li class="nav-item dropdown" >
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">客服中心</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="#">常見問題</a>
-                <a class="dropdown-item" href="#">聯絡我們</a>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">會員登入 </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header> 
-
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3">
-          <!-- 母子選單-->
-            <div class="card my-4">
-            <div id="accordion" role="tablist">
-
-              <div class="card">
-                <div class="card-header" role="tab" id="headingOne">
-                  <h5 class="mb-0">
-                    <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
-                     會員資訊
-                    </a>
-                  </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                    修改資料
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card">
-                <div class="card-header" role="tab" id="headingTwo">
-                  <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
-                      導覽列
-                    </a>
-                  </h5>
-                </div>
-
-                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+			</div>
 
 
-        <div class="col-xs-12 col-sm-9">
+			<div class="col-xs-12 col-sm-9">
 
-          <!-- 麵包削 -->
-          <div class="my-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="<%=request.getContextPath()%>/frontend/index.jsp">首頁</a>
-                </li>
-                <li class="breadcrumb-item active">會員註冊</li>
-            </ol>
-          </div> 
-          <!-- 麵包削 -->
-	<c:if test="${not empty errorMsgs}">
-		<font style="color:red">請修正以下錯誤</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-<!-- ================================(主要網格9格)====================================== -->
-          <div>
+				<!-- 麵包削 -->
+				<div class="my-4">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/frontend/index.jsp">首頁</a></li>
+						<li class="breadcrumb-item active">會員註冊</li>
+					</ol>
+				</div>
+				<!-- /麵包削 -->
+				<%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs }">
+				<font style="color:red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color:red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+				<!-- ================================(主要網格9格)====================================== -->
+				<div>
             
           <div>
           <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/mem.do" name="form1">
@@ -296,14 +350,14 @@
                     <div class="form-group row">
 					    <label for="inputPassword" class="col-sm-2 col-form-label"><i class="fa fa-star " style="font-size:10px" aria-hidden="true"></i>帳號(信箱)<span id="result"></span></label>
 					    <div class="col-sm-10">
-					      <input type="email" class="form-control" id="mailInput" name="member_mail" value="<%=(memVO==null)?"iii@gmail.com":memVO.getMember_mail() %>"/>
+					      <input type="email" class="form-control" id="mailInput" name="member_mail" required value="<%=(memVO==null)?"iii@gmail.com":memVO.getMember_mail() %>"/>
 					    </div>
 					  </div>
 				                    
                  	<div class="form-group row">
 					    <label for="inputPassword" class="col-sm-2 col-form-label"><i class="fa fa-star " style="font-size:10px" aria-hidden="true"></i>密碼</label>
 					    <div class="col-sm-10">
-					      <input type="password" class="form-control" id="inputPassword" name="member_psw"  value="<%=(memVO==null)?"123456":memVO.getMember_psw() %>"/>
+					      <input type="password" class="form-control" id="inputPassword" name="member_psw" required  value="<%=(memVO==null)?"123456":memVO.getMember_psw() %>"/>
 					    </div>
 					  </div>
                  
@@ -311,7 +365,7 @@
                  	<div class="form-group row">
 					    <label for="inputPassword" class="col-sm-2 col-form-label"><i class="fa fa-star " style="font-size:10px" aria-hidden="true"></i>確認密碼</label>
 					    <div class="col-sm-10">
-					      <input type="password" class="form-control" id="inputPassword2" name="member_psw2" value="<%=(memVO==null)?"123456":memVO.getMember_psw() %>"/>
+					      <input type="password" class="form-control" id="inputPassword2" name="member_psw2" required value="<%=(memVO==null)?"123456":memVO.getMember_psw() %>"/>
 					    </div>
 					  </div>
    
@@ -329,7 +383,7 @@
 					<div class="form-group row">
 					    <label for="inputPassword" class="col-sm-2 col-form-label"><i class="fa fa-star " style="font-size:10px" aria-hidden="true"></i>會員名稱</label>
 					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="memName" name="member_name" value="<%=(memVO==null)?"史珍香":memVO.getMember_name() %>"/>
+					      <input type="text" class="form-control" id="memName" name="member_name" required value="<%=(memVO==null)?"史珍香":memVO.getMember_name() %>"/>
 					    </div>
 					  </div>
 
@@ -338,7 +392,7 @@
                   <div class="form-group row">
                        <label for="birthday" class="col-sm-2 col-form-label"><b>&nbsp&nbsp</b>生日</label>
                        <div class="col-sm-10">
-                           	<input type="text" class="form-control" id="f_date1" name="member_birth">
+                           	<input type="date" class="form-control" id="f_date1" name="member_birth">
                        </div>
                   </div>
 
@@ -357,7 +411,7 @@
                   <div class="form-group row">
                           <label for="memId" class="col-sm-2 col-form-label"><i class="fa fa-star" style="font-size:10px" aria-hidden="true"></i>身分證(統編)</label>
                           <div class="col-sm-10">
-                          	<input type="text" class="form-control" id="memId" name="member_identification" value="<%=(memVO==null)?"A123456789":memVO.getMember_identification() %>"/>
+                          	<input type="text" class="form-control" id="memId" name="member_identification" required value="<%=(memVO==null)?"A123456789":memVO.getMember_identification() %>"/>
                           </div>
                   </div>
 
@@ -365,7 +419,7 @@
                   <div class="form-group row">
                           <label for="cellphone" class="col-sm-2 col-form-label"><i class="fa fa-star" style="font-size:10px" aria-hidden="true"></i>手機</label>
                           <div class="col-sm-10">
-                          	<input type="text" class="form-control" id="cellphone" name="member_cell" value="<%=(memVO==null)?"0912-234-567":memVO.getMember_cell() %>"/>
+                          	<input type="text" class="form-control" id="cellphone" name="member_cell" required value="<%=(memVO==null)?"0912-234-567":memVO.getMember_cell() %>"/>
                   		  </div>
                   </div>
 
@@ -411,15 +465,9 @@
 							
 							</div>
 							<div class="col-sm-6">
-                          	<input type="text" class="form-control" id="address" name="member_addr3" value="<%=(memVO==null)?"":memVO.getMember_addr() %>"/>
+                          	<input type="text" class="form-control" id="address" name="member_addr3" required value="<%=(memVO==null)?"":memVO.getMember_addr() %>"/>
                  		  </div>
  					</div>
-  
-                
-                
-                
-                
-                
                   </div>
                   </div>
                             
@@ -471,94 +519,32 @@
               </div>
           <br>
         </div>
-      </div>
-    </div>
-	
-	 <div id="myModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header bg-primary">
-                <h4 class="modal-title font-weight-bold text-white">登入帳號</h4>
-                </div>
-                  <div class="modal-body">
-                     <form method="post" action="<%=request.getContextPath()%>/mem/checkMail.do" name="form1">
-                        <div class="form-group">
-                            <label for="mail"><h5><p class="font-weight-bold"><i class="fa fa-envelope"></i> 信箱:</p></h5></label>
-                            <input id="mail" class="form-control" type="email" name="member_mail">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd"><h5><p class="font-weight-bold"><i class="fa fa-lock"></i> 密碼:</p></h5></label>
-                            <input id="pwd" class="form-control" type="password" name="member_psw">
-                        </div>
+				<!-- ================================(主要網格9格)====================================== -->
 
-                         <div class="modal-footer">
-                         		<input type="hidden" name="action" value="login">
-                                <button class="btn btn-primary btn-block" type="submit" ><h4><i class="fa fa-user"> </i>登入</h4></button>                               
-                        </div>
-                            <div class="container">
-                              <div class="row">
-                                <div class="col-9">
-                                  <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">記住我</label>
-                                  </div>
-                                </div>
-                                
-                                <div class="col-3" style="text-align:right;">
-                                  <a href="#">忘記密碼</a>
-                                </div>
+			</div>
+		</div>
+	</div>
 
-                              </div>
-                            </div>
-                      </form> 
-                  </div>
-            </div>
-          </div>
-        </div>
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">2018/2/4版本</p>
-      </div> 
-    </footer>
 
-  </body>
-  <%
-java.sql.Date member_birth=null;
-try{
-		member_birth = memVO.getMember_birth();
-	}catch(Exception e){
-		member_birth = new java.sql.Date(System.currentTimeMillis());
-	}
-%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<!-- Footer -->
+	<!-- FOOTER -->
+	<footer class="container">
+		<p class="float-right">
+			<a href="#">回到上面</a>
+		</p>
+		<p>
+			2018/3/5 版本 <i class="fa fa-github-alt"></i>
+		</p>
+	</footer>
 
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
+	<!-- 	<footer class="py-5"> -->
+	<!-- 		<div class="container"> -->
+	<!-- 			<p class="m-0 text-center text-white">2018/2/4版本</p> -->
+	<!-- 		</div> -->
+	<!-- 	</footer> -->
 
-<script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-	       theme: '',              //theme: 'dark',
-	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=member_birth%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        });
+</body>
 </script>
 </html>

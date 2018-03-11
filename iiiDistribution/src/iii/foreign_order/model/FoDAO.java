@@ -34,8 +34,8 @@ public class FoDAO implements FoDAO_interface {
 	private static final String DELETE = "DELETE FROM FOREIGN_ORDER WHERE FOREIGN_ORDER_ID = ?";
 	private static final String UPDATE_OFF = "UPDATE FOREIGN_ORDER set FOREIGN_SCHEDULE_ID = NULL, FO_DATE=NULL, FO_UPDATETIME = SYSDATE, EMP_ID = ? WHERE FO_DATE=? AND FOREIGN_SCHEDULE_ID=?";
 	private static final String UPDATE_ON = "UPDATE FOREIGN_ORDER set FOREIGN_SCHEDULE_ID = ?, FO_DATE=?, FO_UPDATETIME = SYSDATE, EMP_ID = ? WHERE ORDER_ID IN (";
-	private static final String GET_BY_LO_DATE = "SELECT * FROM ORDER_MAIN WHERE DB_ID = ? AND ORDER_ID IN (SELECT ORDER_ID FROM FOREIGN_ORDER WHERE FO_DATE = ? AND FOREIGN_SCHEDULE_ID = ?)";
-	private static final String GET_ORDs_TO_SHIP = "SELECT * FROM ORDER_MAIN WHERE DB_ID = ? AND ITEM_TYPE=? AND ORDER_ID IN (SELECT ORDER_ID FROM FOREIGN_ORDER WHERE FOREIGN_SCHEDULE_ID is NULL) ORDER BY EXPECTED_TIME";
+	private static final String GET_BY_LO_DATE = "SELECT * FROM ORDER_MAIN WHERE ORDER_ID IN (SELECT ORDER_ID FROM FOREIGN_ORDER WHERE FO_DATE = ? AND FOREIGN_SCHEDULE_ID = ?)";
+	private static final String GET_ORDs_TO_SHIP = "SELECT * FROM ORDER_MAIN WHERE ITEM_TYPE=? AND ORDER_ID IN (SELECT ORDER_ID FROM FOREIGN_ORDER WHERE FOREIGN_SCHEDULE_ID is NULL) ORDER BY EXPECTED_TIME";
 	private static final String GET_FOs_Bind_FS = "SELECT * FROM FOREIGN_ORDER WHERE FOREIGN_SCHEDULE_ID IS NOT NULL";
 	
 	
@@ -351,9 +351,9 @@ public class FoDAO implements FoDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BY_LO_DATE);
-			pstmt.setString(1, db_id);
-			pstmt.setDate(2, fo_date);
-			pstmt.setString(3, foreign_schedule_id);
+			//pstmt.setString(1, db_id);
+			pstmt.setDate(1, fo_date);
+			pstmt.setString(2, foreign_schedule_id);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()){
@@ -421,11 +421,11 @@ public class FoDAO implements FoDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ORDs_TO_SHIP);
-			pstmt.setString(1, db_id);
-			pstmt.setString(2, item_type);
+			//pstmt.setString(1, db_id);
+			pstmt.setString(1, item_type);
 			
 			rs = pstmt.executeQuery();
-			
+			//SELECT * FROM ORDER_MAIN WHERE ITEM_TYPE=? AND ORDER_ID IN (SELECT ORDER_ID FROM FOREIGN_ORDER WHERE FOREIGN_SCHEDULE_ID is NULL) ORDER BY EXPECTED_TIME";
 			while(rs.next()){
 				orderVO = new OrderVO();
 				orderVO.setOrder_id(rs.getString("ORDER_ID"));

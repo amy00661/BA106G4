@@ -97,25 +97,34 @@
 	<script>
 	var myName = "${memVO.member_id}";
 	var recevier = "Customer_Service";
-    var MyPoint = "/MyChatServer/"+myName;
-    var host = window.location.host;
-    var path = window.location.pathname;
-    var webCtx = path.substring(0, path.indexOf('/', 1));
-    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    var MyPoint_chat = "/MyChatServer/"+myName;
+    var host_chat = window.location.host;
+    var path_chat = window.location.pathname;
+    var webCtx_chat = path_chat.substring(0, path_chat.indexOf('/', 1));
+    var endPointURL_chat = "ws://" + host_chat + webCtx_chat + MyPoint_chat;
     
     function connect() {
 		// 建立 websocket 物件
-		webSocket = new WebSocket(endPointURL);
+		webSocket_chat = new WebSocket(endPointURL_chat);
 		
-		webSocket.onopen = function(event) {
-			console.log("WebSocket 成功連線");
+		webSocket_chat.onopen = function(event) {
+			console.log("聊天室WebSocket 成功連線");
 		};
 		
-		webSocket.onmessage = function(event) {
+		webSocket_chat.onmessage = function(event) {
 			var jsonObj = JSON.parse(event.data);
 			var content = "";
-			if(jsonObj.sender === myName){
-				
+			if(jsonObj.sender == myName){
+				content = "<li class='right clearfix'>"
+									+"<span class='chat-img pull-right'><img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' /></span>"
+									+"<div class='chat-body clearfix'>"
+										+"<div class='header'>"
+											+"<small class=' text-muted'><span class='glyphicons glyphicons-time'></span>13 mins ago</small>"
+											+"<strong class='pull-right primary-font'>會員:"+myName+"</strong>"
+										+"</div>"
+										+"<p>"+jsonObj.content+"</p>"
+									+"</div>"
+								+"</li>";
 			}else{
 				content = "<li class='left clearfix'>"
 									+"<span class='chat-img pull-left'><img src='img/customer-service.png' alt='User Avatar' class='img-circle' /></span>"
@@ -140,22 +149,9 @@
 	        inputMessage.focus();
 	    }else{
 	    	var jsonObj = {"sender" : myName,"receiver" : recevier ,"content" : content,"comeFrom" : "frontend","friends" : [] };
-	        webSocket.send(JSON.stringify(jsonObj));
-	        
-	        var content = "";
-	        content = "<li class='right clearfix'>"
-				+"<span class='chat-img pull-right'><img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' /></span>"
-				+"<div class='chat-body clearfix'>"
-					+"<div class='header'>"
-						+"<small class=' text-muted'><span class='glyphicons glyphicons-time'></span>13 mins ago</small>"
-						+"<strong class='pull-right primary-font'>會員:"+myName+"</strong>"
-					+"</div>"
-					+"<p>"+inputMessage.val()+"</p>"
-				+"</div>"
-			+"</li>";
+	        webSocket_chat.send(JSON.stringify(jsonObj));
 	        inputMessage.val("");
 	        inputMessage.focus();
-	        $('.chat').append(content);
 	    }
     }
     

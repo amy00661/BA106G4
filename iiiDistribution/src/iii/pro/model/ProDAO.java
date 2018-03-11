@@ -34,7 +34,7 @@ public class ProDAO implements ProDAO_interface{
 	private static final String GET_ONE_STMT = 
 	"SELECT promotion_id,emp_id,to_char(promotion_date,'yyyy-mm-dd')promotion_date,promotion_title,promotion_context,promotion_note,"
 	+ "to_char(promotion_start,'yyyy-mm-dd')promotion_start,to_char(promotion_end,'yyyy-mm-dd')promotion_end,promotion_picture,"
-	+ "promotion_discount,to_char(promotion_updatetime,'yyyy-mm-dd hh:mi:ss')promotion_updatetime FROM PROMOTION where promotion_id=?";
+	+ "promotion_discount,to_char(promotion_updatetime,'yyyy-mm-dd hh:mi:ss')promotion_updatetime FROM PROMOTION order by promotion_id";
 	
 	private static final String DELETE =
 	"DELETE FROM PROMOTION where promotion_id=?";
@@ -183,11 +183,11 @@ public class ProDAO implements ProDAO_interface{
 		try{
 			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, promotion_id);
+			pstmt = con.prepareStatement(GET_ONE_STMT,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()){
+			
+				rs.last();
 				proVO=new ProVO();
 				proVO.setPromotion_id(rs.getString("promotion_id"));
 				proVO.setEmp_id(rs.getString("emp_id"));
@@ -201,7 +201,6 @@ public class ProDAO implements ProDAO_interface{
 				proVO.setPromotion_discount(rs.getDouble("promotion_discount"));
 				proVO.setPromotion_updatetime(rs.getTimestamp("promotion_updatetime"));
 
-			}
 			
 			
 			

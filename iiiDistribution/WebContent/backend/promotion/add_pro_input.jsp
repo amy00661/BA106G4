@@ -28,12 +28,13 @@
   <link href="<%=request.getContextPath()%>/backend/css/main.css" rel="stylesheet"> 
   <link href="<%=request.getContextPath()%>/backend/css/mem.css" rel="stylesheet"> 
   	
-<!--   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
   <script src="<%=request.getContextPath()%>/backend/js/main.js"></script>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
 <style>
 	  tr, th, td {
@@ -41,8 +42,18 @@
 	  text-align: center;
 	  }
 </style>
-
-
+<script language="javascript">
+    $(document).ready(function(){
+    	$("#GodBtn").click(function(){
+    		$("#promotion_title").val("寒假開學優惠");
+    		$("#pro_context").val("開學囉「資策學生行李自由日，大包小包資策全都包」. 寒假結束~準備開學囉!!! 返校前，把學生行李交給資策就對了，3/5起至3/16到資策貨運營業所寄件、通知資策貨運到府收享8折優惠。");
+    		$("#promotion_note").val("寒假開學優惠");
+//     		$("#promotion_start").val("2018/03/08");
+//     		$("#promotion_end").val("2018/03/08");
+    		$("#promotion_discount").val("0.8");
+    	})
+    })
+</script>
   <!-- 主要套件 -->
 </head>
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -54,9 +65,83 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-    <!-- 引入MENU -->
-	<jsp:include page="/backend/menu/menu.jsp" flush="true" />
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+<!-- _______________________________________________________________________ -->
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <i class="fa fa-paper-plane"></i>
+            <span class="nav-link-text">訂單管理</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+            <li>
+              <a href="Order_Show.html">訂單查詢</a>
+            </li>
+            <li>
+              <a href="Order_CR.html">建立新訂單</a>
+            </li>
+          </ul>
+        </li>
 
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="#">
+            <i class="fa fa-list-ol"></i>
+            <span class="nav-link-text">清單派車系統</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="#">
+            <i class="fa fa-motorcycle"></i>
+            <span class="nav-link-text">車輛排班系統</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="#">
+            <i class="fa fa-plane"></i>
+            <span class="nav-link-text">總部車輛排班系統</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages1" data-parent="#exampleAccordion">
+            <i class="fa fa-male"></i>
+            <span class="nav-link-text">員工系統</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseExamplePages1">
+            <li>
+              <a href="emp_query.html">員工資料管理</a>
+            </li>
+            <li>
+              <a href="emp_add.html">員工新增&權限管理</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="vehicle.html">
+            <i class="fa fa-car"></i>
+            <span class="nav-link-text">車輛管理</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="#">
+            <i class="fa fa-user"></i>
+            <span class="nav-link-text">會員資料管理</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="#">
+            <i class="fa fa-mobile"></i>
+            <span class="nav-link-text">客服系統</span>
+          </a>
+        </li>
+
+<!-- ____________________________________________________ -->
+      </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -134,7 +219,7 @@
 	                           	<input type="date" class="form-control" id="promotion_start" name="promotion_start" value="${date}">
 	                       </div>
 					    </div>
-					  
+					  	
 					  <div class="form-group row">
 	                       <label for="promotion_end" class="col-sm-2 col-form-label"><h6><b>結束日期</b></h6></label>
 	                       <div class="col-sm-10">
@@ -159,7 +244,9 @@
 						
 						<div class="form-group row">
 						 	<img id="show" width="350" height="350"></img>
+						 	<input type ="button" id="GodBtn" class="btn btn-dark"  value=""></input>
 						 </div>
+						 
 					  <br>
 					  
 					  <div class="card">
@@ -217,11 +304,8 @@
           </div> 
           <div class="modal-body">＠Ｑ＠．．．．．．．．．．．．．</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-            <form method="post" action="<%=request.getContextPath()%>/employee/EmpServlet.do">
-            	<input type="hidden" name="action" value="logout">
-            	<button type="submit" class="btn btn-primary" >登出</button>
-            </form>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
           </div>
         </div>
       </div>

@@ -294,13 +294,10 @@
 	    }
 	//  按下按鈕後觸發,發送訊息給server
 	    function start() {
-	    
-		var member_id=${memVO.member_id};
+		var member_id="${memVO.member_id}";
 	    var member_status=$('input[name=member_status]:checked').val();
-// 	    var jsonObj = {"member_id" : member_id, "member_status" : member_status};
-// 	    webSocket.send(JSON.stringify(jsonObj));
-		
-	      webSocket.send(member_id);
+ 	    var jsonObj = {"member_id" : member_id, "member_status" : member_status};
+ 	    webSocket.send(JSON.stringify(jsonObj));
 
 	      return false;
 	    }

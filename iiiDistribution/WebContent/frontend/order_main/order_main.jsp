@@ -6,6 +6,17 @@
 <%@ page import="iii.order_main.model.*" %>
 <%@ page import="iii.weight.model.*" %>
 <%@ page import="iii.tra.model.*" %>
+<%
+Object memVO = session.getAttribute("memVO");
+
+if(memVO==null){
+	System.out.println("test1");
+	session.setAttribute("location", request.getRequestURI());
+	response.sendRedirect(request.getContextPath()+"/frontend/logIn.jsp");
+	return;
+}
+%>
+
 <% 
 	OrderVO orderVO = (OrderVO) request.getAttribute("orderVO");
 	WeightVO weightVO = (WeightVO) request.getAttribute("weightVO");
@@ -43,8 +54,62 @@
 	crossorigin="anonymous"></script>
 <!-- =================================================== -->
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script language="javascript">
+	    var name="${memVO.member_name}";
+	    var cell="${memVO.member_cell}";
+	    var phone="${memVO.member_phone}";
+		var phone1=phone.substring(0,2);
+		var phone2=phone.substr(3,7);
+		
+		
+		$(document).ready(function(){	
+			$("#godBtn").click(function(){					//神奇小按鈕
+				$("#receiver_name").val("曾菸雲");
+				$("#receiver_cell").val("0934-567789");
+				$("#receiver_address").val("中大路300號");
+				$("#receiver_tel_front").val("03");
+				$("#receiver_tel_back").val("4257387");
+				$("#sender_name").val(name);
+				$("#sender_cell").val(cell);
+				$("#sender_address").val("五興路347號");
+				$("#sender_tel_front").val(phone1);
+				$("#sender_tel_back").val(phone2);
+				$("#receiver_mail").val("HiPeter@gmail.com");
+				$("#expected_time").val("2018-03-15 10:16:28");
+				$("#order_note").val("拜託快點");
+			})		
+		})
+	</script> 
+      
+      
+                      <!-- 請大家把自己的套件放在這邊 -->
+    <style type="text/css">
+      .Pink15 {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 15px;
+          color: #F7107D;
+          line-height: 21px;
+          font-weight: bold;
+		      }
+		      
+		     
+		
+		input, textarea, select, button {
+		    text-rendering: auto;
+		    color: initial;
+		    letter-spacing: normal;
+		    word-spacing: normal;
+		    text-transform: none;
+		    text-indent: 0px;
+		    text-shadow: none;
+		    display: inline-block;
+		    text-align: start;
+		    margin: 0em;
+		    font: 400 11px system-ui;
+		}
+    </style>
 
 </head>
 
@@ -57,7 +122,7 @@
 			<div class="col-4 text-center">
 				<!--  LOGO -->
 				<div>
-					<a class="navbar-brand" href="index.jsp"><img
+					<a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/index.jsp"><img
 						src="<%=request.getContextPath()%>/frontend/img/IIICAR5.png"
 						height="150"></a>
 				</div>
@@ -132,95 +197,105 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
 				<!-- 母子選單3格-->
-				<div class="card my-4">
-					<div id="accordion" role="tablist">
+				<!-- ---menu---	 -->
+<div id="accordion">
+  <div class="card my-4">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         	<h5>會員資訊</h5>
+        </button>
+      </h5>
+    </div>
 
-						<div class="card">
-							<div class="card-header" role="tab" id="headingMem">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapseMem" role="button"
-										aria-expanded="false" aria-controls="collapseMem"> 會員資訊 </a>
-								</h5>
-							</div>
-
-							<div id="collapseMem" class="collapse" role="tabpanel"
-								aria-labelledby="headingMem" data-parent="#accordion">
-								<div class="card-body">修改資料</div>
-							</div>
-						</div>
-
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading1">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse1" role="button"
-										aria-expanded="false" aria-controls="collapse1">服務項目</a>
-								</h5>
-							</div>
-
-							<div id="collapse1" class="collapse" role="tabpanel"
-								aria-labelledby="heading1" data-parent="#accordion">
-
-								<div class="card-body">關於我們</div>
-								<div class="card-body">配送服務</div>
-								<div class="card-body">契約客戶</div>
-								<div class="card-body">到府服務</div>
-								<div class="card-body">QRcode驗證收貨</div>
-								<div class="card-body">即時追蹤</div>
-							</div>
-						</div>
-
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading2">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse2" role="button"
-										aria-expanded="false" aria-controls="collapse2"> 寄件申請 </a>
-								</h5>
-							</div>
-
-							<div id="collapse2" class="collapse" role="tabpanel"
-								aria-labelledby="heading2" data-parent="#accordion">
-								<div class="card-body">線上申請寄件</div>
-								<div class="card-body">寄件指南</div>
-								<div class="card-body">運費查詢</div>
-							</div>
-						</div>
-
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading3">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse3" role="button"
-										aria-expanded="false" aria-controls="collapse3">相關查詢</a>
-								</h5>
-							</div>
-
-							<div id="collapse3" class="collapse" role="tabpanel"
-								aria-labelledby="heading3" data-parent="#accordion">
-								<div class="card-body">訂單查詢</div>
-								<div class="card-body">據點查詢</div>
-							</div>
-						</div>
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading4">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse4" role="button"
-										aria-expanded="false" aria-controls="collapse4">相關查詢</a>
-								</h5>
-							</div>
-
-							<div id="collapse4" class="collapse" role="tabpanel"
-								aria-labelledby="heading4" data-parent="#accordion">
-								<div class="card-body">常見問題</div>
-								<div class="card-body">聯絡我們˙</div>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        	<a href="<%=request.getContextPath()%>/frontend/mem/memDataUpdate.jsp">修改資料</a> 
+        	
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        	 <h5>服務項目</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+     	  關於我們
+      </div>
+      <div class="card-body">
+       	配送服務
+      </div>
+    </div>
+  </div>
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         	<h5>寄件申請</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body" href="#">
+      	<a href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上寄件申請</a> 
+      </div>
+      <div class="card-body" href="<%=request.getContextPath()%>/frontend/video.jsp">
+      <a href=""></a>
+       	寄件指南
+      </div>
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+         	<h5>相關查詢</h5>
+         	
+        </button>
+      </h5>
+    </div>
+    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> 
+       	 
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">據點查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+         	 <h5>客服中心</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">常見問題</a> 
+       
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">聯絡我們</a> 
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---menu---	 -->
 
 			</div>
 
@@ -238,7 +313,444 @@
 				<!-- /麵包削 -->
 
 				<!-- ================================(主要網格9格)====================================== -->
-				<jsp:include page="addOrder.jsp"/>
+				<div class="container">
+				  <div class="row">
+				    <div class="col-xs-12 col-sm-9">
+				      <form METHOD="post" ACTION="<%= request.getContextPath() %>/order_main/order.do">
+				        <div>
+				          <table class="table table-hover">
+				            <thead>
+				              <tr>
+				                <table border="0" cellpadding="3" cellspacing="0" bgcolor="#f7107d" class="padding3">
+				                  <tbody>
+				                    <tr>
+				                      <td>
+				                        <table width="410" border="0" cellspacing="0" cellpadding="0">
+				                          <tbody>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF" style="border-right: #f7107d 1px solid; border-bottom: #f7107d 2px solid;">
+				                                <span class="Pink15"> 
+				                                  <img src="<%=request.getContextPath()%>/frontend/img/Pink_receiver.gif" width="29" height="103">
+				                                </span>
+				                              </td>
+				                              <td><!--收件人-->
+				                                <div>                                   
+				                                  <div>      
+				                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                      <tbody>
+				                                        <tr bordercolor="#FEB4C8" class="bl132">
+				                                          <td bgcolor="#FFFFFF">
+				                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                              <tbody>
+				                                                <tr>
+				                                                  <td width="5%" height="35" align="center" valign="middle" class="Pink15">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_name.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td align="left">
+				                                                    &nbsp;
+				                                                    <input type="text" maxlength="20" id="receiver_name" name="receiver_name" value="${param.receiver_name}">
+				                                                  </td>
+				                                                  <td width="5%" align="center" valign="middle" class="Pink15">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_mobil.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td width="30%">
+				                                                    <input type="text" maxlength="11" style="width:120px;" id="receiver_cell" name="receiver_cell" value="${param.receiver_cell}"> 
+				                                                  </td>
+				                                                  <td width="2%">
+				                                                  </td>
+				                                                  <td width="4%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_must.gif" width="20" height="35">
+				                                                  </td>
+				                                                </tr>
+				                                              </tbody>
+				                                            </table>
+				                                          </td>
+				                                        </tr>
+				                                        <tr bordercolor="#FEB4C8" class="bl132">
+				                                          <td bgcolor="#FFFFFF" style="border-top: #FEB4C8 2px solid; border-bottom: #FEB4C8 2px solid;">
+				                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                              <tbody>
+				                                                <tr>
+				                                                  <td width="5%" rowspan="2" align="center" valign="middle" class="Pink15">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_add.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td height="35" style="border-left: #FEB4C8 2px solid;">
+				                                                    <table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>
+				                                                      <select name="receiver_city" id="receiver_city">
+				                                                        <option value="台北市" selected="selected">台北市</option>
+				                                                        <option value="基隆市">基隆市</option>
+				                                                        <option value="新北市">新北市</option>
+				                                                        <option value="桃園市">桃園市</option>
+				                                                        <option value="新竹市">新竹市</option>
+				                                                        <option value="新竹縣">新竹縣</option>
+				                                                        <option value="苗栗縣">苗栗縣</option>
+				                                                        <option value="台中市">台中市</option>
+				                                                        <option value="彰化縣">彰化縣</option>
+				                                                        <option value="南投縣">南投縣</option>
+				                                                        <option value="雲林縣">雲林縣</option>
+				                                                        <option value="嘉義市">嘉義市</option>
+				                                                        <option value="嘉義縣">嘉義縣</option>
+				                                                        <option value="台南市">台南市</option>
+				                                                        <option value="高雄市">高雄市</option>
+				                                                        <option value="屏東縣">屏東縣</option>
+				                                                        <option value="宜蘭縣">宜蘭縣</option>
+				                                                        <option value="台東縣">台東縣</option>
+				                                                        <option value="花蓮縣">花蓮縣</option>
+				                                                        <option value="金門縣">金門縣</option>
+				                                                        <option value="連江縣">連江縣</option>
+				                                                        <option value="澎湖縣">澎湖縣</option>
+				                                                      </select>&nbsp;                                      
+				                                                      <select name="receiver_county" id="receiver_county">
+				                                                      </select>&nbsp;
+				                                                      </td><td>&nbsp;
+				                                                      </td></tr></tbody>
+				                                                    </table>
+				                                                  </td>
+				                                                </tr>
+				                                                <tr>
+				                                                  <td height="35" colspan="3" align="left" style="border-top: #FEB4C8 2px solid; border-left: #FEB4C8 2px solid;">&nbsp;
+				                                                    <input type="text" maxlength="25" style="width:320px;" id="receiver_address" name="receiver_address" value="${param.receiver_address}">
+				                                                  </td>
+				                                                  <td width="4%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_must.gif" width="20" height="35">
+				                                                  </td>
+				                                                </tr>
+				                                              </tbody>
+				                                            </table>
+				                                          </td>
+				                                        </tr>
+				                                        <tr class="bl132">
+				                                          <td bgcolor="#FFFFFF" style="border-bottom: #f7107d 2px solid;">
+				                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                              <tbody>
+				                                                <tr>
+				                                                  <td width="1%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_tel.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td width="55%" class="bl12" align="left">
+				                                                    &nbsp;
+				                                                    <input type="text" maxlength="3" style="width:40px; " id="receiver_tel_front" name="receiver_tel_front" value="${param.receiver_tel_front}">
+				                                                      -
+				                                                    <input type="text" maxlength="8" style="width:120px;" id="receiver_tel_back" name="receiver_tel_back" value="${param.receiver_tel_back}">
+				                                                  </td>
+				                                                        
+				                                                </tr>
+				                                              </tbody>
+				                                            </table>
+				                                          </td>
+				                                        </tr>
+				                                      </tbody>
+				                                    </table>
+				                                  </div>                                                                                
+				                                </div>
+				                <!-- /收件人--></td>
+				                            </tr>            
+				                          </tbody>
+				                        </table>
+				                        <table width="410" border="0" cellspacing="0" cellpadding="0">
+				                          <tbody>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF" style="border-right: #f7107d 1px solid; border-bottom: #f7107d 2px solid;">
+				                                <span class="Pink15"> 
+				                                  <img src="<%=request.getContextPath()%>/frontend/img/Pink_sender.gif" width="29" height="103">
+				                                </span>
+				                              </td>
+				                              <td><!--寄件人-->
+				                                <div>                                   
+				                                  <div>      
+				                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                      <tbody>
+				                                        <tr bordercolor="#FEB4C8" class="bl132">
+				                                          <td bgcolor="#FFFFFF">
+				                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                              <tbody>
+				                                                <tr>
+				                                                  <td width="5%" height="35" align="center" valign="middle" class="Pink15">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_name.gif" width="20" height="35">          </td>
+				                                                  <td align="left">
+				                                                    &nbsp;
+				                                                    <input type="text" maxlength="20" id="sender_name" name="sender_name" value="${param.sender_name}">
+				                                                  </td>
+				                                                  <td width="5%" align="center" valign="middle" class="Pink15">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_mobil.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td width="30%">
+				                                                    <input type="text" maxlength="12" style="width:120px;" id="sender_cell" name="sender_cell" value="${param.sender_cell}"> 
+				                                                  </td>
+				                                                  <td width="2%">
+				                                                  </td>
+				                                                  <td width="4%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_must.gif" width="20" height="35">
+				                                                  </td>
+				                                                </tr>
+				                                              </tbody>
+				                                            </table>
+				                                          </td>
+				                                        </tr>
+				                                        <tr bordercolor="#FEB4C8" class="bl132">
+				                                          <td bgcolor="#FFFFFF" style="border-top: #FEB4C8 2px solid; border-bottom: #FEB4C8 2px solid;">
+				                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                              <tbody>
+				                                                <tr>
+				                                                  <td width="5%" rowspan="2" align="center" valign="middle" class="Pink15">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_add.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td height="35" style="border-left: #FEB4C8 2px solid;">
+				                                                    <table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>
+				                                                      <select name="sender_city" id="sender_city">
+				                                                        <option value="台北市" selected="selected">台北市</option>
+				                                                        <option value="基隆市">基隆市</option>
+				                                                        <option value="新北市">新北市</option>
+				                                                        <option value="桃園市">桃園市</option>
+				                                                        <option value="新竹市">新竹市</option>
+				                                                        <option value="新竹縣">新竹縣</option>
+				                                                        <option value="苗栗縣">苗栗縣</option>
+				                                                        <option value="台中市">台中市</option>
+				                                                        <option value="彰化縣">彰化縣</option>
+				                                                        <option value="南投縣">南投縣</option>
+				                                                        <option value="雲林縣">雲林縣</option>
+				                                                        <option value="嘉義市">嘉義市</option>
+				                                                        <option value="嘉義縣">嘉義縣</option>
+				                                                        <option value="台南市">台南市</option>
+				                                                        <option value="高雄市">高雄市</option>
+				                                                        <option value="屏東縣">屏東縣</option>
+				                                                        <option value="宜蘭縣">宜蘭縣</option>
+				                                                        <option value="台東縣">台東縣</option>
+				                                                        <option value="花蓮縣">花蓮縣</option>
+				                                                        <option value="金門縣">金門縣</option>
+				                                                        <option value="連江縣">連江縣</option>
+				                                                        <option value="澎湖縣">澎湖縣</option>
+				                                                      </select>&nbsp;                                      
+				                                                      <select name="sender_county" id="sender_county">
+				                                                        
+				                                                      </select>&nbsp;
+				                                                      </td><td>&nbsp;
+				                                                      </td></tr></tbody>
+				                                                    </table>
+				                                                  </td>
+				                                                </tr>
+				                                                <tr> 
+				                                                  <td height="35" colspan="3" align="left" style="border-top: #FEB4C8 2px solid; border-left: #FEB4C8 2px solid;">&nbsp;
+				                                                    <input type="text" maxlength="25" style="width:320px;" id="sender_address" name="sender_address" value="${param.sender_address}">
+				                                                  </td>      
+				                                                </tr>
+				                                              </tbody>
+				                                            </table>
+				                                          </td>
+				                                        </tr>
+				                                        <tr class="bl132">
+				                                          <td bgcolor="#FFFFFF" style="border-bottom: #f7107d 2px solid;">
+				                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                              <tbody>
+				                                                <tr>
+				                                                  <td width="1%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                                    <img src="<%=request.getContextPath()%>/frontend/img/Pink_tel.gif" width="20" height="35">
+				                                                  </td>
+				                                                  <td width="55%" class="bl12" align="left">
+				                                                    &nbsp;
+				                                                    <input type="text" maxlength="3" style="width:40px; " id="sender_tel_front" name="sender_tel_front" value="${param.sender_tel_front}">
+				                                                    -
+				                                                    <input type="text" maxlength="8" style="width:120px;" id="sender_tel_back" name="sender_tel_back" value="${param.sender_tel_back}">
+				                                                  </td>
+				                                                </tr>
+				                                              </tbody>
+				                                            </table>
+				                                          </td>
+				                                        </tr>
+				                                      </tbody>
+				                                    </table>
+				                                  </div>                                                                                
+				                                </div>
+				                <!-- /收件人--></td>
+				                            </tr>            
+				                          </tbody>
+				                        </table>
+				                                
+				                        <table width="100%" border="0" cellpadding="0" cellspacing="0" bordercolor="#FEB4C8" class="bl132">
+				                          <tbody>
+				                             <tr>
+				                              <td bgcolor="#FFFFFF" style="border-top: #f7107d 1px solid; border-bottom: #f7107d 1px solid;">
+				                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                  <tbody>
+				                                    <tr>
+				                                      <td width="35%" align="center" valign="middle" class="Pink15  Pink bold"> 服務使用人E-Mail</td>
+				                                      <td height="35">
+				                                        <div>
+				                                          <input type="text" maxlength="138" id="receiver_mail" name="receiver_mail" value="${param.receiver_mail}">
+				                                          <span class="bl12 Pink15">(寄確認信用)</span>                                                 
+				                                        </div>
+				                                      </td>
+				                                      <td width="4%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                        <img src="<%=request.getContextPath()%>/frontend/img/Pink_must.gif" width="20" height="35">
+				                                      </td>
+				                                    </tr>
+				                                  </tbody>
+				                                </table>
+				                              </td>
+				                            </tr>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF" style="border-top: #f7107d 1px solid; border-bottom: #f7107d 1px solid;">
+				                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                  <tbody> 
+				                                  </tbody>
+				                                </table>
+				                              </td>
+				                            </tr>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF">
+				                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                  <tbody>
+				                                    <tr>
+				                                      <td>
+				                                        <td width="35%" align="center" valign="middle" class="Pink15  Pink bold">重量</td>
+				                                        </span>
+				                                      </td>
+				                                      <td>
+				                                        <span class="Pink15">
+				                                          <jsp:useBean id="weightSvc" scope="page" class="iii.weight.model.WeightService"/>
+				                                          <select name="item_weight" id="item_weight">
+				                                            <c:forEach var="weightVO" items="${weightSvc.all}">
+				                                              <option value="${weightVO.weight_price}" ${(orderVO.item_weight==weightVO.weight_price)? 'selected':''}>${weightVO.weight_type}
+				                                            </c:forEach>
+				                                          </select>
+				                                        </span>
+				                                      </td>
+				                                      <td>
+				                                        <td width="35%" align="center" valign="middle" class="Pink15  Pink bold">尺寸
+				                                        </td>
+				                                        </span>
+				                                      </td>
+				                                      <td>
+				                                        <span class="Pink15">
+				                                          <jsp:useBean id="sizeSvc" scope="page" class="iii.size.model.SizeService"/>
+				                                          <select name="item_size" id="item_size">
+				                                            <c:forEach var="sizeVO" items="${sizeSvc.all}">
+				                                              <option value="${sizeVO.size_price}" ${(orderVO.item_size==sizeVO.size_price)? 'selected':''}>${sizeVO.size_type}
+				                                            </c:forEach>
+				                                          </select>
+				                                        </span>
+				                                      </td>
+				                                      <td>
+				                                        <td width="35%" align="center" valign="middle" class="Pink15  Pink bold">類型
+				                                        </td>
+				                                        </span>
+				                                      </td>
+				                                      <td>
+				                                        <span class="Pink15">
+				                                          <jsp:useBean id="traSvc" scope="page" class="iii.tra.model.TraService"/>
+				                                          <select name="item_type" id="item_type">
+				                                            <c:forEach var="traVO" items="${traSvc.all}">
+				                                              <option value="${traVO.transition_type}" ${(orderVO.item_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}
+				                                            </c:forEach>
+				                                          </select>
+				                                        </span>
+				                                      </td>
+				                                      <td width="4%" align="center" valign="middle" bgcolor="#f7107d" class="TWhite">
+				                                        <img src="<%=request.getContextPath()%>/frontend/img/Pink_must.gif" width="20" height="35">
+				                                      </td>
+				                                    </tr>
+				                                  </tbody>
+				                                </table>
+				                              </td>
+				                            </tr>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF" style="border-top: #f7107d 1px solid; border-bottom: #f7107d 1px solid;">
+				                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                  <tbody>
+				                                    <tr>
+				                                      <td width="35%" align="center" valign="middle" class="Pink15  Pink bold">預期送達時間
+				                                      </td>
+				                                      <td height="35">
+				                                        <div>
+				                                          <input type="text" maxlength="138" class="expected_time" id="expected_time" name="expected_time" value="${param.expected_time}">
+				                                        </div>
+				                                      </td>
+				                                    </tr>
+				                                  </tbody>
+				                                </table>
+				                              </td>
+				                            </tr>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF" style="border-top: #f7107d 1px solid; border-bottom: #f7107d 1px solid;">
+				                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                  <tbody>
+				                                    <tr>
+				                                      <td width="35%" align="center" valign="middle" class="Pink15  Pink bold">備註
+				                                      </td>
+				                                      <td height="35">
+				                                        <div>
+				                                          <input type="text" maxlength="138" id="order_note" name="order_note" value="${param.order_note}">
+				                                        </div>
+				                                      </td>
+				                                    </tr>
+				                                  </tbody>
+				                                </table>
+				                              </td>
+				                            </tr>
+				                            <tr>
+				                              <td bgcolor="#FFFFFF" style="border-top: #f7107d 1px solid; border-bottom: #f7107d 1px solid;">
+				                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				                                  <tbody>
+				                                    <tr>
+				                                      <td width="20%" align="center" valign="middle" class="Pink15  Pink bold"> 金額：
+				                                      </td>
+				                                      <td width="20%" align="center" valign="middle" class="Pink15  Pink bold" id="total" name="fee" value="${orderVO.fee}">
+				                                      </td>
+				                                      <input type="hidden" id="totalGo" name="fee" >
+				                                      <td align="center" valign="middle" class="Pink15  Pink bold"> 元 
+				                                      </td>
+				                                      <td width="20%" align="center" valign="middle" class="Pink15  Pink bold" >
+				                                        <input type="button" value="試算金額才能送出" id="totalButton" onClick="document.getElementById('submitButton').disabled=false">
+				                                      </td>
+				                                      <td width="10%" align="center" valign="middle" class="Pink15  Pink bold" >
+				                                        <input type="button" value="神" id="godBtn">
+				                                      </td>
+				                                      <td height="35">
+				                                        <div>
+				                                          <span class="bl12">
+				                                          </span> 
+				                                          <button type="submit" class='btn btn-warning update Pink15' id="submitButton" style="float: right;"  disabled> 確認送出 </button>
+				                                          <input type="hidden" id="totalGo" name="fee" >
+				                                        	<input type="hidden" name="mem_id" value="${memVO.member_id}">
+										                    <input type="hidden" name="requestURL" value="<%= request.getServletPath() %>">
+										                    <input type="hidden" name="action" value="Readyinsert">
+				                                        </div>
+				                                      </td>
+				                                    </tr>
+				                                  </tbody>
+				                                </table>
+				                              </td>
+				                            </tr>
+				                          </tbody>
+				                        </table>
+				                      </td>
+				                    </tr>
+				                  </tbody>
+				                </table>
+				              </tr>
+				            </thead>
+				          </table>    
+				        </div>     
+				      </form>
+				    </div>
+				    <div class="col-xs-12 col-sm-3" style=" 
+				    -left:;">
+				      <div class="row">
+				      	<c:if test="${not empty addError}">
+						  <font style="color:red; font-size:15px">煩請重新檢視資料:</font>
+							
+							 	<c:forEach var="message" items="${addError}">
+								  <li style="color:red; font-size:13px">${message.value}</li>
+								</c:forEach>
+							
+						</c:if>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
+				
+				
 	            <br>
 			</div>
 		</div>
@@ -272,17 +784,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 <script type="text/javascript">
   $.datetimepicker.setLocale('zh');
-  $('.expected_time').datetimepicker({
-      theme: '',              //theme: 'dark',
-      timepicker:true,       //timepicker:true,
-      step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-      format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-     <%-- value: '<%=carVO.car_updatetime%>', --%> // value:   new Date(),
-     //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-     //startDate:             '2017/07/10',  // 起始日
-     //minDate:               '-1970-01-01', // 去除今日(不含)之前
-     //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-  });
+//   $('.expected_time').datetimepicker({
+//       theme: '',              //theme: 'dark',
+//       timepicker:true,       //timepicker:true,
+//       step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+//       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+<%--      value: '<%=carVO.car_updatetime%>', // value:   new Date(), --%>
+//      //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+//      //startDate:             '2017/07/10',  // 起始日
+//      //minDate:               '-1970-01-01', // 去除今日(不含)之前
+//      //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+//   });
   
  
   
@@ -362,6 +874,8 @@
 				}
 			})
 		})
+		
+		
 	})
   
 	if($("#receiver_city").val() != ""){

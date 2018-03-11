@@ -83,28 +83,7 @@
       <div style="background-color: #ccffcc">
 
         
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <img src="<%=request.getContextPath()%>/backend/img/truck.jpg" height="800">
 
       </div>
 <!-- 主要功能 -->

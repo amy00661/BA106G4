@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 
 import org.json.*;
 
+//@WebServlet("/MemTestServlet")
 public class MemTestServlet extends HttpServlet {
 	
 	private static final String TEST=
@@ -61,6 +62,7 @@ public class MemTestServlet extends HttpServlet {
 		if(!"searchOrder".equals(action)){
 		
 		try{
+			System.out.println("有近來");
 			Class.forName(driver);
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(TEST);

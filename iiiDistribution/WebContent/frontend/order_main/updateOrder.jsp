@@ -6,35 +6,85 @@
 <%@ page import="iii.order_main.model.*" %>
 <%@ page import="iii.weight.model.*" %>
 <%@ page import="iii.tra.model.*" %>
-<%@ page import="iii.size.model.*" %>
+<%
+Object memVO = session.getAttribute("memVO");
+
+if(memVO==null){
+  System.out.println("test1");
+  session.setAttribute("location", request.getRequestURI());
+  response.sendRedirect(request.getContextPath()+"/frontend/logIn.jsp");
+  return;
+}
+%>
+
 <% 
   OrderVO orderVO = (OrderVO) request.getAttribute("orderVO");
   WeightVO weightVO = (WeightVO) request.getAttribute("weightVO");
   TraVO traVO = (TraVO) request.getAttribute("traVO");
-  SizeVO sizeVO = (SizeVO) request.getAttribute("sizeVO");
 %>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-  <head>
-    <meta charset="utf-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>index</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link href="<%=request.getContextPath()%>/frontend/css/main.css" rel="stylesheet">
-    <!-- ========================================================基本套件 -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-    <!-- =================================================== -->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/css/jquery.datetimepicker.css" />
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>index</title>
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+  integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+  crossorigin="anonymous">
+<link href="<%=request.getContextPath()%>/frontend/css/main.css" rel="stylesheet">
+
+<!-- ========================================================基本套件 -->
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
+  integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+  crossorigin="anonymous"></script>
+<!-- =================================================== -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script language="javascript">
+      var name="${memVO.member_name}";
+      var cell="${memVO.member_cell}";
+      var phone="${memVO.member_phone}";
+    var phone1=phone.substring(0,2);
+    var phone2=phone.substr(3,7);
+    
+    
+    $(document).ready(function(){ 
+      $("#godBtn").click(function(){          //神奇小按鈕
+        $("#receiver_name").val("曾菸雲");
+        $("#receiver_cell").val("0934-567789");
+        $("#receiver_address").val("中大路300號");
+        $("#receiver_tel_front").val("03");
+        $("#receiver_tel_back").val("4257387");
+        $("#sender_name").val(name);
+        $("#sender_cell").val(cell);
+        $("#sender_address").val("五興路347號");
+        $("#sender_tel_front").val(phone1);
+        $("#sender_tel_back").val(phone2);
+        $("#receiver_mail").val("HiPeter@gmail.com");
+        $("#expected_time").val("2018-03-15 10:16:28");
+        $("#order_note").val("拜託快點");
+      })    
+    })
+  </script> 
+      
+      
                       <!-- 請大家把自己的套件放在這邊 -->
-
-    <!-- =================================================== -->
     <style type="text/css">
       .Pink15 {
           font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -61,159 +111,203 @@
     }
     </style>
 
+</head>
 
-  </head>
+<body>
 
-  <body>
-    <header>
-      <div class="container logoCus">
-        <div class="row" align="center">
-          <div class="col-xs-12 col-sm-4">
-            
-
-          </div>
-          <div class="col-xs-12 col-sm-4">
-            <!-- LOGO -->
-            <div>
-              <a class="navbar-brand" href="index.html"><img src="<%=request.getContextPath()%>/frontend/img/IIICAR5.png" height="150"></a>
-            </div>
-            <div class="input-group">
-              <input  class="form-control" type="text" placeholder="站內搜尋">
-              <div class="input-group-append">
-              <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-xs-12 col-sm-4">
-            
-
-          </div>
+  <header class="container py-3 header-cus">
+    <div
+      class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 text-center"></div>
+      <div class="col-4 text-center">
+        <!--  LOGO -->
+        <div>
+          <a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/index.jsp"><img
+            src="<%=request.getContextPath()%>/frontend/img/IIICAR5.png"
+            height="150"></a>
         </div>
       </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
 
-        <!-- navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-cus rounded">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      </div>
+    </div>
+  </header>
+
+ <!-- navbar -->
+	<div class=container>
+		<nav class="navbar navbar-expand-lg navbar-light nav-cus">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExample10" aria-controls="navbarsExample10"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse justify-content-md-center"
+				id="navbarsExample10">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">服務項目</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="#">關於我們</a> <a
+								class="dropdown-item" href="#">配送服務</a>
+						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">寄件申請</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item"
+								href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上申請寄件</a>
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/video.jsp">寄件指南</a> <a
+								class="dropdown-item" href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a>
+						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">相關查詢</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> <a
+								class="dropdown-item" href="#">據點查詢</a>
+						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown10"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">客服中心</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="#">常見問題</a> <a
+								class="dropdown-item" href="#">聯絡我們</a>
+						</div></li>
+
+          <li class="nav-item"><a class="nav-link" id="dropdown10"
+            href=${ (memVO==null) ? "#" : "http://localhost:8081/BA106G4/frontend/logOut.jsp" }
+            data-toggle=${ (memVO==null) ? "modal" : "" }
+            data-target="#myModal">${ (memVO==null) ? "會員登入" : "登出" } </a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-3">
+        <!-- 母子選單3格-->
+        <!-- ---menu---	 -->
+<div id="accordion">
+  <div class="card my-4">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         	<h5>會員資訊</h5>
         </button>
+      </h5>
+    </div>
 
-        <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">服務項目</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="#">關於我們</a>
-                <a class="dropdown-item" href="#">配送服務</a>
-                <a class="dropdown-item" href="#">契約客戶</a>
-                <a class="dropdown-item" href="#">到府服務</a>
-                <a class="dropdown-item" href="#">QR CODE認證收貨</a>
-                <a class="dropdown-item" href="#">即時追蹤</a>
-              </div>
-            </li>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        	<a href="<%=request.getContextPath()%>/frontend/mem/memDataUpdate.jsp">修改資料</a> 
+        	
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        	 <h5>服務項目</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+     	  關於我們
+      </div>
+      <div class="card-body">
+       	配送服務
+      </div>
+    </div>
+  </div>
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         	<h5>寄件申請</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body" href="#">
+      	<a href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上寄件申請</a> 
+      </div>
+      <div class="card-body" href="<%=request.getContextPath()%>/frontend/video.jsp">
+      <a href=""></a>
+       	寄件指南
+      </div>
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+         	<h5>相關查詢</h5>
+         	
+        </button>
+      </h5>
+    </div>
+    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> 
+       	 
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">據點查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+         	 <h5>客服中心</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">常見問題</a> 
+       
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">聯絡我們</a> 
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---menu---	 -->
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">寄件申請</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="order_cr.html">線上申請寄件</a>
-                <a class="dropdown-item" href="#">寄件指南</a>
-                <a class="dropdown-item" href="cal.html">運費查詢</a>
-              </div>
-            </li>
+      </div>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">相關查詢</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                 <a class="dropdown-item" href="order_inq.html">訂單查詢</a>
-                <a class="dropdown-item" href="#">據點查詢</a>
-                <a class="dropdown-item" href="#">包裹地圖追蹤</a>
-              </div>
-            </li>
 
-            <li class="nav-item dropdown" >
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">客服中心</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown10">
-                <a class="dropdown-item" href="#">常見問題</a>
-                <a class="dropdown-item" href="#">聯絡我們</a>
-              </div>
-            </li>
+      <div class="col-xs-12 col-sm-9">
 
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">會員登入 </a>
-            </li>
-          </ul>
+        <!-- 麵包削 -->
+        <div class="my-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a
+              href="<%=request.getContextPath()%>/frontend/index.jsp">首頁</a></li>
+            <li class="breadcrumb-item active">會員註冊</li>
+          </ol>
         </div>
-      </nav>
-    </header> 
-
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3">
-          <!-- 母子選單-->
-            <div class="card my-4">
-            <div id="accordion" role="tablist">
-
-              <div class="card">
-                <div class="card-header" role="tab" id="headingOne">
-                  <h5 class="mb-0">
-                    <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
-                      導覽列
-                    </a>
-                  </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                    子導覽列
-                  </div>
-                </div>
-              </div>
+        <!-- /麵包削 -->
 
 
-              <div class="card">
-                <div class="card-header" role="tab" id="headingTwo">
-                  <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
-                      導覽列
-                    </a>
-                  </h5>
-                </div>
-
-                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                    <div class="card-body">
-                        子導覽列
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="col-xs-12 col-sm-9">
-
-          <!-- 麵包削 -->
-          <div class="my-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="index.html">首頁</a>
-                </li>
-                <li class="breadcrumb-item active">寄件申請</li>
-            </ol>
-          </div> 
-          <!-- 麵包削 -->
-      
 <!-- ================================(主要網格9格)====================================== -->
 <div class="container">
   <div class="row">
@@ -330,9 +424,9 @@
                                                   </td>
                                                   <td width="55%" class="bl12" align="left">
                                                     &nbsp;
-                                                    <input type="text" maxlength="3" style="width:40px; " name="receiver_tel_front" value= ${(orderVO==null) ?"":orderVO.receiver_tel}>
+                                                    <input type="text" maxlength="3" style="width:40px; " name="receiver_tel_front" id="receiver_tel_front" value=>
                                                       -
-                                                    <input type="text" maxlength="8" style="width:120px;" name="receiver_tel_back" value="${param.receiver_tel_back}">
+                                                    <input type="text" maxlength="8" style="width:120px;" name="receiver_tel_back" id="receiver_tel_back" value=>
                                                   </td>
                                                         
                                                 </tr>
@@ -370,13 +464,13 @@
                                                     <img src="<%=request.getContextPath()%>/frontend/img/Pink_name.gif" width="20" height="35">          </td>
                                                   <td align="left">
                                                     &nbsp;
-                                                    <input type="text" maxlength="20" name="sender_name" value="${param.sender_name}">
+                                                    <input type="text" maxlength="20" name="sender_name" value=${(orderVO==null) ?"":orderVO.sender_name}>
                                                   </td>
                                                   <td width="5%" align="center" valign="middle" class="Pink15">
                                                     <img src="<%=request.getContextPath()%>/frontend/img/Pink_mobil.gif" width="20" height="35">
                                                   </td>
                                                   <td width="30%">
-                                                    <input type="text" maxlength="12" style="width:120px;" name="sender_cell" value="${param.sender_cell}"> 
+                                                    <input type="text" maxlength="12" style="width:120px;" name="sender_cell" value= ${(orderVO==null) ?"":orderVO.sender_cell}> 
                                                   </td>
                                                   <td width="2%">
                                                   </td>
@@ -432,7 +526,7 @@
                                                 </tr>
                                                 <tr> 
                                                   <td height="35" colspan="3" align="left" style="border-top: #FEB4C8 2px solid; border-left: #FEB4C8 2px solid;">&nbsp;
-                                                    <input type="text" maxlength="25" style="width:320px;" name="sender_address" value="${param.sender_address}">
+                                                    <input type="text" maxlength="25" style="width:320px;" name="sender_address" value= ${(orderVO==null) ?"":orderVO.sender_address}>
                                                   </td>      
                                                 </tr>
                                               </tbody>
@@ -449,9 +543,9 @@
                                                   </td>
                                                   <td width="55%" class="bl12" align="left">
                                                     &nbsp;
-                                                    <input type="text" maxlength="3" style="width:40px; " name="sender_tel_front" value="${param.sender_tel_front}">
+                                                    <input type="text" maxlength="3" style="width:40px; " name="sender_tel_front" id="sender_tel_front" value="">
                                                     -
-                                                    <input type="text" maxlength="8" style="width:120px;" name="sender_tel_back" value="${param.sender_tel_back}">
+                                                    <input type="text" maxlength="8" style="width:120px;" name="sender_tel_back" id="sender_tel_back" value="">
                                                   </td>
                                                 </tr>
                                               </tbody>
@@ -477,7 +571,7 @@
                                       <td width="35%" align="center" valign="middle" class="Pink15  Pink bold"> 服務使用人E-Mail</td>
                                       <td height="35">
                                         <div>
-                                          <input type="text" maxlength="138" name="receiver_mail" value="${param.receiver_mail}">
+                                          <input type="text" maxlength="138" name="receiver_mail" value= ${(orderVO==null) ?"":orderVO.receiver_mail}>
                                           <span class="bl12 Pink15">(寄確認信用)</span>                                                 
                                         </div>
                                       </td>
@@ -510,9 +604,11 @@
                                         <span class="Pink15">
                                           <jsp:useBean id="weightSvc" scope="page" class="iii.weight.model.WeightService"/>
                                           <select name="item_weight" id="item_weight">
-                                            <c:forEach var="weightVO" items="${weightSvc.all}">
-                                              <option value="${weightVO.weight_price}" ${(orderVO.item_weight==weightVO.weight_price)? 'selected':''}>${weightVO.weight_type}
-                                            </c:forEach>
+                                            <c:if test="${not empty orderVO}">
+                                              <c:forEach var="weightVO" items="${weightSvc.all}">
+                                                <option value="${weightVO.weight_price}" ${(orderVO.item_weight==weightVO.weight_price)? 'selected':''}>${weightVO.weight_type}
+                                              </c:forEach>
+                                          </c:if>
                                           </select>
                                         </span>
                                       </td>
@@ -525,9 +621,11 @@
                                         <span class="Pink15">
                                           <jsp:useBean id="sizeSvc" scope="page" class="iii.size.model.SizeService"/>
                                           <select name="item_size" id="item_size">
-                                            <c:forEach var="sizeVO" items="${sizeSvc.all}">
-                                              <option value="${sizeVO.size_price}" ${(orderVO.item_size==sizeVO.size_price)? 'selected':''}>${sizeVO.size_type}
-                                            </c:forEach>
+                                            <c:if test="${not empty orderVO}">
+                                              <c:forEach var="sizeVO" items="${sizeSvc.all}">
+                                                <option value="${sizeVO.size_price}" ${(orderVO.item_size==sizeVO.size_price)? 'selected':''}>${sizeVO.size_type}
+                                              </c:forEach>
+                                            </c:if>
                                           </select>
                                         </span>
                                       </td>
@@ -540,9 +638,11 @@
                                         <span class="Pink15">
                                           <jsp:useBean id="traSvc" scope="page" class="iii.tra.model.TraService"/>
                                           <select name="item_type" id="item_type">
-                                            <c:forEach var="traVO" items="${traSvc.all}">
-                                              <option value="${traVO.transition_type}" ${(orderVO.item_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}
-                                            </c:forEach>
+                                            <c:if test="${not empty orderVO}">
+                                              <c:forEach var="traVO" items="${traSvc.all}">
+                                                <option value="${traVO.transition_type}" ${(orderVO.item_type==traVO.transition_type)? 'selected':''}>${traVO.transition_type}
+                                              </c:forEach>
+                                            </c:if>
                                           </select>
                                         </span>
                                       </td>
@@ -563,7 +663,7 @@
                                       </td>
                                       <td height="35">
                                         <div>
-                                          <input type="text" maxlength="138" class="expected_time" name="expected_time" value="${param.expected_time}">
+                                          <input type="text" maxlength="138" class="expected_time" name="expected_time" value=${(orderVO==null) ?"":orderVO.expected_time}>
                                         </div>
                                       </td>
                                     </tr>
@@ -580,7 +680,7 @@
                                       </td>
                                       <td height="35">
                                         <div>
-                                          <input type="text" maxlength="138" name="expected_note" value="${param.expected_note}">
+                                          <input type="text" maxlength="138" name="order_note" value = ${(orderVO==null) ?"":orderVO.order_note}>
                                         </div>
                                       </td>
                                     </tr>
@@ -611,7 +711,8 @@
                                           </button>
                                           <input type="hidden" name="order_id" value="${orderVO.order_id}">
                                           <input type="hidden" name="requestURL" value="<%= request.getServletPath() %>">
-                                          <input type="hidden" name="action" value="insert">
+                                          <input type="hidden" name="action" value="update_Frontend">
+                                          <input type="hidden" name="mem_id" value="${memVO.member_id}">
                                         </div>
                                       </td>
                                     </tr>
@@ -633,58 +734,92 @@
     </div>
     <div class="col-xs-12 col-sm-3" style="padding-left:;">
       <div class="row">
-      	<c:if test="${not empty addError}">
-		  <font style="color:red; font-size:15px">煩請重新檢視資料:</font>
-			
-			 	<c:forEach var="message" items="${addError}">
-				  <li style="color:red; font-size:13px">${message.value}</li>
-				</c:forEach>
-			
-		</c:if>
+        <c:if test="${not empty addError}">
+      <font style="color:red; font-size:15px">煩請重新檢視資料:</font>
+      
+        <c:forEach var="message" items="${addError}">
+          <li style="color:red; font-size:13px">${message.value}</li>
+        </c:forEach>
+      
+    </c:if>
       </div>
     </div>
   </div>
 </div>
 
 
-
-
-     
 <!-- ================================(主要網格9格)====================================== -->
-          
 
-        </div>
-      </div>
-    </div>
+  <!-- Footer -->
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-right">
+      <a href="#">回到上面</a>
+    </p>
+    <p>
+      2018/3/5 版本 <i class="fa fa-github-alt"></i>
+    </p>
+  </footer>
 
+</body>
 
+<!--JS-->
 
-    
-          
-          
-
-    
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">2018/2/4版本</p>
-      </div> 
-    </footer>
-  
-  </body>
-  
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/frontend/js/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/frontend/js/jquery.datetimepicker.full.js"></script>
 <script src="<%=request.getContextPath()%>/frontend/js/orderQuery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-  
+
 <script type="text/javascript">
+
+// $.datetimepicker.setLocale('zh');
+// $('.expected_time').datetimepicker({
+//     theme: '',              //theme: 'dark',
+//     timepicker:true,       //timepicker:true,
+//     step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+//     format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+<%--    <%-- value: '<%=carVO.car_updatetime%>', --%> // value:   new Date(), --%>
+//    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+//    //startDate:             '2017/07/10',  // 起始日
+//    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+//    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+// });
+
+
+
+$('#totalButton').click(function(){
+    var item_size = $('#item_size').val();
+    var item_weight = $('#item_weight').val();
+    var item_type;
+      if($('#item_type').val() == "常溫")
+        item_type=1;
+      else
+        item_type=1.2
+    var errMsg="";
+    $("[id*='item_']").each(function(index){
+      if($(this).val().trim()==""){
+        if(index==0){
+          errMsg+= "請選擇重量"+"\n";
+        } else if(index==1){
+          errMsg+= "請選擇尺寸"+"\n";
+        } else if(index==2){
+          errMsg+= "請選擇類型"+"\n";
+        }
+      } else {
+        $('#total').text(item_size * item_weight * item_type);
+        $('#totalGo').val(item_size * item_weight * item_type);
+      }
+    }); 
+   if(errMsg!=""){
+     alert(errMsg);
+   } 
+});
+
+
 $(document).ready(function(){
-  if($("#sender_city").val() != ""){
+  if('${orderVO}' != ""){
     $('#sender_city option[value = ${orderVO.sender_city}]').attr('selected', 'selected');
     $.ajax({
       type : "post",
@@ -730,11 +865,61 @@ $(document).ready(function(){
        }
      })
    })
-
-console.log(${orderVO.receiver_tel});
-  
+  if('${orderVO}' != ""){
+    $('#receiver_city option[value = ${orderVO.receiver_city}]').attr('selected', 'selected');
+    $.ajax({
+      type : "post",
+      url  : "<%=request.getContextPath()%>/order_main/place.do",
+      data : {plasebig:$("#receiver_city").val()},
+      datatype: "json",
+      success : function(data){
+        var str = $.parseJSON(data);
+        $("#receiver_county").empty();
+        for(var i=0;i<str.length;i++){
+          $("#receiver_county").append("<option value='"+ str[i] +"'>"+str[i]+"</option>");
+        }
+        $('#receiver_county option[value = ${orderVO.receiver_county}]').attr('selected', 'selected');
+      }
+    })
+  }else{
+    $.ajax({
+      type : "post",
+      url  : "<%=request.getContextPath()%>/order_main/place.do",
+      data : {plasebig:"台北市"},
+      datatype: "json",
+      success : function(data){
+      var str = $.parseJSON(data);
+      $("#receiver_county").empty();
+        for(var i=0;i<str.length;i++){
+        $("#receiver_county").append("<option value='"+ str[i] +"'>"+str[i]+"</option>");
+        }           
+      }
+    })
+  }
+  $("#receiver_city").change(function(){
+    $.ajax({
+     type : "post",
+     url  : "<%=request.getContextPath()%>/order_main/place.do",
+     data : {plasebig:$("#receiver_city").val()},
+     datatype: "json",
+     success : function(data){
+        var str = $.parseJSON(data);
+        $("#receiver_county").empty();
+        for(var i=0;i<str.length;i++){
+           $("#receiver_county").append("<option value='"+ str[i] +"'>"+str[i]+"</option>");
+        }           
+      }
+    })
+  })
+  if('${orderVO}'!=null){
+  var x = '${orderVO.receiver_tel}' ;
+  $('#receiver_tel_front').val(x.substring(0, 2).replace('-', ''));
+  $('#receiver_tel_back').val(x.substring(x.length, 3).replace('-', ''));
+  var y = '${orderVO.sender_tel}' ;
+  $('#sender_tel_front').val(y.substring(0, 2).replace('-', ''));
+  $('#sender_tel_back').val(y.substring(x.length, 3).replace('-', ''));
+  }
 })
 
 </script>
- 
 </html>

@@ -5,14 +5,14 @@
 
   <%if (rowsPerPage<rowNumber) {%>
     <%{%>
-        <A href="<%=request.getRequestURI()%>?whichPage=1" class="btn btn-success">|<</A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=1" class="btn btn-primary">|<</A>&nbsp;
         
     <%}%> 
 	         <%for (int i=1; i<=pageNumber; i++){%>
-	            <A href="<%=request.getRequestURI()%>?whichPage=<%=i%>" class="btn btn-success"><%=i%></A>&nbsp;
+	            <A href="<%=request.getRequestURI()%>?whichPage=<%=i%>" class="btn btn-primary"><%=i%></A>&nbsp;
 	         <%}%> 
     <%{%>
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" class="btn btn-success">>|</A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" class="btn btn-primary">>|</A>&nbsp;
     <%}%>
   <%}%>  
 </div>

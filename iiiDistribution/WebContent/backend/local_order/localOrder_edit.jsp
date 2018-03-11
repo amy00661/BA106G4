@@ -206,6 +206,7 @@
   <script src="<%=request.getContextPath()%>/backend/js/gijgo-combined-1.7.3/gijgo.min.js"></script>
 <script>
 	$( document ).ready(function() {
+		
 		var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1);
 		$('#localOrderDate').datepicker({
 	        uiLibrary: 'bootstrap4',
@@ -272,6 +273,8 @@
 			}
 		});
 	});
+	
+	
 	$('#add').click(function() {  
 	    return !$('#unShipOrders option:selected')
 				.remove().appendTo('#localOrders');  

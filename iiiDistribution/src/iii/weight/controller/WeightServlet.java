@@ -125,6 +125,7 @@ public class WeightServlet extends HttpServlet {
 		}
 		
 		if("getOne_For_Insert".equals(action)){
+			
 			String flagWeight=new String("ok");
 			String flagWeightAdd=new String("no");
 			try{
@@ -150,13 +151,14 @@ public class WeightServlet extends HttpServlet {
 		}
 		
 		if("insert".equals(action)){
+			
 			List<String> errorMsgs = new LinkedList<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try{
 				String flagWeight=new String("ok");
 				String flagWeightAdd=new String("ok");
-				String emp_id="EMP001";
+				String emp_id="";
 				String weight_type=req.getParameter("weight_type");
 				
 				if(weight_type==null || weight_type.trim().length()==0){
@@ -195,6 +197,7 @@ public class WeightServlet extends HttpServlet {
 				RequestDispatcher successView= 
 						req.getRequestDispatcher("/backend/transport_fee/listAllFee.jsp");
 				successView.forward(req, res);
+				
 			}catch(Exception e){
 				
 				errorMsgs.add(e.getMessage());

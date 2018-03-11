@@ -204,7 +204,12 @@ public class MemServlet extends HttpServlet{
 				else if(!member_phone.trim().matches(phoneReg)){
 					errorMsgs.add("電話號碼格式錯誤");	
 				}
-				String member_addr = req.getParameter("member_addr");
+				
+				
+				String member_addr1 = req.getParameter("member_addr1");
+				String member_addr2 = req.getParameter("member_addr2");
+				String member_addr3 = req.getParameter("member_addr3");
+				String member_addr = member_addr1+member_addr2+member_addr3;
 				if(member_addr==null || member_addr.trim().length()==0){
 					errorMsgs.add("地址請勿空白");
 				}
@@ -239,14 +244,13 @@ public class MemServlet extends HttpServlet{
 				flag="ok";
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				session.setAttribute("memVO", memVO);
-				session.setAttribute("flag", flag);
+				req.setAttribute("flag", flag);
 			
-				System.out.println("有執行修改");
-//				String url = "/frontend/mem/memData.jsp";
-//				RequestDispatcher successView = 
-//						req.getRequestDispatcher(url);
-//				successView.forward(req, res);
-				res.sendRedirect(req.getContextPath()+"/frontend/mem/memData.jsp");
+				String url = "/frontend/mem/memData.jsp";
+				RequestDispatcher successView = 
+						req.getRequestDispatcher(url);
+				successView.forward(req, res);
+//				res.sendRedirect(req.getContextPath()+"/frontend/mem/memData.jsp");
 				
 			}catch(Exception e){
 				errorMsgs.add(e.getMessage());
@@ -378,7 +382,7 @@ public class MemServlet extends HttpServlet{
 		
 		if("insert".equals(action)){
 			List<String> errorMsgs=new LinkedList<String>();
-			
+			System.out.println("insertsdfdsf");
 			req.setAttribute("errorMsgs", errorMsgs);
 			try{
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/

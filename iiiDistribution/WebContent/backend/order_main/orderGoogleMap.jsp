@@ -433,43 +433,44 @@
         }
          
         $('#left').click(function () {
+        	var x = $("#queryNull").find(":selected");
+        	console.log(x.text());
             moveItems('.sbTwo', '.sbOne');
         });
-         
-    	/* $("#right").click(function(){
-    		
-    		}
-	    		console.log(tt);
-    	}) */
         
         $('#right').on('click', function () {
-        	var tt = document.getElementById("waypoints").options;
-        	var tt1 = $("#waypoints").find(":selected");
-        	console.log(tt1);
+        	var x = $("#waypoints").find(":selected");
+        	console.log(x.text());
 
-    		$.ajax({
-    			type : "post",
-				url  : "<%=request.getContextPath()%>/order_main/queryLo.do",
-				data : {queryLo:queryLo},
-				datatype: "",
-				success : function(data){
-					var str = $.parseJSON(data);
-					/* $("#queryLo").empty(); */
-					clearSelect();
-					for(var i=0;i<str.length;i++){
-						$("#queryLo").append("<option value='"+ str[i] +"' >"+"車輛行程:"+str[i]+"</option>");
-					}
-				}
-    		})
-    		
-//             moveItems('.sbOne', '.sbTwo');
+//     		$.ajax({
+//     			type : "post",
+<%-- 				url  : "<%=request.getContextPath()%>/order_main/queryLo.do", --%>
+// 				data : {queryLo:queryLo},
+// 				datatype: "",
+// 				success : function(data){
+// 					var str = $.parseJSON(data);
+// 					/* $("#queryLo").empty(); */
+// 					clearSelect();
+// 					for(var i=0;i<str.length;i++){
+// 						$("#queryLo").append("<option value='"+ str[i] +"' >"+"車輛行程:"+str[i]+"</option>");
+// 					}
+// 				}
+//     		})
+             moveItems('.sbOne', '.sbTwo');
         });
          
         $('#leftall').on('click', function () {
+        	var x = $("#queryNull").find(":selected");
+        	for(var i = 0; i < x.length; i++){
+        		x += x
+        	}
+        	console.log(x.text());
             moveAllItems('.sbTwo', '.sbOne');
         });
          
         $('#rightall').on('click', function () {
+        	var x = $("#waypoints").find(":selected");
+        	console.log(x.text());
             moveAllItems('.sbOne', '.sbTwo');
         });
       }); 
@@ -514,7 +515,7 @@
 					var str = $.parseJSON(data);
 					$("#waypoints").empty();
 					for(var i=0;i<str.length;i++){
-						$("#waypoints").append("<option value='"+ str[i].RECEIVER_CITY+str[i].RECEIVER_COUNTY+str[i].RECEIVER_CITY+"'selected>"+"訂單:"+str[i].ORDER_ID+"</option>");
+						$("#waypoints").append("<option value='"+ str[i].RECEIVER_CITY+str[i].RECEIVER_COUNTY+str[i].RECEIVER_CITY+"'selected>"+str[i].ORDER_ID+"</option>");
 					}
 				}
     		})
@@ -531,7 +532,7 @@
 					
 					$("#queryNull").empty();
 					for(var i=0;i<str.length;i++){
-						$("#queryNull").append("<option value='"+ str[i].RECEIVER_CITY+str[i].RECEIVER_COUNTY+str[i].RECEIVER_CITY+"' selected='selected'>"+"訂單:"+str[i].ORDER_ID+"</option>");
+						$("#queryNull").append("<option value='"+ str[i].RECEIVER_CITY+str[i].RECEIVER_COUNTY+str[i].RECEIVER_CITY+"' selected='selected'>"+str[i].ORDER_ID+"</option>");
 					}
 				},
     		})

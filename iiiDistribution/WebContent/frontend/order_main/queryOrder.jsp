@@ -7,13 +7,29 @@
 <%@ page import="iii.weight.model.*" %>
 <%@ page import="iii.tra.model.*" %>
 <%@ page import="iii.mem.model.*" %>
+
+
+<%
+
+
+%>
+
+
+
 <% 
 	OrderVO orderVO = (OrderVO) request.getAttribute("orderVO");
 	WeightVO weightVO = (WeightVO) request.getAttribute("weightVO");
 	TraVO traVO = (TraVO) request.getAttribute("traVO");
 	MemVO memVO =(MemVO) session.getAttribute("memVO");
+	if(memVO==null){
+		System.out.println("test1");
+		session.setAttribute("location", request.getRequestURI());
+		response.sendRedirect(request.getContextPath()+"/frontend/logIn.jsp");
+		return;
+	}
+	
 	OrderService OrderSvc=new OrderService();
-	List<OrderVO> list = OrderSvc.getAll();
+	List<OrderVO> list = OrderSvc.getPersonAll(memVO.getMember_id());
 	pageContext.setAttribute("list", list);
 
 %>
@@ -51,9 +67,13 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+<script language="javascript">
+	
+</script>	
+	
 <style>
 
-	
 
 	/* entire container, keeps perspective */
 .flip-container {
@@ -136,7 +156,7 @@
 			<div class="col-4 text-center">
 				<!--  LOGO -->
 				<div>
-					<a class="navbar-brand" href="index.jsp"><img
+					<a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/index.jsp"><img
 						src="<%=request.getContextPath()%>/frontend/img/IIICAR5.png"
 						height="150"></a>
 				</div>
@@ -162,40 +182,35 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="dropdown10"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">服務項目</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown10">
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
 							<a class="dropdown-item" href="#">關於我們</a> <a
-								class="dropdown-item" href="#">配送服務</a> <a class="dropdown-item"
-								href="#">契約客戶</a> <a class="dropdown-item" href="#">到府服務</a> <a
-								class="dropdown-item" href="#">QR CODE認證收貨</a> <a
-								class="dropdown-item" href="#">即時追蹤</a>
+								class="dropdown-item" href="#">配送服務</a>
 						</div></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="dropdown10"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">寄件申請</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown10">
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
 							<a class="dropdown-item"
 								href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上申請寄件</a>
-							<a class="dropdown-item" href="#">寄件指南</a> <a
-								class="dropdown-item" href="cal.html">運費查詢</a>
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/video.jsp">寄件指南</a> <a
+								class="dropdown-item" href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a>
 						</div></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="dropdown10"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">相關查詢</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown10">
-							<a class="dropdown-item" href="order_inq.html">訂單查詢</a> <a
-								class="dropdown-item" href="#">據點查詢</a> <a class="dropdown-item"
-								href="#">包裹地圖追蹤</a>
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> <a
+								class="dropdown-item" href="#">據點查詢</a>
 						</div></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="dropdown10"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">客服中心</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown10">
+						<div class="dropdown-menu my-3" aria-labelledby="dropdown10">
 							<a class="dropdown-item" href="#">常見問題</a> <a
-								class="dropdown-item" href=<%=request.getContextPath()%>
-								/protected/select_MemPage.jsp>聯絡我們</a>
+								class="dropdown-item" href="#">聯絡我們</a>
 						</div></li>
 
 					<li class="nav-item"><a class="nav-link" id="dropdown10"
@@ -211,93 +226,105 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
 				<!-- 母子選單3格-->
-				<div class="card my-4">
-					<div id="accordion" role="tablist">
+				<!-- ---menu---	 -->
+<div id="accordion">
+  <div class="card my-4">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         	<h5>會員資訊</h5>
+        </button>
+      </h5>
+    </div>
 
-						<div class="card">
-							<div class="card-header" role="tab" id="headingMem">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapseMem" role="button"
-										aria-expanded="false" aria-controls="collapseMem"> 會員資訊 </a>
-								</h5>
-							</div>
-
-							<div id="collapseMem" class="collapse" role="tabpanel"
-								aria-labelledby="headingMem" data-parent="#accordion">
-								<div class="card-body">修改資料</div>
-							</div>
-						</div>
-
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading1">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse1" role="button"
-										aria-expanded="false" aria-controls="collapse1">服務項目</a>
-								</h5>
-							</div>
-
-							<div id="collapse1" class="collapse" role="tabpanel"
-								aria-labelledby="heading1" data-parent="#accordion">
-
-								<div class="card-body">關於我們</div>
-								<div class="card-body">配送服務</div>
-								<div class="card-body">契約客戶</div>
-								<div class="card-body">到府服務</div>
-								<div class="card-body">QRcode驗證收貨</div>
-								<div class="card-body">即時追蹤</div>
-							</div>
-						</div>
-
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading2">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse2" role="button"
-										aria-expanded="false" aria-controls="collapse2"> 寄件申請 </a>
-								</h5>
-							</div>
-
-							<div id="collapse2" class="collapse" role="tabpanel"
-								aria-labelledby="heading2" data-parent="#accordion">
-								<div class="card-body">線上申請寄件</div>
-								<div class="card-body">寄件指南</div>
-								<div class="card-body">運費查詢</div>
-							</div>
-						</div>
-
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading3">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse3" role="button"
-										aria-expanded="false" aria-controls="collapse3">相關查詢</a>
-								</h5>
-							</div>
-
-							<div id="collapse3" class="collapse" role="tabpanel"
-								aria-labelledby="heading3" data-parent="#accordion">
-								<div class="card-body">訂單查詢</div>
-								<div class="card-body">據點查詢</div>
-							</div>
-						</div>
-
-						<div class="card">
-							<div class="card-header" role="tab" id="heading4">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" href="#collapse4" role="button"
-										aria-expanded="false" aria-controls="collapse4">相關查詢</a>
-								</h5>
-							</div>
-
-							<div id="collapse4" class="collapse" role="tabpanel"
-								aria-labelledby="heading4" data-parent="#accordion">
-								<div class="card-body">常見問題</div>
-								<div class="card-body">聯絡我們˙</div>
-							</div>
-						</div>
-					</div>
-				</div>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        	<a href="<%=request.getContextPath()%>/frontend/mem/memDataUpdate.jsp">修改資料</a> 
+        	
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        	 <h5>服務項目</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+     	  關於我們
+      </div>
+      <div class="card-body">
+       	配送服務
+      </div>
+    </div>
+  </div>
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         	<h5>寄件申請</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body" href="#">
+      	<a href="<%=request.getContextPath()%>/frontend/order_main/order_main.jsp">線上寄件申請</a> 
+      </div>
+      <div class="card-body" href="<%=request.getContextPath()%>/frontend/video.jsp">
+      <a href=""></a>
+       	寄件指南
+      </div>
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/transport_fee/fee.jsp">運費查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+         	<h5>相關查詢</h5>
+         	
+        </button>
+      </h5>
+    </div>
+    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+      <div class="card-body">
+      <a href="<%=request.getContextPath()%>/frontend/order_main/queryOrder.jsp">訂單查詢</a> 
+       	 
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">據點查詢</a> 
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+         	 <h5>客服中心</h5>
+        </button>
+      </h5>
+    </div>
+    <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">常見問題</a> 
+       
+      </div>
+      <div class="card-body">
+       <a href="<%=request.getContextPath()%>/frontend/">聯絡我們</a> 
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---menu---	 -->
 			</div>
 
 			<div class="col-xs-12 col-sm-9">
@@ -313,7 +340,7 @@
 				<!-- /麵包削 -->
 
 				<!-- ================================(主要網格9格)====================================== -->
-				<jsp:useBean id="orderSvc" scope="page" class="iii.order_main.model.OrderService"/>
+<%-- 				<jsp:useBean id="orderSvc" scope="page" class="iii.order_main.model.OrderService"/> --%>
          <table>
          <%@ include file="page1.file" %>	
           <c:forEach var="orderVO" items="${list}" varStatus="nextline" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">

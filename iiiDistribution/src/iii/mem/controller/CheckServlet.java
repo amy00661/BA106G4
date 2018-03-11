@@ -24,6 +24,11 @@ import javax.mail.internet.MimeMessage;
 
 import iii.mem.model.*;
 
+
+
+@WebServlet("/CheckServlet")
+
+
 public class CheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -87,8 +92,6 @@ public class CheckServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-				else{
-					
 					session.setAttribute("memVO", memVO);
 					
 					try{
@@ -100,7 +103,7 @@ public class CheckServlet extends HttpServlet {
 						}
 					}catch(Exception e){}
 					res.sendRedirect(req.getContextPath()+"/frontend/index.jsp");
-				}
+				
 			}catch(Exception e){
 				errorMsgs.add("無此信箱");
 				

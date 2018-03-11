@@ -15,4 +15,5 @@ public interface LoDAO_interface {
 	public List<LoVO> get_LOs_Bind_LS(String db_id);
 	public List<OrderVO> findCarsLOs(String db_id,Date local_orderDate,String local_schedule_ID);
 	public List<OrderVO> getOrderToShip(String db_id,String item_type);
+	public Integer getCountLo(String local_order_ID, String local_schedule_ID);
 }

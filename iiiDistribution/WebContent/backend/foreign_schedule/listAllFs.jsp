@@ -220,7 +220,7 @@
 	<!-- footer -->
 
 	<!-- 新增資料跳窗-->
-	<FORM METHOD="post" ACTION="fs.do" name="addcarform">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/foreign_schedule/fs.do" name="addcarform">
 		<div class="modal fade" id="addCar" tabindex="-1" role="dialog"
 			aria-hidden="true">
 			<div class="modal-dialog" role="document">

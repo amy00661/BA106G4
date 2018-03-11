@@ -273,8 +273,16 @@ public class Local_OrderServlet extends HttpServlet {
 					eventVO.put("title", loVO.getOrder_ID());
 					eventVO.put("resourceId", loVO.getLocal_schedule_ID());
 					eventVO.put("start", startDate +"T"+ls_time);
+					
+					Integer count = loService.getCountLo(loVO.getLocal_order_ID(), loVO.getLocal_schedule_ID());
+					if(count >= 10)
+						eventVO.put("color", "red");
+					else if(count < 10 &&  count >= 7)
+						eventVO.put("color", "blue");
+					else
+						eventVO.put("color", "green");
 					//eventVO.put("end", endDate);
-					calEventsArray.put( eventVO );
+					calEventsArray.put(eventVO);
 				}
 				res.setContentType("application/json");
 				out.print(calEventsArray);

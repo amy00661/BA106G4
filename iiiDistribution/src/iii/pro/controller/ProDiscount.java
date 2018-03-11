@@ -40,10 +40,10 @@ public class ProDiscount extends HttpServlet {
 		List<ProVO> list = proSvc.getAll();
 		
 		for(ProVO pro:list){
-			if(time>pro.getPromotion_end().getTime()){
-				message.add("1");
+//			if(time>pro.getPromotion_end().getTime()){
+//				message.add("1");
 				//				out.print(1);
-			}else{
+//			}else{
 				
 				if(time > pro.getPromotion_start().getTime() &&
 			       time < pro.getPromotion_end().getTime()){
@@ -52,12 +52,12 @@ public class ProDiscount extends HttpServlet {
 					message.add(pro.getPromotion_discount());
 					message.add(pro.getPromotion_title());
 					break;
-				}else{
+//				}else{
 //					out.print(1);
-					message.add("1");
+//					message.add("1");
 				}
 			}
-		}
+//		}
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(message);

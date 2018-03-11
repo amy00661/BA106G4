@@ -42,7 +42,7 @@ public class PictureToDatabase {
 				Class.forName(driver);
 				con = DriverManager.getConnection(url,userid,passwd);
 				pstmt = con.prepareStatement(INSERT_PIC);	
-				java.io.FileInputStream in = new java.io.FileInputStream("C:\\Users\\CXX272\\Desktop\\111.jpg");
+				java.io.FileInputStream in = new java.io.FileInputStream("C:\\Users\\Java\\Desktop\\05.jpg");
 				byte[] data = new byte[in.available()];
 				in.read(data);
 				in.close();

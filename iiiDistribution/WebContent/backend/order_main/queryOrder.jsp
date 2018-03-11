@@ -13,7 +13,7 @@
   WeightVO weightVO = (WeightVO) request.getAttribute("weightVO");
   TraVO traVO = (TraVO) request.getAttribute("traVO");
   EmpVO account = (EmpVO) session.getAttribute("account");
-  OrderService orderSvc=new OrderService();
+  OrderService orderSvc = new OrderService();
   List<OrderVO> list = orderSvc.getAll();
   /* Set<OrderVO> set = OrderSvc.getOrderByDBAndEmp(empVO.getDb_id(), empVO.getEmp_id()); */
   Set<OrderVO> set = orderSvc.getDBAndEmpOrderByTime(account.getDb_id(), account.getEmp_id());
@@ -22,8 +22,6 @@
 %>
 
 
-${account.db_id}
-${account.emp_id} 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -347,7 +345,7 @@ ${account.emp_id}
       <div class="container">
 	    <div class="row">
 	      <div class="col-xs-12 col-sm-2">
-	      	<c:forEach var="orderVO" items="${set}" varStatus="nextline">
+	      	<c:forEach var="orderVO" items="${list}" varStatus="nextline">
               <c:if test="${nextline.count%7 == 1}"><tr></c:if>
               <td>
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
@@ -385,7 +383,8 @@ ${account.emp_id}
             </c:forEach>
 	      </div>
 	    </div>
-	  </div>       
+	  </div> 
+	</table>      
   </div>
 </div>
 <!-- 主要功能 -->

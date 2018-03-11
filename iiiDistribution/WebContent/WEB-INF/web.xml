@@ -9,8 +9,20 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-
-<filter>
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>filters.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/frontend/protected/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  <filter>
     <filter-name>backLoginFilter</filter-name>
     <filter-class>filters.BackLoginFilter</filter-class>
   </filter>
@@ -18,6 +30,7 @@
     <filter-name>backLoginFilter</filter-name>
     <url-pattern>/backend/index.jsp</url-pattern>
     <url-pattern>/backend/car/*</url-pattern>
+    <url-pattern>/backend/chat/*</url-pattern>
     <url-pattern>/backend/chat/*</url-pattern>
     <url-pattern>/backend/employee/*</url-pattern>
     <url-pattern>/backend/foreign_order/*</url-pattern>
@@ -36,7 +49,6 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/GROUP4DB</res-ref-name>
@@ -188,7 +200,7 @@
     <servlet-name>Local_ScheduleServlet</servlet-name>
     <url-pattern>/local_schdule/LS_Servlet.do</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>Local_OrderServlet</servlet-name>
     <servlet-class>iii.local_order.controller.Local_OrderServlet</servlet-class>
   </servlet>
@@ -204,7 +216,7 @@
     <servlet-name>ShowProPic</servlet-name>
     <url-pattern>/proPic/proPic.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>ProServlet</servlet-name>
     <servlet-class>iii.pro.controller.ProServlet</servlet-class>
   </servlet>
@@ -213,7 +225,7 @@
     <url-pattern>/pro/pro.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>ShowNewsPic</servlet-name>
+    <servlet-name>ShowNewsPic</servlet-name>
     <servlet-class>iii.news.controller.ShowNewsPic</servlet-class>
   </servlet>
   <servlet-mapping>
@@ -228,7 +240,7 @@
     <servlet-name>NewsServlet</servlet-name>
     <url-pattern>/news/news.do</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>SizeServlet</servlet-name>
     <servlet-class>iii.size.controller.SizeServlet</servlet-class>
   </servlet>
@@ -252,4 +264,57 @@
     <servlet-name>WeightServlet</servlet-name>
     <url-pattern>/weight/weight.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ProDiscount</servlet-name>
+    <servlet-class>iii.pro.controller.ProDiscount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProDiscount</servlet-name>
+    <url-pattern>/proDis/proDis.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  	<context-param>
+		<param-name>contentType</param-name>
+		<param-value>text/html;charset=UTF-8</param-value>
+	</context-param>  
+  	<servlet>
+		<servlet-name>anMemServlet</servlet-name>
+		<servlet-class>android.mem.controller.MemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anMemServlet</servlet-name>
+		<url-pattern>/MemServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>anEmpServlet</servlet-name>
+		<servlet-class>android.emp.controller.EmpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anEmpServlet</servlet-name>
+		<url-pattern>/EmpServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>anOrderServlet</servlet-name>
+		<servlet-class>android.order_main.controller.OrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>anOrderServlet</servlet-name>
+		<url-pattern>/OrderServlet</url-pattern>
+	</servlet-mapping>
+	
+	
 </web-app>

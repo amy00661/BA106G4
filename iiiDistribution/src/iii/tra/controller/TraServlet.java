@@ -216,7 +216,7 @@ public class TraServlet extends HttpServlet {
 			try{
 				String flagTra=new String("ok");
 				String flagTraAdd=new String("ok");
-				String emp_id="EMP001";
+				String emp_id="";
 				String transition_type=req.getParameter("transition_type");
 				
 				if(transition_type==null || transition_type.trim().length()==0){

@@ -59,4 +59,8 @@ public class LoService {
 		return dao.getOrderToShip(db_id,item_type);
 	}
 	
+	public Integer getCountLo(String local_order_ID, String local_schedule_ID){
+		return dao.getCountLo(local_order_ID, local_schedule_ID);
+	}
+	
 }

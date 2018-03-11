@@ -70,68 +70,68 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	
 	
 	
-	@Override
-	public Integer insert(OrderVO orderVO) {
-		Integer insertShow = 0;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try{
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
-			
-			pstmt.setString(1, orderVO.getEmp_id());
-			pstmt.setString(2, orderVO.getMem_id());
-			pstmt.setString(3, orderVO.getDb_id());
-			pstmt.setString(4, orderVO.getOrder_status());
-			pstmt.setString(5, orderVO.getPayment_type());
-			pstmt.setDouble(6, orderVO.getFee());
-			pstmt.setDouble(7, orderVO.getExtrafee());
-			pstmt.setDouble(8, orderVO.getItem_size());
-			pstmt.setDouble(9, orderVO.getItem_weight());
-			pstmt.setString(10, orderVO.getItem_type());
-			pstmt.setString(11, orderVO.getReceiver_name());
-			pstmt.setString(12, orderVO.getReceiver_tel());
-			pstmt.setString(13, orderVO.getReceiver_cell());
-			pstmt.setString(14, orderVO.getReceiver_city());
-			pstmt.setString(15, orderVO.getReceiver_county());
-			pstmt.setString(16, orderVO.getReceiver_address());
-			pstmt.setString(17, orderVO.getReceiver_mail());
-			pstmt.setString(18, orderVO.getSender_name());
-			pstmt.setString(19, orderVO.getSender_tel());
-			pstmt.setString(20, orderVO.getReceiver_cell());
-			pstmt.setString(21, orderVO.getSender_city());
-			pstmt.setString(22, orderVO.getSender_county());
-			pstmt.setString(23, orderVO.getSender_address());
-			pstmt.setTimestamp(24, orderVO.getExpected_time());
-			pstmt.setString(25, orderVO.getOrder_note());
-				
-			insertShow = pstmt.executeUpdate();		
-			
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			} 
-			if(con != null) {
-				try {
-				con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return insertShow;
-	}
+//	@Override
+//	public Integer insert(OrderVO orderVO) {
+//		Integer insertShow = 0;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		try{
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(INSERT_STMT);
+//			
+//			pstmt.setString(1, orderVO.getEmp_id());
+//			pstmt.setString(2, orderVO.getMem_id());
+//			pstmt.setString(3, orderVO.getDb_id());
+//			pstmt.setString(4, orderVO.getOrder_status());
+//			pstmt.setString(5, orderVO.getPayment_type());
+//			pstmt.setDouble(6, orderVO.getFee());
+//			pstmt.setDouble(7, orderVO.getExtrafee());
+//			pstmt.setDouble(8, orderVO.getItem_size());
+//			pstmt.setDouble(9, orderVO.getItem_weight());
+//			pstmt.setString(10, orderVO.getItem_type());
+//			pstmt.setString(11, orderVO.getReceiver_name());
+//			pstmt.setString(12, orderVO.getReceiver_tel());
+//			pstmt.setString(13, orderVO.getReceiver_cell());
+//			pstmt.setString(14, orderVO.getReceiver_city());
+//			pstmt.setString(15, orderVO.getReceiver_county());
+//			pstmt.setString(16, orderVO.getReceiver_address());
+//			pstmt.setString(17, orderVO.getReceiver_mail());
+//			pstmt.setString(18, orderVO.getSender_name());
+//			pstmt.setString(19, orderVO.getSender_tel());
+//			pstmt.setString(20, orderVO.getReceiver_cell());
+//			pstmt.setString(21, orderVO.getSender_city());
+//			pstmt.setString(22, orderVO.getSender_county());
+//			pstmt.setString(23, orderVO.getSender_address());
+//			pstmt.setTimestamp(24, orderVO.getExpected_time());
+//			pstmt.setString(25, orderVO.getOrder_note());
+//				
+//			insertShow = pstmt.executeUpdate();		
+//			
+//		} catch(ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if(pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			} 
+//			if(con != null) {
+//				try {
+//				con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return insertShow;
+//	}
 
 //	@Override
 //	public Integer update(OrderVO orderVO) {
@@ -659,6 +659,12 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 
 	@Override
 	public List<OrderVO> getAllByComposite(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String insert(OrderVO orderVO) {
 		// TODO Auto-generated method stub
 		return null;
 	}

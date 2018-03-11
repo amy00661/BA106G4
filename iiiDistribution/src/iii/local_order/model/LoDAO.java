@@ -25,7 +25,7 @@ public class LoDAO implements LoDAO_interface{
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO LOCAL_ORDER(LOCAL_ORDER_ID, EMP_ID, ORDER_ID, LOCAL_SCHEDULE_ID, LOCAL_ORDER_DATE, LOCAL_ORDER_UPDATETIME) VALUES ('L_O'||LPAD(TO_CHAR(local_order_seq.NEXTVAL), 3, '0'), ?,?,?,?, SYSDATE)";
+	private static final String INSERT_STMT = "INSERT INTO LOCAL_ORDER(LOCAL_ORDER_ID, EMP_ID, ORDER_ID, LOCAL_SCHEDULE_ID, LOCAL_ORDER_DATE, LOCAL_ORDER_UPDATETIME) VALUES ('LO'||LPAD(TO_CHAR(local_order_seq.NEXTVAL), 3, '0'), ?,?,?,?, SYSDATE)";
 	private static final String GET_ALL_STMT = "SELECT * FROM LOCAL_ORDER order by LOCAL_ORDER_ID ";
 	private static final String GET_ONE_STMT = "SELECT * FROM LOCAL_ORDER where LOCAL_ORDER_ID = ?";
 	private static final String DELETE = "DELETE FROM LOCAL_ORDER WHERE LOCAL_ORDER_DATE =?";
@@ -34,7 +34,7 @@ public class LoDAO implements LoDAO_interface{
 	private static final String GET_BY_LO_DATE = "SELECT * FROM ORDER_MAIN WHERE DB_ID = ? AND ORDER_ID IN (SELECT ORDER_ID FROM LOCAL_ORDER WHERE LOCAL_ORDER_DATE = ? AND LOCAL_SCHEDULE_ID = ?)";
 	private static final String GET_ORDs_TO_SHIP = "SELECT * FROM ORDER_MAIN WHERE DB_ID = ? AND ITEM_TYPE=? AND ORDER_ID IN (SELECT ORDER_ID FROM LOCAL_ORDER WHERE LOCAL_SCHEDULE_ID IS NULL) ORDER BY EXPECTED_TIME";
 	private static final String GET_LOs_Bind_LS = "SELECT * FROM LOCAL_ORDER WHERE LOCAL_SCHEDULE_ID　IS NOT NULL AND ORDER_ID IN (SELECT ORDER_ID FROM ORDER_MAIN WHERE DB_ID=? )";
-	
+	private static final String GET_LO_COUNT = "SELECT COUNT(?) FROM LOCAL_ORDER WHERE LOCAL_SCHEDULE_ID = ?";
 	
 	@Override
 	public void insert(LoVO loVO) {
@@ -493,5 +493,51 @@ public class LoDAO implements LoDAO_interface{
 		queryBuilder.append(")");
 		return queryBuilder.toString();
 	}
+
+	@Override
+	public Integer getCountLo(String local_order_ID, String local_schedule_ID) {
+		Integer count = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LoVO loVO = new LoVO();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_LO_COUNT);
+			
+			pstmt.setString(1, local_order_ID);
+			pstmt.setString(2, local_schedule_ID);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+		        System.out.println("numberOfRows= " + count);
+			} else {
+				System.out.println("error: could not get the record counts");
+		    }
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if(pstmt != null){
+				try{
+					pstmt.close();
+				} catch(SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return count;
+	}
+		
 
 }

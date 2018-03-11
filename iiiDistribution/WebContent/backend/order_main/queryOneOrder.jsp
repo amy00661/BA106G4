@@ -55,6 +55,166 @@
   font: 400 11px system-ui;
   }
   </style>
+  
+  <style type="text/css">
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    /* .button */
+    button {
+    font-weight:bold;
+    text-align: center;
+      width:200px;
+      height:45px;
+        color: white;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        font-size: 16px;
+        outline: none;
+        color: #FFF;
+        background: #25b7e8 ;
+        font-family: 'raleway', sans-serif;
+        border-radius: .25rem;
+    }
+
+    .button span {
+        -webkit-transition: 0.6s;
+        -moz-transition: 0.6s;
+        -o-transition: 0.6s;
+        transition: 0.6s;
+        -webkit-transition-delay: 0.2s;
+        -moz-transition-delay: 0.2s;
+        -o-transition-delay: 0.2s;
+        transition-delay: 0.2s;
+    }
+
+    .button:before,
+    .button:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        -webkit-transition: .4s,opacity .6s;
+        -moz-transition: .4s,opacity .6s;
+        -o-transition: .4s,opacity .6s;
+        transition: .4s,opacity .6s;
+    }
+
+    /* :before */
+
+    .button:before {
+        content: attr(data-hover);
+        -webkit-transform: translate(-150%,0);
+        -moz-transform: translate(-150%,0);
+        -ms-transform: translate(-150%,0);
+        -o-transform: translate(-150%,0);
+        transform: translate(-150%,0);
+    }
+
+    /* :after */
+
+    .button:after {
+        content: attr(data-active);
+        -webkit-transform: translate(150%,0);
+        -moz-transform: translate(150%,0);
+        -ms-transform: translate(150%,0);
+        -o-transform: translate(150%,0);
+        transform: translate(150%,0);
+    }
+
+    /* Span on :hover and :active */
+
+    .button:hover span,
+    .button:active span {
+        opacity: 0;
+        -webkit-transform: scale(0.3);
+        -moz-transform: scale(0.3);
+        -ms-transform: scale(0.3);
+        -o-transform: scale(0.3);
+        transform: scale(0.3);
+    }
+
+    /*  
+        We show :before pseudo-element on :hover 
+        and :after pseudo-element on :active 
+    */
+
+    .button:hover:before,
+    .button:active:after {
+        opacity: 1;
+        -webkit-transform: translate(0,0);
+        -moz-transform: translate(0,0);
+        -ms-transform: translate(0,0);
+        -o-transform: translate(0,0);
+        transform: translate(0,0);
+        -webkit-transition-delay: .4s;
+        -moz-transition-delay: .4s;
+        -o-transition-delay: .4s;
+        transition-delay: .4s;
+    }
+
+    /* 
+      We hide :before pseudo-element on :active
+    */
+
+    .button:active:before {
+        -webkit-transform: translate(-150%,0);
+        -moz-transform: translate(-150%,0);
+        -ms-transform: translate(-150%,0);
+        -o-transform: translate(-150%,0);
+        transform: translate(-150%,0);
+        -webkit-transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+    }
+  </style>
+
+  <style> 
+  	
+    .frame{
+        width: 100%;
+        height: 60px;
+        padding: 1em;
+        margin: 12px 0;
+        box-sizing: border-box;
+        border: 2px solid #25b7e8;
+        border-radius: 4px;
+    }
+
+    .btn-circle.btn-lg {
+      width: 50px;
+      height: 50px;
+      padding: 10px 16px;
+      font-size: 18px;
+      line-height: 1.33;
+      border-radius: 25px;
+    }
+    .btn-circle.btn-xl {
+      width: 100px;
+      height: 70px;
+      padding: 10px 16px;
+      font-size: 24px;
+      line-height: 1.33;
+      border-radius: 35px;
+    }
+    
+    .form-control-lg{
+	    font-size: 1rem;
+	    font-weight: bold;
+    }
+    .btn{
+  		font-weight:bold;
+  	}
+  </style>
 
 <!-- CSS -->
   <!-- =================================================== -->
@@ -65,7 +225,7 @@
 <% request.setAttribute("car_plate", "" ); %>
 
 
-<body class="fixed-nav sticky-footer" id="page-top">
+<body class="fixed-nav sticky-footer" id="page-top" style="font-weight:bold;">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     
@@ -109,11 +269,41 @@
 
 
 <!-- 主要功能 -->
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-9">
-      <form METHOD="post" ACTION="<%= request.getContextPath() %>/order_main/order.do">
-        <div style="position:absolute; left:30%;">
+<div class="content-wrapper">
+  <div class="container-fluid">   
+    <table>
+      <div class="container">
+        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_main/order.do" name="form1">
+          <div class="row">
+            <div class="col-xs-12 col-sm-3">
+              <div class="center">
+                <select name="order_status" class="form-control form-control-lg frame" style="height:60px;">
+                  <option value=''>訂單狀態</option>
+                  <option value="處理中">處理中</option>
+                  <option value="未處理">未處理</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+              <div class="center">
+                <select name="receiver_county" id="receiver_county" class="form-control form-control-lg frame" style="height:60px;"s>
+                </select>
+              </div>
+            </div>          
+            <div class="col-xs-12 col-sm-3" style="text-align:center;">
+              <input type="text" id="receiver_name" name="receiver_name" placeholder="輸入姓名" class="frame">
+            </div>
+            <div class="col-xs-12 col-sm-2" >
+              <button class="button" type="submit" data-hover="拜託點我" data-active="I'M ACTIVE"><span>綜合查詢</span></button>
+              <input type="hidden" name="action" value="listOrders_ByCompositeQuery">
+              <button class="button outer" type="submit" data-hover="點我有驚喜 吧！" data-active="I'M ACTIVE" style="margin-top:5px; background:#f9c320; color:black;"><span>訂單行程查詢系統</span></button>
+            </div>
+          </div>
+        </FORM>
+      </div>
+    </table> 
+    <form METHOD="post" ACTION="<%= request.getContextPath() %>/order_main/order.do">
+        <div style="position:absolute; left:30%; top:25%">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -409,25 +599,26 @@
           </table>    
         </div>     
       </form>
-    </div>
-    <div class="col-xs-12 col-sm-3" style="margin-top:10%">
-      <div class="row">
-      	  <form action="<%=request.getContextPath()%>/backend/order_main/queryOrder.jsp">
-      	  	<img src="<%=request.getContextPath()%>/frontend/img/carBack.gif" height="103">
-		     <button type="submit" class='btn btn-warning update Pink15' id="submitButton" style="margin-top:30px; margin-bottom:30px;"> 回到訂單查詢
-		     </button>
-		  </form>
-		  
-		  <form METHOD="post" ACTION="<%= request.getContextPath() %>/order_main/order.do">
-		  	<img src="<%=request.getContextPath()%>/frontend/img/carNext.gif" height="103">
-		  	<button type="submit" class='btn btn-default update Pink15' id="submitButton"  >  修改此訂單 
-		    </button>
-		    <input type="hidden" name="order_id" value="${orderVO.order_id}">
-		    <input type="hidden" name="action" value="insert">
-		  </form>
-      </div>
-    </div>
-  </div>
+	  <div style="position:absolute; left:60%; top:30%;">
+      	<form action="<%=request.getContextPath()%>/backend/order_main/queryOrder.jsp">
+     		<img src="<%=request.getContextPath()%>/frontend/img/carBack.gif" height="200">
+	     	<button type="submit" class='btn btn-warning update Pink15' id="submitButton" style="font-weight:bold;"> 
+	     		回到訂單查詢
+	    	</button>
+	  	</form>
+	  	<form METHOD="post" ACTION="<%= request.getContextPath() %>/order_main/order.do">
+	  		<img src="<%=request.getContextPath()%>/frontend/img/carNext1.gif" height="200">
+	  		<button type="submit" class='btn btn-default update' id="submitButton"  style="font-weight:bold; font">  
+	  		修改此訂單 
+	    	</button>
+	    	<input type="hidden" name="order_id" value="${param.order_id}">
+	    	<input type="hidden" name="action" value="getOne_For_Update">
+	  	</form>
+	  	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  	<img id='qrcode1' src='#'/ style="width:40%;"/>
+																
+	 </div>
+   </div>
 </div>
 <!-- 主要功能 -->
 
@@ -474,6 +665,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
 <script>
+var text='${orderVO.order_id}';
+
+$("#qrcode1").attr("src","http://chart.apis.google.com/chart?cht=qr&chl="+ text +"&chs=120x120");
+</script>
+
+
+<script>
   $(document).ready(function(){
     $.ajax({
       type : "post",
@@ -483,7 +681,7 @@
       success : function(data){
         var str = $.parseJSON(data);
         $("#receiver_county").empty();
-        $("#receiver_county").append("<option value=''>大光榮桃園市</option>");
+        $("#receiver_county").append("<option value=''>選擇鄉鎮市區</option>");
         for(var i=0;i<str.length;i++){
           $("#receiver_county").append("<option value='"+ str[i] +"'>"+str[i]+"</option>");
         }     

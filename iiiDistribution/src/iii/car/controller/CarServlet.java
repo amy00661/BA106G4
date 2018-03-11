@@ -213,10 +213,10 @@ public class CarServlet extends HttpServlet {
 				carSvc.updateCar(car_id, db_id, emp_id, car_plate, car_driver, car_status, car_brand, car_color, car_pdv, car_load, car_updatetime, car_note);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/backend/car/car.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);	
-				System.out.println(223);
+//				String url = "/backend/car/car.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+//				successView.forward(req, res);	
+				res.sendRedirect(req.getContextPath()+"/backend/car/car.jsp");
 				/***************************其他可能的錯誤處理**********************************/
 		        
 				} catch (Exception e) {
@@ -262,10 +262,6 @@ public class CarServlet extends HttpServlet {
 				String car_brand = req.getParameter("car_brand");
 				String car_driver = req.getParameter("car_driver");
 				String car_status = req.getParameter("car_status");
-				String car_statusReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (car_status == null || car_status.trim().length() == 0) {
-					addError.put("car_status","車輛狀態: 請勿空白");
-				}
 				String car_color = req.getParameter("car_color");
 				Double car_pdv = null;
 				try {
@@ -298,10 +294,10 @@ public class CarServlet extends HttpServlet {
 				
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/backend/car/car.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);		
-				
+//				String url = "/backend/car/car.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+//				successView.forward(req, res);		
+				res.sendRedirect(req.getContextPath()+"/backend/car/car.jsp");
 				/***************************其他可能的錯誤處理**********************************/
 			
 			} catch (Exception e) {

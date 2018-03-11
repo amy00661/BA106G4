@@ -227,7 +227,7 @@ public class SizeServlet extends HttpServlet {
 			try{
 				String flagSize=new String("ok");
 				String flagSizeAdd=new String("ok");
-				String emp_id="EMP001";
+				String emp_id="";
 				String size_type = req.getParameter("size_type");
 				
 				

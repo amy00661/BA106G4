@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderDAO_interface {
-	public Integer insert(OrderVO orderVO);
+	public String insert(OrderVO orderVO);
 	public Integer update(OrderVO orderVO);
 	public void delete (String order_id);
 	public OrderVO findByPrimaryKey(String order_id);

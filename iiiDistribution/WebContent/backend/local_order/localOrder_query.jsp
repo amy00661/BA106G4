@@ -133,7 +133,7 @@
 			
 			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<div id="calendarModal" class="modal fade">
-				<div class="modal-dialog modal-lg" style="max-width: 1500px;">
+				<div class="modal-dialog modal-lg">
 				    <div class="modal-content">
 				        <div class="modal-header">
 				            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
@@ -362,6 +362,7 @@
 				 $("#local_schedule").val(LO_ID);
 				 LO_ID ="";
 				 $('#localOrderQuery').trigger('click');
+				 
 			 }
 		})
 		
@@ -431,7 +432,7 @@
 			}
 		});
 	});
-	$('#localOrderQuery').click(function(){
+	<%-- $('#localOrderQuery').click(function(){
 		$.ajax({
 			type : "post",
 			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
@@ -447,7 +448,28 @@
 				});
 			}
 		});
-	});
+	}); --%>
+	
+	$('#localOrderQuery').on( "click", function( event ) {
+		$.ajax({
+			type : "post",
+			url  : "<%=request.getContextPath()%>/local_order/LO_Servlet.do",
+			//data : {action:"getLocalOrders",loDate:$('localOrderDate').val(),item_type:$("#local_schedule").val()},
+			data : {action:"getLocalOrders",db_id:"${account.db_id}",loDate:$('#localOrderDate').val(),item_type:$("#local_schedule").val()},
+			datatype: "json",
+			success : function(Jdata){
+				$("#localOrders").empty();
+				$.each(Jdata, function(index, element){
+					$("#localOrders").append("<option value='"+ element.order_id +"'>訂單:"+element.order_id
+												+" 車次:"+element.expected_time
+											+"</option>");
+				});
+				console.log($('#localOrders').find('option').length);
+			}
+		});
+		
+	  });
+	
 	$('#add').click(function() {  
 	    return !$('#unShipOrders option:selected')
 				.remove().appendTo('#localOrders');  

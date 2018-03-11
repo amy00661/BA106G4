@@ -372,8 +372,20 @@ $(".outer").click(function(){
 </script>
 
 
-<script>
+<script type="text/javascript">
 
+	$('#ex1').click(function() {
+  	  $('#car_plate').val('579-BNB');$('#car_brand').val('Audi');$('#car_color').val('黃');$('#car_pdv').val('8888.88');$('#car_load').val('5151.51');$('#car_note').val('你好');
+  	});
+	$('#ex2').click(function() {
+  	  $('#car_plate').val('888-FFF');$('#car_brand').val('BMW');$('#car_color').val('紅');$('#car_pdv').val('9001.12');$('#car_load').val('3456.78');$('#car_note').val('我好類類');
+  	});
+	$('#ex3').click(function() {
+  	  $('#car_plate').val('987-AAA');$('#car_brand').val('AWS');$('#car_color').val('黑');$('#car_pdv').val('3131.12');$('#car_load').val('1909.03');$('#car_note').val('昨天沒喝酒');
+  	});
+
+</script>
+<script type="text/javascript">
 <%--$.post("<%= request.getContextPath() %>/car/car.do"); --%>
 //	$(this).parents("form").post("car.jsp");
 	

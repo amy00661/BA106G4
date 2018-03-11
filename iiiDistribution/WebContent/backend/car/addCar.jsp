@@ -62,7 +62,7 @@
                   <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
 	                    <label for="recipient-name" class="col-form-label">車牌</label>
-	                    <input type="text" name="car_plate" value="${param.car_plate}" class="form-control" id="recipient-name" placeholder="範例：1R-1234"/>
+	                    <input type="text" name="car_plate" value="${param.car_plate}" class="form-control" id="car_plate" placeholder="範例：1R-1234"/>
                         <p>${addError.car_plate}</p> 
                        
                     </div>
@@ -109,28 +109,28 @@
                 <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
                       <label for="recipient-name" class="col-form-label">車種</label>
-                      <input type="text" name="car_brand" value="${param.car_brand}" class="form-control" id="recipient-name" />
+                      <input type="text" name="car_brand" value="${param.car_brand}" class="form-control" id="car_brand" />
                   	  <p>${addError.car_brand}</p> 
                     </div>
                   </div>  
                   <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">車輛顏色</label>
-                        <input type="text" name="car_color" value="${param.car_color}" class="form-control" id="recipient-name" />
+                        <input type="text" name="car_color" value="${param.car_color}" class="form-control" id="car_color" />
                     	<p>${addError.car_color}</p> 
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">排氣量</label>
-                        <input type="text" name="car_pdv" value="${param.car_pdv}" class="form-control" id="recipient-name" />
+                        <input type="text" name="car_pdv" value="${param.car_pdv}" class="form-control" id="car_pdv" />
                     	<p>${addError.car_pdv}</p> 
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
                        <label for="recipient-name" class="col-form-label">目前載重</label>
-                       <input type="text" name="car_load" value="${param.car_load}" class="form-control" id="recipient-name" />
+                       <input type="text" name="car_load" value="${param.car_load}" class="form-control" id="car_load" />
                    	   <p>${addError.car_load}</p> 
                     </div>  
                   </div>  
@@ -146,12 +146,12 @@
                 <div class="row">
                   <div class="col-xs-12 col-sm-6">
                     <div class="form-group">
-                       <label for="recipient-name" class="col-form-label">車輛圖片</label>
-                       <input type="text" name="car_note" value="${param.car_note}" class="form-control" id="recipient-name" />
+                       <label for="recipient-name" class="col-form-label">車輛備註</label>
+                       <input type="text" name="car_note" value="${param.car_note}" class="form-control" id="car_note" />
                        <p>${addError.car_note}</p>          
                      </div>
                   </div>
-                  <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-4">
                     <div class="form-group">
 	                    <label for="recipient-name" class="col-form-label">更新員工</label>
 	                    <jsp:useBean id="empSvc" scope="page" class="iii.emp.model.EmpService"/>
@@ -165,7 +165,13 @@
 	                    <p>${addError.emp_id}</p>         
                     </div>
                   </div>
+                  <div class="col-xs-12 col-sm-2">
+                  <input type="button" id="ex1" value="超級大卡車">
+                  <input type="button" id="ex2" value="柯博文">
+                  <input type="button" id="ex3" value="穿越荒漠">
+                  
                  </div>
+               </div>  
                <div class="modal-footer">
                    <button type="button" class="btn btn-secondary close1" data-dismiss="modal">關閉</button>
                    <input type="hidden" name="action" value="insert">

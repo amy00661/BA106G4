@@ -239,5 +239,11 @@ public class LoJDBCDAO implements LoDAO_interface {
 			System.out.println(loVO1.getLocal_order_ID());
 		}*/
 	}
+
+	@Override
+	public Integer getCountLo(String lo, String ls) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
